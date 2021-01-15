@@ -1,16 +1,22 @@
 import React from "react";
 import {useHistory} from "react-router-dom";
+import {useState} from "react"
 import "./loginform.css";
 
 function LoginForm({username,password ,setUsername,setPassword}){
     const history=useHistory();
+    const [networkError,setnetworkError]=useState("none")
+    const [isDisabled,setIsDisabled]=useState(false)
+    const [errorMessage,setErrorMessage]=useState("Error: Please check your network connection")
+    
+
     const handleLoginForm =(e)=>{
      e.preventDefault()
-        fetch("https://localhost:44322/api/AdminUser/login",{
+     setIsDisabled(true);
+        fetch("https://localhost:44322/api/Laundry/login",{
             method:"POST",
             headers:{
                 "Content-Type":'application/json; charset=utf-8',
-                
             },
             mode:'cors',
             body: JSON.stringify({
@@ -19,12 +25,37 @@ function LoginForm({username,password ,setUsername,setPassword}){
                 
             })
         }).then(res=> {
+            
             return res.json()
         }).then(res=>{
-            console.log(res)
-            localStorage.setItem("token1",res.token) 
-            //redirect to home page 
-            history.push('/home');
+            console.log(res.statusCode)
+            if(res.statusCode==="400"){
+                setErrorMessage(res.Message)
+                setnetworkError("block")
+                setIsDisabled(false)
+                console.log("got here")
+            }
+            else if(res.statusCode==="500"){
+                setErrorMessage("Error: try later ")
+                setnetworkError("block")
+                setIsDisabled(false)
+            }
+            else{
+                localStorage.setItem("token1",res.token) 
+                //reset states and redirect to home page 
+                setnetworkError("none")
+                setIsDisabled(false)
+                history.push('/home');
+            }
+            
+        }).catch(e=>{
+            if(e==="TypeError: Failed to fetch"){
+               
+            }
+            setnetworkError("block")
+            setErrorMessage("Error: Please check your network connection")
+            setIsDisabled(false)
+            console.log(e);
         })
 
 
@@ -44,15 +75,17 @@ function LoginForm({username,password ,setUsername,setPassword}){
     return (
         <div className="LF-con">
             <form onSubmit={handleLoginForm} >
+                <p style={{display:networkError}}>{errorMessage}</p>
                 <div>
-                    <input name="username"placeholder="Email Address" onChange={handleInput} value={username}></input>
+                    <input name="username"placeholder="Username" onChange={handleInput} value={username}></input>
                     <p></p>
                 </div>
                 <div>
                     <input placeholder="Password" name="password" onChange={handleInput} value={password}></input>
                     <p></p>
                 </div>
-                <button>Login</button>
+                <button style={{display: isDisabled? "none": "block"}}  >Login</button>
+                <button disabled style={{display: isDisabled? "block": "none"}}> Login</button>
             </form>
         </div>
     )

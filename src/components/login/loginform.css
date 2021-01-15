@@ -5,7 +5,7 @@
   border: white;
   background-color: white;
   margin-top: 2em;
-  padding-left: 1em;
+  padding-left: 2em;
 }
 .LF-con input::placeholder {
   padding-left: 1em;
@@ -24,8 +24,17 @@
   border-radius: 25px;
   cursor: pointer;
   border: none;
+  margin-top: 1em;
 }
 
 .LF-con button:hover {
   background-color: #050311;
+}
+
+.LF-con button:disabled {
+  cursor: wait;
+}
+
+.LF-con button:disabled {
+  background-color: var(--gray-2);
 }
