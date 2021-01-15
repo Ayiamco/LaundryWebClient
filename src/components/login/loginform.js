@@ -30,10 +30,10 @@ function LoginForm({username,password ,setUsername,setPassword}){
         }).then(res=>{
             console.log(res.statusCode)
             if(res.statusCode==="400"){
-                setErrorMessage(res.Message)
-                setnetworkError("block")
+                setErrorMessage(()=> {return res.message})
+                setnetworkError( "block")
                 setIsDisabled(false)
-                console.log("got here")
+                console.log("got here",errorMessage)
             }
             else if(res.statusCode==="500"){
                 setErrorMessage("Error: try later ")
@@ -75,7 +75,7 @@ function LoginForm({username,password ,setUsername,setPassword}){
     return (
         <div className="LF-con">
             <form onSubmit={handleLoginForm} >
-                <p style={{display:networkError}}>{errorMessage}</p>
+                
                 <div>
                     <input name="username"placeholder="Username" onChange={handleInput} value={username}></input>
                     <p></p>
@@ -84,6 +84,7 @@ function LoginForm({username,password ,setUsername,setPassword}){
                     <input placeholder="Password" name="password" onChange={handleInput} value={password}></input>
                     <p></p>
                 </div>
+                <p style={{display:networkError,color:"red",fontSize:"0.8em",paddingLeft:"2em"}}>{errorMessage}</p>
                 <button style={{display: isDisabled? "none": "block"}}  >Login</button>
                 <button disabled style={{display: isDisabled? "block": "none"}}> Login</button>
             </form>
