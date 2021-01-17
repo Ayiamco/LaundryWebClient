@@ -32,9 +32,13 @@
 }
 
 .LF-con button:disabled {
-  cursor: wait;
+  cursor: not-allowed;
 }
 
 .LF-con button:disabled {
   background-color: var(--gray-2);
+}
+
+#btn-waiting {
+  cursor: wait;
 }
