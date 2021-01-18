@@ -1,6 +1,9 @@
 import React,{useState,useEffect} from "react";
 import {useHistory} from "react-router-dom";
-import "../login/loginform.css";
+
+import FormInput from "../FormInput/FormInput"
+
+
 
 function RegisterForm(){
     const [formData,setFormData]=useState({
@@ -186,36 +189,26 @@ function RegisterForm(){
     return (
         <div className="LF-con">
             <p style={{display:networkError,color:"red",fontSize:"0.8em",paddingLeft:"2em"}}>{errorMessage}</p>
+            
             <form onSubmit={handleLoginForm} >
-                <div>
-                    <input type="text" name="laundryName"placeholder="Laundry Name " onChange={handleInput} value={formData.laundryName}></input>
-                    <p></p>
-                </div>
-                <div>
-                     <input type="email" name="username"placeholder="Email Address" onChange={handleInput} value={formData.username}></input>
-                    {boolenStates.isValidEmail ? <p></p>:<p style={{color:"red",fontSize:"0.7em", paddingLeft:"2em"}}> Enter a valid Email</p>}
-                
-                </div>
-               
-                   
-
-                <div>
-                    <input placeholder="Password" name="password" onChange={handleInput} value={formData.password}></input>
-                    <p></p>
-                </div>
-                <div>
-                    <input placeholder="ConfirmPassword" name="confirmPassword" onChange={handleInput} value={formData.confirmPassword}></input>
-                    {boolenStates.isPasswordMatch ? <p></p>:<p style={{color:"red",fontSize:"0.7em", paddingLeft:"2em"}}> passwords do not match</p>}
-                </div>
-                <div>
-                    <input placeholder="Phone Number" name="phoneNumber" onChange={handleInput} value={formData.phoneNumber}></input>
-                    <p></p>
-                </div>
-                 <div>
-                    <input placeholder="Address" name="address" onChange={handleInput} value={formData.address}></input>
-                    <p></p>
-                </div>
-                <button id={boolenStates.isRequestSent?"btn-waiting":""} disabled={boolenStates.shouldButtonDisable} >Create Account</button>
+                <FormInput type="text" placeholder="Laundry Name *" name="laundryName" handleInput={handleInput}
+                 value={formData.laundryName}
+                />
+                <FormInput type="email" placeholder="Email Address *" name="username" handleInput={handleInput}
+                errorMessage="Email is invalid" isValid={boolenStates.isValidEmail} value={formData.username}
+                />
+                <FormInput type="password" placeholder="Enter Password *" name="password" handleInput={handleInput}
+                 value={formData.password}
+                />
+                <FormInput type="password" placeholder="Confirm Password *" name="confirmPassword" handleInput={handleInput}
+                errorMessage="Password do not match" isValid={boolenStates.isPasswordMatch} value={formData.confirmPassword}
+                />
+                <FormInput type="text" placeholder="Address *" name="address" handleInput={handleInput}
+                  value={formData.address}
+                />
+                <FormInput type="text" placeholder="Phone Number *" name="phoneNumber" handleInput={handleInput}
+                value={formData.phoneNumber}
+                />
             </form>
         </div>
     )

@@ -1,0 +1,27 @@
+.FB-con button {
+  width: 10em;
+  height: 3.5em;
+  color: white;
+  background-color: #42378c;
+  border-radius: 25px;
+  cursor: pointer;
+  border: none;
+  margin-top: 1em;
+  outline: none;
+}
+
+.FB-con button:hover {
+  background-color: #050311;
+}
+
+.FB-con button:disabled {
+  cursor: not-allowed;
+}
+
+.FB-con button:disabled {
+  background-color: var(--gray-2);
+}
+
+#btn-waiting {
+  cursor: wait;
+}

@@ -1,6 +1,6 @@
 import React from 'react'
-import "./loginhero.css"
-import laundryhero from './laundryhero.png'
+import "./LoginHero.css"
+import laundryhero from '../../images/laundryhero.png'
 
 export default function LoginHero() {
     return (

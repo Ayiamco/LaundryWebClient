@@ -1,7 +1,7 @@
 import React,{}from 'react'
 
-import RegisterForm from "./registerform"
-import LoginHero from "../login/loginhero"
+import RegisterForm from "../../components/RegisterForm/RegisterForm"
+import LoginHero from "../../components/LoginHero/LoginHero"
 
 import "../login/login.css"
 
