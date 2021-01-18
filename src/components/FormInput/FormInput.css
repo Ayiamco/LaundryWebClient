@@ -8,9 +8,39 @@
   padding-left: 2em;
 }
 .FI-con input::placeholder {
-  padding-left: 1em;
+  padding-left: 0em;
 }
 
 .FI-con input:focus {
   outline: none;
+}
+
+/* input[type="password"] styles section */
+.FI-password {
+  display: flex;
+  align-items: center;
+  height: 3em;
+  border-radius: 25px;
+  background-color: white;
+  margin-top: 2em;
+}
+
+.FI-password input,
+.FI-password span {
+  background-color: white;
+  box-sizing: border-box;
+  outline: none;
+  margin: 0px;
+}
+
+.FI-password input {
+  width: 85%;
+}
+
+.FI-password span {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
 }
