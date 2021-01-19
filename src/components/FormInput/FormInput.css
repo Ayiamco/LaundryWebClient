@@ -34,7 +34,7 @@
 }
 
 .FI-password input {
-  width: 85%;
+  width: 90%;
 }
 
 .FI-password span {
@@ -43,4 +43,10 @@
   height: 100%;
   border-top-right-radius: 25px;
   border-bottom-right-radius: 25px;
+}
+
+@media only screen and (min-width: 700px) {
+  .FI-password input {
+    width: 85%;
+  }
 }

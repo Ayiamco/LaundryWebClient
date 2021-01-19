@@ -1,9 +1,13 @@
 import React,{useState,useEffect} from "react";
 import {useHistory} from "react-router-dom";
 
-import FormInput from "../FormInput/FormInput"
+import FormInput from "../FormInput/FormInput";
+import FormBtn from "../FormBtn/FormBtn"
 
-
+export function validateEmail(email) {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+}
 
 function RegisterForm(){
     const [formData,setFormData]=useState({
@@ -26,11 +30,8 @@ function RegisterForm(){
     const [networkError,setnetworkError]=useState("none")
     const history=useHistory();
 
-    function validateEmail(email) {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-    }
-    const handleLoginForm =(e)=>{
+    
+    const handleForm =(e)=>{
         e.preventDefault()
 
         //prevent btn from being clicked while request is sent
@@ -86,14 +87,20 @@ function RegisterForm(){
                 setBoolenStates(prev=>{
                     return {...prev,"shouldButtonDisable":false}
                 })
+                 setBoolenStates(prev=>{
+                    return {...prev,"isRequestSent":false}
+                })
                 
-                console.log("got here",errorMessage)
+            
             }
             else if(res.statusCode==="500"){
                 setErrorMessage(" Server Error: there seem to be an error with the server ")
                 setnetworkError("block")
                 setBoolenStates(prev=>{
                     return {...prev,"shouldButtonDisable":false}
+                })
+                setBoolenStates(prev=>{
+                    return {...prev,"isRequestSent":false}
                 })
                 
             }
@@ -104,6 +111,9 @@ function RegisterForm(){
             setnetworkError("block")
             setBoolenStates(prev=>{
                     return {...prev,"shouldButtonDisable":false}
+                })
+            setBoolenStates(prev=>{
+                    return {...prev,"isRequestSent":false}
                 })
             
         })
@@ -181,16 +191,16 @@ function RegisterForm(){
                     return {...prev,"shouldButtonDisable":true}
                 })
         }
-        console.log(boolenStates)
+        
 
     },[formData])
 
 
     return (
-        <div className="LF-con">
+        <div className="RF-con">
             <p style={{display:networkError,color:"red",fontSize:"0.8em",paddingLeft:"2em"}}>{errorMessage}</p>
             
-            <form onSubmit={handleLoginForm} >
+            <form onSubmit={handleForm} >
                 <FormInput type="text" placeholder="Laundry Name *" name="laundryName" handleInput={handleInput}
                  value={formData.laundryName}
                 />
@@ -209,6 +219,9 @@ function RegisterForm(){
                 <FormInput type="text" placeholder="Phone Number *" name="phoneNumber" handleInput={handleInput}
                 value={formData.phoneNumber}
                 />
+                <FormBtn text="Register" isRequestSent={boolenStates.isRequestSent} shouldButtonDisable={boolenStates.shouldButtonDisable}>
+
+                </FormBtn>
             </form>
         </div>
     )

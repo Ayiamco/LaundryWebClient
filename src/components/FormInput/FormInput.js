@@ -9,7 +9,6 @@ export default function FormInput({isValid,errorMessage,handleInput,value,name,t
     useEffect(() => {
         
         if( type==="password"){
-            console.log("yes its password")
             setIsPassword(true)
         }
         
@@ -30,7 +29,7 @@ export default function FormInput({isValid,errorMessage,handleInput,value,name,t
             {isPassword?
             <div className="FI-password">
                 <input type={inputType} name={name} placeholder={placeholder} onChange={handleInput} value={value}/>
-                <span className="FI-i"><i class={eyeClass} onClick={changeEye}></i></span>
+                <span className="FI-i"><i className={eyeClass} onClick={changeEye}></i></span>
             </div>
             :
                 <input type={type} name={name} placeholder={placeholder} onChange={handleInput} value={value}/>

@@ -18,4 +18,11 @@
 .LH-h1 {
   font-size: 2em;
   color: #42378c;
+  margin-bottom: 0.5em;
+}
+
+@media only screen and (min-width: 700px) {
+  .LH-con h1 {
+    text-align: center;
+  }
 }

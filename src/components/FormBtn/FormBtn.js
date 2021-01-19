@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import "./FormBtn.css"
 
 export default function FormBtn({text,isRequestSent,shouldButtonDisable}) {
     return (
