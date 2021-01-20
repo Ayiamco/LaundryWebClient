@@ -2,7 +2,9 @@ import React,{useState,useEffect} from "react";
 import {useHistory} from "react-router-dom";
 
 import FormInput from "../FormInput/FormInput";
-import FormBtn from "../FormBtn/FormBtn"
+import FormBtn from "../FormBtn/FormBtn";
+import registerUser from "../../apis/registerUser";
+import loginUser from "../../apis/LoginUser"
 
 export function validateEmail(email) {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -19,104 +21,68 @@ function RegisterForm(){
         address:""
     })
 
-    const [boolenStates,setBoolenStates]=useState({
+    const [booleanStates,setbooleanStates]=useState({
         "isPasswordMatch":true,
         "isValidEmail":true,
         "shouldButtonDisable":true,
-        "isRequestSent":false
+        "isRequestProcessing":false
     });
     
     const [errorMessage,setErrorMessage]=useState("Error: Please check your network connection")
     const [networkError,setnetworkError]=useState("none")
     const history=useHistory();
 
+    function AddError(){
+        setErrorMessage(" Network Error: please check your network ")
+        setnetworkError("block")
+        setbooleanStates(prev=>{
+                return {...prev,"shouldButtonDisable":false,"isRequestProcessing":false}
+            })
+    }
+
+    function RemoveErrors(){
+        setbooleanStates(prev=>{
+                    return {...prev,"isRequestProcessing":false,"shouldButtonDisable":false}
+        });
+        setnetworkError("none")
+    }
     
-    const handleForm =(e)=>{
+    const handleForm = async(e)=>{
         e.preventDefault()
 
         //prevent btn from being clicked while request is sent
-        setBoolenStates(prev=>{
-            return {...prev,"isRequestSent":true}
+        setbooleanStates(prev=>{
+            return {...prev,"isRequestProcessing":true}
         })
         
-        fetch("https://localhost:44322/api/laundry/register",{
-            method:"POST",
-            headers:{
-                "Content-Type":'application/json; charset=utf-8',
-            },
-            mode:'cors',
-            body: JSON.stringify({
-                "username":formData.username,
-                "password":formData.password,
-                "confirmPassword":formData.confirmPassword,
-                "address":formData.address,
-                "phoneNumber":formData.phoneNumber,
-                "laundryName":formData.laundryName
-            })
-        })
-        .then( res=>{
-            console.log("register status code:",res.status)
-            if(res.status===201){
-                
-                fetch("https://localhost:44322/api/laundry/login",{
-                method:"POST",
-                headers:{
-                    "Content-Type":'application/json; charset=utf-8',
-                    
-                },
-                mode:'cors',
-                body: JSON.stringify({
-                    "username":formData.username,
-                    "password":formData.password
-                    }) 
-                })
-            .then(res=>{return res.json()})
-            .then(res=>{
-                localStorage.setItem("token",res.token)
-                history.push("/home")
+        //post user data
+        let registerResp=await registerUser(formData)
 
-                //request cycle has ended 
-                setBoolenStates(prev=>{
-                    return {...prev,"isRequestSent":false}
-                    });
-                })
-            }
-            else if(res.statusCode==="400"){
-                setErrorMessage(()=> {return res.message})
-                setnetworkError( "block")
-                setBoolenStates(prev=>{
-                    return {...prev,"shouldButtonDisable":false}
-                })
-                 setBoolenStates(prev=>{
-                    return {...prev,"isRequestSent":false}
-                })
-                
-            
-            }
-            else if(res.statusCode==="500"){
-                setErrorMessage(" Server Error: there seem to be an error with the server ")
-                setnetworkError("block")
-                setBoolenStates(prev=>{
-                    return {...prev,"shouldButtonDisable":false}
-                })
-                setBoolenStates(prev=>{
-                    return {...prev,"isRequestSent":false}
-                })
-                
+        if (registerResp!=="201"){
+            AddError() //return to page and display Errors
+            return;
+        }
+
+        else if(registerResp.statusCode==="201"){
+            //user was created successfully so login user 
+            let loginResp= loginUser(formData.username,formData.password)
+            if (loginResp!=="200"){
+
+                //remove displayed validation errors and redirect to login page
+                RemoveErrors();
+                history.push("/login") //redirect to login page
+                return;
             }
             
-        })
-        .catch((err)=>{
-            setErrorMessage(" Network Error: please check your network ")
-            setnetworkError("block")
-            setBoolenStates(prev=>{
-                    return {...prev,"shouldButtonDisable":false}
-                })
-            setBoolenStates(prev=>{
-                    return {...prev,"isRequestSent":false}
-                })
-            
-        })
+            else if(loginResp.statusCode==="200"){
+
+                //remove displayed validation errors, save token state and redirect to homepage
+                RemoveErrors();
+                localStorage.setItem("token",loginResp.token)
+                history.push("/home")
+            }
+               
+        }
 
     }
 
@@ -147,32 +113,32 @@ function RegisterForm(){
             //validate that passwords matched
             if(formData.password !== formData.confirmPassword && formData.confirmPassword !=="" && key==="confirmPassword"){
                 isFormDataValid=false;
-                setBoolenStates(prev=>{
+                setbooleanStates(prev=>{
                     return {...prev,"isPasswordMatch":false}
                 })
                 
                 
             }
             else if(key==="confirmPassword"){
-                 setBoolenStates(prev=>{
+                 setbooleanStates(prev=>{
                     return {...prev,"isPasswordMatch":true}
                 })
             }
 
             //check email validity
             if( validateEmail(formData.username)===false && formData.username!=="" && key==="username"){
-                setBoolenStates(prev=>{
+                setbooleanStates(prev=>{
                     return {...prev,"isValidEmail":false}
                 })
                 isFormDataValid=false;
             }
             else if(validateEmail(formData.username)===true && formData.username!=="" && key==="username"){
-                setBoolenStates(prev=>{
+                setbooleanStates(prev=>{
                     return {...prev,"isValidEmail":true}
                 })
             }
             else if(formData.username===""){
-                setBoolenStates(prev=>{
+                setbooleanStates(prev=>{
                     return {...prev,"isValidEmail":true}
                 })
                 isFormDataValid=false;
@@ -182,12 +148,12 @@ function RegisterForm(){
 
        //allow request submission depending on validation state
        if(isFormDataValid){
-           setBoolenStates(prev=>{
+           setbooleanStates(prev=>{
                     return {...prev,"shouldButtonDisable":false}
                 })
         }
        else{
-           setBoolenStates(prev=>{
+           setbooleanStates(prev=>{
                     return {...prev,"shouldButtonDisable":true}
                 })
         }
@@ -205,13 +171,13 @@ function RegisterForm(){
                  value={formData.laundryName}
                 />
                 <FormInput type="email" placeholder="Email Address *" name="username" handleInput={handleInput}
-                errorMessage="Email is invalid" isValid={boolenStates.isValidEmail} value={formData.username}
+                errorMessage="Email is invalid" isValid={booleanStates.isValidEmail} value={formData.username}
                 />
                 <FormInput type="password" placeholder="Enter Password *" name="password" handleInput={handleInput}
                  value={formData.password}
                 />
                 <FormInput type="password" placeholder="Confirm Password *" name="confirmPassword" handleInput={handleInput}
-                errorMessage="Password do not match" isValid={boolenStates.isPasswordMatch} value={formData.confirmPassword}
+                errorMessage="Password do not match" isValid={booleanStates.isPasswordMatch} value={formData.confirmPassword}
                 />
                 <FormInput type="text" placeholder="Address *" name="address" handleInput={handleInput}
                   value={formData.address}
@@ -219,7 +185,7 @@ function RegisterForm(){
                 <FormInput type="text" placeholder="Phone Number *" name="phoneNumber" handleInput={handleInput}
                 value={formData.phoneNumber}
                 />
-                <FormBtn text="Register" isRequestSent={boolenStates.isRequestSent} shouldButtonDisable={boolenStates.shouldButtonDisable}>
+                <FormBtn text="Register" isRequestProcessing={booleanStates.isRequestProcessing} shouldButtonDisable={booleanStates.shouldButtonDisable}>
 
                 </FormBtn>
             </form>
