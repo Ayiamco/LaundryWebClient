@@ -2,10 +2,9 @@ import React,{useState,useEffect} from "react";
 import {useHistory} from "react-router-dom";
 import FormInput from "../FormInput/FormInput";
 import FormBtn from "../FormBtn/FormBtn";
-import loginUser from  "../../apis/LoginUser"
+import loginUser from  "../../apis/LoginUser";
+import {validateEmail} from "../../helper";
 
-
-import {validateEmail} from "../RegisterForm/RegisterForm";
 const boolStatesKeys={
     isValidEmail:"isValidEmail",
     shouldButtonDisable:"shouldButtonDisable",

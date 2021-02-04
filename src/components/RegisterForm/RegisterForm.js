@@ -1,15 +1,12 @@
 import React,{useState,useEffect} from "react";
 import {useHistory} from "react-router-dom";
-
+import {validateEmail} from "../../helper";
 import FormInput from "../FormInput/FormInput";
 import FormBtn from "../FormBtn/FormBtn";
 import registerUser from "../../apis/registerUser";
 import loginUser from "../../apis/LoginUser"
 
-export function validateEmail(email) {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-}
+
 
 function RegisterForm(){
     const [formData,setFormData]=useState({
