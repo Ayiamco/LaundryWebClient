@@ -16,8 +16,8 @@ export default function Register() {
                 <h2 className="pg-con-top-h2">Create your Account</h2>
                 <RegisterForm/>
                 <div className="auth-link-con">
-                     <Link className="auth-link auth-link-left" to="/login">Login</Link>
-                     <Link className="auth-link auth-link-rigth" to="/password-recovery">Forgot Password</Link>
+                     <Link className="auth-link auth-link-left" to="/">Login</Link>
+                     <Link className="auth-link auth-link-rigth" to="/forgot-password">Forgot Password</Link>
                 </div>
             </div>
             <div className="pg-con-bottom">

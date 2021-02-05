@@ -24,6 +24,7 @@ async function registerUser (formData){
                             }
                         )
                     })
+                    console.log(resp)
     return resp;
 
 }

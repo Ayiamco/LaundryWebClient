@@ -18,7 +18,7 @@ export default function Login() {
                 <LoginForm/>
                 <div className="auth-link-con">
                      <Link className="auth-link auth-link-left" to="/register">Register</Link>
-                     <Link className="auth-link auth-link-rigth" to="/password-recovery">Forgot Password</Link>
+                     <Link className="auth-link auth-link-rigth" to="/forgot-password">Forgot Password</Link>
                 </div>
                
             </div>

@@ -11,6 +11,7 @@
 .FI-con-md {
   display: flex;
   align-items: center;
+  width: 100%;
 }
 .FI-con label::after {
   content: "*";

@@ -33,7 +33,6 @@ function RegisterForm(){
     const history=useHistory();
 
     function AddError(resp){
-         console.log(resp.statusCode==="400",resp.message==="user email already exist")
         if(resp.statusCode===undefined){
             setErrorMessage(" Network Error: please check your network ")
             setnetworkError("inline")
@@ -61,9 +60,7 @@ function RegisterForm(){
         
         //post user data
         let registerResp=await registerUser(formData)
-        console.log("register response",registerResp)
         if (registerResp.statusCode!=="201"){
-            console.log("Added errors");
             AddError(registerResp) //return to page and display Errors
             return;}
         else if(registerResp.statusCode==="201"){
@@ -80,7 +77,7 @@ function RegisterForm(){
 
             //remove displayed validation errors, save token and redirect to homepage
             RemoveErrors();
-            localStorage.setItem("token",loginResp.token)
+            localStorage.setItem("token",loginResp.data)
             history.push("/home")  
         }
 
@@ -128,7 +125,7 @@ function RegisterForm(){
 
 
     return (
-        <div className="pg-con">
+        <div className="">
             <p style={{display:networkError,color:"red",fontSize:"0.8em",paddingLeft:"2em"}}>{errorMessage}</p>
             
             <form onSubmit={handleForm} >
