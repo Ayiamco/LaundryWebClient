@@ -1,6 +1,6 @@
 const  loginUser = async (username,password)=>{
 
-    await fetch("https://localhost:44322/api/Laundry/login",{
+    let resp =await fetch("https://localhost:44322/api/account/login",{
             method:"POST",
             headers:{
                 "Content-Type":'application/json; charset=utf-8',
@@ -18,6 +18,8 @@ const  loginUser = async (username,password)=>{
                     statusCode:500,
                 });
         })
+
+    return resp;
 }
 
 export default loginUser;

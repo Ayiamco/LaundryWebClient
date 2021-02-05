@@ -7,6 +7,15 @@
   margin-top: 2em;
   padding-left: 2em;
 }
+
+.FI-con-md {
+  display: flex;
+  align-items: center;
+}
+.FI-con label::after {
+  content: "*";
+  color: red;
+}
 .FI-con input::placeholder {
   padding-left: 0em;
 }

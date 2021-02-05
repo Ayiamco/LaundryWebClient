@@ -1,47 +1,54 @@
 import React,{useState,useEffect} from "react";
 import {useHistory} from "react-router-dom";
-import {validateEmail} from "../../helper";
+import {validateEmail} from "../../Utilities/helper";
 import FormInput from "../FormInput/FormInput";
 import FormBtn from "../FormBtn/FormBtn";
 import registerUser from "../../apis/registerUser";
 import loginUser from "../../apis/LoginUser"
 
 
-
-function RegisterForm(){
-    const [formData,setFormData]=useState({
+const startData={
         laundryName:"",
         username:"",
         password:"",
         confirmPassword:"",
         phoneNumber:"",
-        address:""
-    })
-
-    const [booleanStates,setbooleanStates]=useState({
+        address:"",
+        name:""
+    };
+const startBoolenState={
         "isPasswordMatch":true,
         "isValidEmail":true,
         "shouldButtonDisable":true,
-        "isRequestProcessing":false
-    });
+        "isRequestProcessing":false,
+        "isEmailAvailable":true
+    }
+function RegisterForm(){
+    const [formData,setFormData]=useState(startData)
+
+    const [booleanStates,setbooleanStates]=useState(startBoolenState);
     
     const [errorMessage,setErrorMessage]=useState("Error: Please check your network connection")
     const [networkError,setnetworkError]=useState("none")
     const history=useHistory();
 
-    function AddError(){
-        setErrorMessage(" Network Error: please check your network ")
-        setnetworkError("block")
-        setbooleanStates(prev=>{
-                return {...prev,"shouldButtonDisable":false,"isRequestProcessing":false}
-            })
+    function AddError(resp){
+         console.log(resp.statusCode==="400",resp.message==="user email already exist")
+        if(resp.statusCode===undefined){
+            setErrorMessage(" Network Error: please check your network ")
+            setnetworkError("inline")
+        }
+        else if(resp.statusCode==="400" && resp.message==="user email already exist"){
+            setbooleanStates(prev=>({...prev,isEmailAvailable:false,isValidEmail:false}))
+            setErrorMessage("Email Error: Email already taken")
+        }
+        setbooleanStates(prev=>( {...prev,"shouldButtonDisable":false,"isRequestProcessing":false}))
     }
 
     function RemoveErrors(){
-        setbooleanStates(prev=>{
-                    return {...prev,"isRequestProcessing":false,"shouldButtonDisable":false}
-        });
-        setnetworkError("none")
+        setbooleanStates(startBoolenState)
+        setnetworkError("none");
+        setFormData(startData);
     }
     
     const handleForm = async(e)=>{
@@ -54,31 +61,27 @@ function RegisterForm(){
         
         //post user data
         let registerResp=await registerUser(formData)
-
-        if (registerResp!=="201"){
-            AddError() //return to page and display Errors
-            return;
-        }
-
+        console.log("register response",registerResp)
+        if (registerResp.statusCode!=="201"){
+            console.log("Added errors");
+            AddError(registerResp) //return to page and display Errors
+            return;}
         else if(registerResp.statusCode==="201"){
+            console.log("registration was successful")
             //user was created successfully so login user 
-            let loginResp= loginUser(formData.username,formData.password)
-            if (loginResp!=="200"){
-
+            let loginResp= await loginUser(formData.username,formData.password)
+            console.log("login response",loginResp)
+            if (loginResp.statusCode!=="200"){
                 //remove displayed validation errors and redirect to login page
                 RemoveErrors();
-                history.push("/login") //redirect to login page
+                history.push("/")
                 return;
             }
-            
-            else if(loginResp.statusCode==="200"){
 
-                //remove displayed validation errors, save token state and redirect to homepage
-                RemoveErrors();
-                localStorage.setItem("token",loginResp.token)
-                history.push("/home")
-            }
-               
+            //remove displayed validation errors, save token and redirect to homepage
+            RemoveErrors();
+            localStorage.setItem("token",loginResp.token)
+            history.push("/home")  
         }
 
     }
@@ -88,92 +91,61 @@ function RegisterForm(){
            return {
                ...prev, [e.target.name]: e.target.value
            }
-       })
-
-       
-       
-       
-
-       
-    }
+    })}
 
     useEffect( () =>{
-        
         let isFormDataValid=true;
         Object.keys(formData).forEach(key=>{
-
            //validate that all feilds are not empty 
             if(formData[key]===""){
-                isFormDataValid=false;
-            }
+                isFormDataValid=false}
 
             //validate that passwords matched
             if(formData.password !== formData.confirmPassword && formData.confirmPassword !=="" && key==="confirmPassword"){
                 isFormDataValid=false;
-                setbooleanStates(prev=>{
-                    return {...prev,"isPasswordMatch":false}
-                })
-                
-                
-            }
+                setbooleanStates(prev => ({...prev,"isPasswordMatch":false}))}
             else if(key==="confirmPassword"){
-                 setbooleanStates(prev=>{
-                    return {...prev,"isPasswordMatch":true}
-                })
-            }
-
+                 setbooleanStates(prev=>({...prev,"isPasswordMatch":true}))}
+            
             //check email validity
             if( validateEmail(formData.username)===false && formData.username!=="" && key==="username"){
-                setbooleanStates(prev=>{
-                    return {...prev,"isValidEmail":false}
-                })
-                isFormDataValid=false;
-            }
+                setbooleanStates(prev=>({...prev,"isValidEmail":false,"isEmailAvailable":true}))
+                isFormDataValid=false;}
             else if(validateEmail(formData.username)===true && formData.username!=="" && key==="username"){
-                setbooleanStates(prev=>{
-                    return {...prev,"isValidEmail":true}
-                })
+                setbooleanStates(prev=>({...prev,"isValidEmail":true}))
             }
             else if(formData.username===""){
-                setbooleanStates(prev=>{
-                    return {...prev,"isValidEmail":true}
-                })
+                setbooleanStates(prev=>({...prev,"isValidEmail":true}))
                 isFormDataValid=false;
-            }
-            
+            }     
        })
-
        //allow request submission depending on validation state
        if(isFormDataValid){
-           setbooleanStates(prev=>{
-                    return {...prev,"shouldButtonDisable":false}
-                })
-        }
+           setbooleanStates(prev=>({...prev,"shouldButtonDisable":false}))}
        else{
-           setbooleanStates(prev=>{
-                    return {...prev,"shouldButtonDisable":true}
-                })
-        }
-        
-
+           setbooleanStates(prev=>({...prev,"shouldButtonDisable":true}))}
     },[formData])
 
 
     return (
-        <div className="RF-con">
+        <div className="pg-con">
             <p style={{display:networkError,color:"red",fontSize:"0.8em",paddingLeft:"2em"}}>{errorMessage}</p>
             
             <form onSubmit={handleForm} >
-                <FormInput type="text" placeholder="Laundry Name *" name="laundryName" handleInput={handleInput}
-                 value={formData.laundryName}
+                <FormInput type="text" placeholder="Laundry Name" name="laundryName" handleInput={handleInput}
+                 value={formData.laundryName} 
                 />
-                <FormInput type="email" placeholder="Email Address *" name="username" handleInput={handleInput}
-                errorMessage="Email is invalid" isValid={booleanStates.isValidEmail} value={formData.username}
+                <FormInput type="text" placeholder="Laundry Owner Full Name" name="name" handleInput={handleInput}
+                 value={formData.name}
                 />
-                <FormInput type="password" placeholder="Enter Password *" name="password" handleInput={handleInput}
+                <FormInput type="email" placeholder="Email Address" name="username" handleInput={handleInput}
+                errorMessage={booleanStates.isEmailAvailable ? "Email is invalid": "Email already taken"} 
+                isValid={booleanStates.isValidEmail} value={formData.username}
+                />
+                <FormInput type="password" placeholder="Enter Password" name="password" handleInput={handleInput}
                  value={formData.password}
                 />
-                <FormInput type="password" placeholder="Confirm Password *" name="confirmPassword" handleInput={handleInput}
+                <FormInput type="password" placeholder="Confirm Password" name="confirmPassword" handleInput={handleInput}
                 errorMessage="Password do not match" isValid={booleanStates.isPasswordMatch} value={formData.confirmPassword}
                 />
                 <FormInput type="text" placeholder="Address *" name="address" handleInput={handleInput}

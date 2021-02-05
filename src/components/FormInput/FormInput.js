@@ -27,12 +27,20 @@ export default function FormInput({isValid,errorMessage,handleInput,value,name,t
     return (
         <div className="FI-con">
             {isPassword?
-            <div className="FI-password">
-                <input type={inputType} name={name} placeholder={placeholder} onChange={handleInput} value={value}/>
-                <span className="FI-i"><i className={eyeClass} onClick={changeEye}></i></span>
+            <div className="FI-con-md">
+                <label></label>
+                <div className="FI-password">
+                    <input type={inputType} name={name} placeholder={placeholder} onChange={handleInput} value={value}/>
+                    <span className="FI-i"><i className={eyeClass} onClick={changeEye}></i></span>
+                </div>
             </div>
+            
             :
-                <input type={type} name={name} placeholder={placeholder} onChange={handleInput} value={value}/>
+                <div className="FI-con-md">
+                    <label></label>
+                    <input type={type} name={name} placeholder={ placeholder} onChange={handleInput} value={value}/>
+                </div>
+                
             }
             
             {isValid ? <p></p>:<p style={{color:"red",fontSize:"0.7em", paddingLeft:"2em"}}> {errorMessage}</p>}
