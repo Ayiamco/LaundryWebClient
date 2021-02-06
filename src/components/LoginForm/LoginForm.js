@@ -33,26 +33,15 @@ function LoginForm(){
         
         //prevent user from resubmitting form while request is being  processed
         setboolStates(prevState => {
-            console.log("updating the isRequestingProcessing state: ",boolStates);
             return{...prevState, [boolStatesKeys.isRequestProcessing]:true}
         });
         
         //authenticate user
         let res =  await loginUser(formData.username,formData.password)
-        
+        console.log("login resp:",res.statusCode, res, typeof(res))
         //Reset states based on server response
-        if(res===undefined){
-            //no server response
-            setnetworkError("block")
-            setErrorMessage("Error: Please check your network connection")
-            setboolStates((prev)=>{
-                return {...prev,[boolStatesKeys.shouldButtonDisable]:false,
-                     [boolStatesKeys.isRequestProcessing]:false
-                }
-            })
-            return;
-        }
         if(res.statusCode==="400"){
+             console.log("status code is 400")
             setErrorMessage(()=> {return res.message})
             setnetworkError( "block")
             setboolStates(prev=>{
@@ -63,7 +52,7 @@ function LoginForm(){
             })
         }
         else if(res.statusCode==="500"){
-            setErrorMessage("Error: try later ")
+            setErrorMessage("Error: Something went wrong.")
             setnetworkError("block")
             setboolStates(prev=>{
                 return {...prev,[boolStatesKeys.shouldButtonDisable]:false,
@@ -73,7 +62,7 @@ function LoginForm(){
                
         }
         else if (res.statusCode==="200"){
-            localStorage.setItem("token1",res.token) 
+            localStorage.setItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22",res.token) 
             //reset states and redirect to home page 
              setboolStates(prev=>{
                 return {...prev,[boolStatesKeys.shouldButtonDisable]:false,
@@ -82,7 +71,6 @@ function LoginForm(){
                 }
             })
             setnetworkError("none")
-            //setIsDisabled(false)
             history.push('/home');
         }
         

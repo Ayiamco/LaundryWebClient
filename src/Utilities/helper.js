@@ -8,3 +8,11 @@ export function validatePassword(password){
         const re =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
         return re.test(String(password))
 }
+
+export const NavBarData={
+        DashBoard:"fas fa-th",
+        Customers:"fas fa-user",
+        Services:"fas fa-network-wired",
+        Invoices:"fas fa-file-alt",
+        Employees:"fas fa-users-cog",
+}

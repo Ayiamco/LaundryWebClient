@@ -17,14 +17,7 @@ async function registerUser (formData){
                     .then(res=>{
                         return  res.json()
                     })  
-                    .catch(e=>{
-                        return JSON.stringify(
-                            {
-                                statusCode:500
-                            }
-                        )
-                    })
-                    console.log(resp)
+                    .catch(e=>({"statusCode":"500"}))
     return resp;
 
 }

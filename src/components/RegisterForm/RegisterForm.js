@@ -93,7 +93,7 @@ function RegisterForm(){
         }
         else{setbooleanStates(prev=>({...prev,isPasswordMatch:true}))}
         //check that password is valid
-        if(validatePassword(formData.password)){
+        if(validatePassword(formData.password) || formData.password===""){
             setbooleanStates(prev=> ({...prev,isValidPassword:true}))
         }
         else{

@@ -4,6 +4,7 @@ import FormInput from "../../components/FormInput/FormInput";
 import FormBtn from "../../components/FormBtn/FormBtn";
 import LoginHero from "../../components/LoginHero/LoginHero";
 import {saveNewPassword} from "../../apis/ResetPassword";
+import {validatePassword}  from "../../Utilities/helper"
 
 import "../../Utilities/utilities.css"
 
@@ -18,6 +19,7 @@ export default function PasswordChange() {
         isPasswordMatch:true,
         isRequestProcessing:false,
         shouldButtonDisable:true,
+        isValidPassword:true
     })
     
     function useQuery() {
@@ -33,13 +35,31 @@ export default function PasswordChange() {
     const handleInput = (e)=>{
         setData(prev=> ({...prev,[e.target.name]:e.target.value}))
     }
+    const PasswordsAreNotValid = ()=> {
+        let isPasswordValid=true;
+        //check if passwords match
+        if(data.password !== data.confirmPassword){
+            setbooleanStates(prev=>({...prev,isPasswordMatch:false}))
+            isPasswordValid=false;
+        }
+        else{setbooleanStates(prev=>({...prev,isPasswordMatch:true}))}
+        //check that password is valid
+        if(validatePassword(data.password) || data.password===""){
+            setbooleanStates(prev=> ({...prev,isValidPassword:true}))
+        }
+        else{
+            setbooleanStates(prev=> ({...prev,isValidPassword:false}));
+            isPasswordValid=false;
+        }
+        return !isPasswordValid;
+    }
 
     useEffect(()=>{
-        if(data.password==="" || data.password!==data.confirmPassword ){
-            setbooleanStates(prev=>({...prev,isPasswordMatch:false,shouldButtonDisable:true}))
+        if(PasswordsAreNotValid()){
+            setbooleanStates(prev=>({...prev,shouldButtonDisable:false}))
         }
-        else if(data.password===data.confirmPassword){
-            setbooleanStates(prev=>({...prev,isPasswordMatch:true,shouldButtonDisable:false}))
+        else{
+            setbooleanStates(prev=>({...prev,shouldButtonDisable:false}))
         }
     },[data.confirmPassword,data.password])
        
@@ -50,10 +70,11 @@ export default function PasswordChange() {
                 <h2 className="pg-con-top-h1">Reset your Password</h2>
                <form onSubmit={handleForm}>
                     <FormInput placeholder="New Password" name="password" handleInput={handleInput}
-                     value={data.password} type="password"
+                        value={data.password} type="password" isValid={booleanStates.isValidPassword}
+                        errorMessage="password must be a least 8 characters and must contain at least a lower case,upper case,digit and special character."
                     /> 
                     <FormInput placeholder="Confirm New Password" name="confirmPassword" handleInput={handleInput}
-                        value={data.confirmPassword} type="password" 
+                        value={data.confirmPassword} type="password" errorMessage="passwords do not match."
                         isValid={booleanStates.isPasswordMatch}
                     />   
                     <FormBtn text="Reset Password" isRequestProcessing={booleanStates.isRequestProcessing} 

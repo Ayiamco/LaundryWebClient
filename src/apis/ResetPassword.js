@@ -12,7 +12,7 @@
                         })
                     })
                     .then(resp=> (resp.json()))
-                    .catch( e=> {console.log(e); return JSON.stringify({statusCode:"500"})});
+                    .catch( e=> ({"statusCode":"500"}));
     return resp;
 }
 
@@ -30,9 +30,6 @@ export const saveNewPassword = async  (data) =>{
                     confirmPassword:data.confirmPassword               
                 })})
                 .then(resp=> (resp.json()))
-                .catch(e=> (JSON.stringify({
-                    statusCode:"500"
-                })))
-    console.log(resp)           
+                .catch(e=> ({"statusCode":"500"}) )           
     return resp;
 }

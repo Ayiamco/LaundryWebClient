@@ -14,9 +14,9 @@ const  loginUser = async (username,password)=>{
         }).then(res=> {
             return res.json()
         }).catch( (e)=>{
-            return JSON.stringify({
-                    statusCode:500,
-                });
+            return {
+                    "statusCode":"500"
+                };
         })
 
     return resp;
