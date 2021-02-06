@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from "react";
 import {useHistory} from "react-router-dom";
-import {validateEmail} from "../../Utilities/helper";
+import {validateEmail,validatePassword} from "../../Utilities/helper";
 import FormInput from "../FormInput/FormInput";
 import FormBtn from "../FormBtn/FormBtn";
 import registerUser from "../../apis/registerUser";
@@ -21,7 +21,8 @@ const startBoolenState={
         "isValidEmail":true,
         "shouldButtonDisable":true,
         "isRequestProcessing":false,
-        "isEmailAvailable":true
+        "isEmailAvailable":true,
+        "isValidPassword":true
     }
 function RegisterForm(){
     const [formData,setFormData]=useState(startData)
@@ -54,25 +55,18 @@ function RegisterForm(){
         e.preventDefault()
 
         //prevent btn from being clicked while request is sent
-        setbooleanStates(prev=>{
-            return {...prev,"isRequestProcessing":true}
-        })
-        
+        setbooleanStates(prev=> ({...prev,"isRequestProcessing":true}))
         //post user data
         let registerResp=await registerUser(formData)
         if (registerResp.statusCode!=="201"){
-            AddError(registerResp) //return to page and display Errors
-            return;}
+            AddError(registerResp)} //return to page and display Errors}
         else if(registerResp.statusCode==="201"){
-            console.log("registration was successful")
             //user was created successfully so login user 
             let loginResp= await loginUser(formData.username,formData.password)
-            console.log("login response",loginResp)
             if (loginResp.statusCode!=="200"){
                 //remove displayed validation errors and redirect to login page
                 RemoveErrors();
                 history.push("/")
-                return;
             }
 
             //remove displayed validation errors, save token and redirect to homepage
@@ -90,36 +84,56 @@ function RegisterForm(){
            }
     })}
 
+    const PasswordsAreNotValid = ()=> {
+        let isPasswordValid=true;
+        //check if passwords match
+        if(formData.password !== formData.confirmPassword){
+            setbooleanStates(prev=>({...prev,isPasswordMatch:false}))
+            isPasswordValid=false;
+        }
+        else{setbooleanStates(prev=>({...prev,isPasswordMatch:true}))}
+        //check that password is valid
+        if(validatePassword(formData.password)){
+            setbooleanStates(prev=> ({...prev,isValidPassword:true}))
+        }
+        else{
+            setbooleanStates(prev=> ({...prev,isValidPassword:false}));
+            isPasswordValid=false;
+        }
+        return !isPasswordValid;
+    }
+
+    const EmailIsNotValid = () =>{
+        if(formData.username===""){
+            setbooleanStates(prev=>({...prev,"isValidEmail":true,isEmailAvailable:true}))
+            return false;
+        }
+        else if(!validateEmail(formData.username)){
+            setbooleanStates(prev=>({...prev,"isValidEmail":false,isEmailAvailable:true}));
+            return true;
+        }
+        else{
+            setbooleanStates(prev=>({...prev,"isValidEmail":true,isEmailAvailable:true}));
+            return false;
+        }
+             
+    }
+
     useEffect( () =>{
         let isFormDataValid=true;
+        //validate that all feilds are not empty
         Object.keys(formData).forEach(key=>{
-           //validate that all feilds are not empty 
-            if(formData[key]===""){
-                isFormDataValid=false}
+            if(formData[key]==="") { isFormDataValid=false }
+        })
+        //validate that passwords match and is a valid password
+        if(PasswordsAreNotValid()) { isFormDataValid= false }
+        //check email validity
+        if(EmailIsNotValid()) { isFormDataValid= false}
 
-            //validate that passwords matched
-            if(formData.password !== formData.confirmPassword && formData.confirmPassword !=="" && key==="confirmPassword"){
-                isFormDataValid=false;
-                setbooleanStates(prev => ({...prev,"isPasswordMatch":false}))}
-            else if(key==="confirmPassword"){
-                 setbooleanStates(prev=>({...prev,"isPasswordMatch":true}))}
-            
-            //check email validity
-            if( validateEmail(formData.username)===false && formData.username!=="" && key==="username"){
-                setbooleanStates(prev=>({...prev,"isValidEmail":false,"isEmailAvailable":true}))
-                isFormDataValid=false;}
-            else if(validateEmail(formData.username)===true && formData.username!=="" && key==="username"){
-                setbooleanStates(prev=>({...prev,"isValidEmail":true}))
-            }
-            else if(formData.username===""){
-                setbooleanStates(prev=>({...prev,"isValidEmail":true}))
-                isFormDataValid=false;
-            }     
-       })
-       //allow request submission depending on validation state
-       if(isFormDataValid){
+        //allow request submission depending on validation state
+        if(isFormDataValid){
            setbooleanStates(prev=>({...prev,"shouldButtonDisable":false}))}
-       else{
+        else{
            setbooleanStates(prev=>({...prev,"shouldButtonDisable":true}))}
     },[formData])
 
@@ -130,26 +144,27 @@ function RegisterForm(){
             
             <form onSubmit={handleForm} >
                 <FormInput type="text" placeholder="Laundry Name" name="laundryName" handleInput={handleInput}
-                 value={formData.laundryName} 
+                    value={formData.laundryName} 
                 />
                 <FormInput type="text" placeholder="Laundry Owner Full Name" name="name" handleInput={handleInput}
-                 value={formData.name}
+                    value={formData.name}
                 />
                 <FormInput type="email" placeholder="Email Address" name="username" handleInput={handleInput}
-                errorMessage={booleanStates.isEmailAvailable ? "Email is invalid": "Email already taken"} 
-                isValid={booleanStates.isValidEmail} value={formData.username}
+                    errorMessage={booleanStates.isEmailAvailable ? "Email is invalid": "Email already taken"} 
+                    isValid={booleanStates.isValidEmail} value={formData.username}
                 />
                 <FormInput type="password" placeholder="Enter Password" name="password" handleInput={handleInput}
-                 value={formData.password}
+                    value={formData.password} isValid={booleanStates.isValidPassword}
+                    errorMessage="Password must be at least 8 characters and contain a lower case,upper case and special character."
                 />
                 <FormInput type="password" placeholder="Confirm Password" name="confirmPassword" handleInput={handleInput}
-                errorMessage="Password do not match" isValid={booleanStates.isPasswordMatch} value={formData.confirmPassword}
+                    errorMessage="Password do not match" isValid={booleanStates.isPasswordMatch} value={formData.confirmPassword}
                 />
-                <FormInput type="text" placeholder="Address *" name="address" handleInput={handleInput}
-                  value={formData.address}
+                <FormInput type="text" placeholder="Address" name="address" handleInput={handleInput}
+                    value={formData.address}
                 />
                 <FormInput type="text" placeholder="Phone Number *" name="phoneNumber" handleInput={handleInput}
-                value={formData.phoneNumber}
+                    value={formData.phoneNumber}
                 />
                 <FormBtn text="Register" isRequestProcessing={booleanStates.isRequestProcessing} shouldButtonDisable={booleanStates.shouldButtonDisable}>
 
