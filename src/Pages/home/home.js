@@ -1,15 +1,10 @@
 import React from 'react';
-import NavBar from "../../components/NavBar/NavBar"
+import PageLayout from "../../components/PageLayout/PageLayout"
 
-export default function Home() {
+export default function Customers() {
     return (
         <div>
-            <h1>This is home page !!!!!!!</h1>
-            <NavBar />
-            
-      
+            <PageLayout activeItem="DashBoard" pageName=" User DashBoard"></PageLayout>
         </div>
-        
-
     )
 }

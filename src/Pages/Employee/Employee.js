@@ -1,9 +1,9 @@
 import React from 'react'
 import PageLayout from "../../components/PageLayout/PageLayout"
-export default function Employees() {
+export default function Employee() {
     return (
         <div>
-            <PageLayout pageName="Employee page" activeItem="Employees"></PageLayout>
+            <PageLayout pageName="Employee page" activeItem="Employee"></PageLayout>
         </div>
     )
 }

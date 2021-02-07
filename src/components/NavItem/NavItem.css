@@ -2,7 +2,7 @@
   width: 100%;
   color: white;
   background-color: var(--purple-2);
-  margin: 1em 0em;
+  margin-bottom: 2em;
 }
 #nav-item-focused {
   background-color: var(--purple-1);
@@ -11,12 +11,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5em 1.5em;
+  padding: 1em 1.5em;
   cursor: pointer;
 }
 .nav-item-bottom {
   padding: 0.5em 1.5em;
   text-align: right;
+}
+
+.nav-item-bottom p {
+  cursor: pointer;
+  display: inline;
 }
 .nav-item-left {
   display: flex;
