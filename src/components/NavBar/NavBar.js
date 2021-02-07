@@ -1,43 +1,36 @@
-import React,{useRef,useState,useEffect} from 'react';
+import React from 'react';
+import {useHistory} from "react-router-dom";
 import NavItem from "../NavItem/NavItem";
+import "./NavBar.css"
 
-const items=["DashBoard","Customers","Services","Invoices","Employees"]
-const classes=["fas fa-th","fas fa-user","fas fa-network-wired","fas fa-file-alt","fas fa-users-cog",]
-export default function NavBar() {
-    const navConRef= useRef();
-    const [booleanStates,setbooleanStates]=useState({
+const items=["DashBoard","Employees","Customers","Services","Invoices",]
+const classes=["fas fa-th","fas fa-users-cog","fas fa-user","fas fa-network-wired","fas fa-file-alt",]
+export default function NavBar({activeItem}) {
+    const history =useHistory()
+    const booleanStates={
         Dashboard:false,
         Customers:false,
         Employees:false,
-         Invoices:false,
+        Invoices:false,
         Services:false,
-        
-    })
+        [activeItem]:true,     
+    }
 
-    useEffect(()=>{
-        console.log(booleanStates)
-        console.log(booleanStates)
-    })
     const handleClick = (e) => {
-        let navItemCollection=navConRef.current.children;
-        const val=e.target.getAttribute("data-class");
-        for (let i = 0; i < navItemCollection.length; i++) {
-          if(navItemCollection[i].className.includes(val)) {
-               setbooleanStates(prev=> ({Dashboard:false,Customers:false,Employees:false,Invoices:false,Services:false,
-                                            [val]:true}))
-                break;
-          }
-          
-           
+        const val=e.target.getAttribute("data-navbtn");
+        if(!val===activeItem){
+            console.log(val)
+            history.push("/"+ val.toLowerCase())
         }
     }
     return (
-        <div className="" ref={navConRef}>
+        <ul className="nav-bar-con">
             
             {
                 items.map( (item,index)=> (<NavItem  text={item} 
-                    icon={classes[index]} key={item} focusItem={handleClick} isItemFocused={booleanStates} />))
+                    icon={classes[index]} key={item} navigate={handleClick} isItemFocused={booleanStates}
+                   />))
             }
-        </div>
+        </ul>
     )
 }

@@ -1,0 +1,32 @@
+.nav-item {
+  width: 100%;
+  color: white;
+  background-color: var(--purple-2);
+  margin: 1em 0em;
+}
+#nav-item-focused {
+  background-color: var(--purple-1);
+}
+.nav-item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em 1.5em;
+  cursor: pointer;
+}
+.nav-item-bottom {
+  padding: 0.5em 1.5em;
+  text-align: right;
+}
+.nav-item-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.nav-item-left i {
+  width: 2em;
+}
+.nav-item-left p {
+  margin-left: 0.3em;
+  height: 1.5em;
+}

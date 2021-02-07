@@ -14,6 +14,8 @@ code {
 
 * {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 h1,
 h2,
@@ -29,4 +31,6 @@ p {
 :root {
   --gray-1: #f2f2f2;
   --gray-2: #ddddf1;
+  --purple-1: #bc06bf;
+  --purple-2: #65088c;
 }
