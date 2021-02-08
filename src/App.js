@@ -10,6 +10,10 @@ import Service from "./Pages/Service/Service";
 import Customer from  "./Pages/Customer/Customer";
 import Invoice from "./Pages/Invoice/Invoice";
 import NewEmployee from "./Pages/NewEmployee/NewEmployee";
+import NewService from "./Pages/NewService/NewService";
+import NewCustomer from "./Pages/NewCustomer/NewCustomer";
+import NewInvoice from "./Pages/NewInvoice/NewInvoice";
+
 
 
 function App() {
@@ -26,6 +30,10 @@ function App() {
         <Route exact path ="/invoice" component={Invoice}></Route>
         <Route exact path ="/customer" component={Customer}></Route>
         <Route exact path ="/employee/new" component={NewEmployee}></Route>
+        <Route exact path ="/service/new" component={NewService}></Route>
+        <Route exact path ="/customer/new" component={NewCustomer}></Route>
+        <Route exact path ="/invoice/new" component={NewInvoice}></Route>
+
         <Route path='/*' >
           <h1>Error</h1>
         </Route>

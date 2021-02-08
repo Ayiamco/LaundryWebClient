@@ -16,3 +16,48 @@ export const NavBarData={
         Invoices:"fas fa-file-alt",
         Employees:"fas fa-users-cog",
 }
+
+export const PasswordsAreNotValid = (setbooleanStates,password,confirmPassword)=> {
+        let isPasswordValid=true;
+        //check if passwords match
+        if(password !== confirmPassword){
+            setbooleanStates(prev=>({...prev,isPasswordMatch:false}))
+            isPasswordValid=false;
+        }
+        else{setbooleanStates(prev=>({...prev,isPasswordMatch:true}))}
+        //check that password is valid
+        if(validatePassword(password) || password===""){
+            setbooleanStates(prev=> ({...prev,isValidPassword:true}))
+        }
+        else{
+            setbooleanStates(prev=> ({...prev,isValidPassword:false}));
+            isPasswordValid=false;
+        }
+        return !isPasswordValid;
+    }
+
+
+export const EmailIsNotValid = (setbooleanStates,username) =>{
+        if(username===""){
+            setbooleanStates(prev=>({...prev,"isValidEmail":true,isEmailAvailable:true}))
+            return false;
+        }
+        else if(!validateEmail(username)){
+            setbooleanStates(prev=>({...prev,"isValidEmail":false,isEmailAvailable:true}));
+            return true;
+        }
+        else{
+            setbooleanStates(prev=>({...prev,"isValidEmail":true,isEmailAvailable:true}));
+            return false;
+        }
+             
+    }
+
+export  const FormValidationState={
+        "isPasswordMatch":true,
+        "isValidEmail":true,
+        "shouldButtonDisable":true,
+        "isRequestProcessing":false,
+        "isEmailAvailable":true,
+        "isValidPassword":true
+    }

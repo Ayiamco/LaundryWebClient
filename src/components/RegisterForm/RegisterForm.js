@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from "react";
 import {useHistory} from "react-router-dom";
-import {validateEmail,validatePassword} from "../../Utilities/helper";
+import {PasswordsAreNotValid,EmailIsNotValid,FormValidationState} from "../../Utilities/helper";
 import FormInput from "../FormInput/FormInput";
 import FormBtn from "../FormBtn/FormBtn";
 import registerUser from "../../apis/registerUser";
@@ -16,25 +16,18 @@ const startData={
         address:"",
         name:""
     };
-const startBoolenState={
-        "isPasswordMatch":true,
-        "isValidEmail":true,
-        "shouldButtonDisable":true,
-        "isRequestProcessing":false,
-        "isEmailAvailable":true,
-        "isValidPassword":true
-    }
+
 function RegisterForm(){
     const [formData,setFormData]=useState(startData)
 
-    const [booleanStates,setbooleanStates]=useState(startBoolenState);
+    const [booleanStates,setbooleanStates]=useState(FormValidationState);
     
     const [errorMessage,setErrorMessage]=useState("Error: Please check your network connection")
     const [networkError,setnetworkError]=useState("none")
     const history=useHistory();
 
     function AddError(resp){
-        if(resp.statusCode===undefined){
+        if(resp.statusCode==="500"){
             setErrorMessage(" Network Error: please check your network ")
             setnetworkError("inline")
         }
@@ -46,7 +39,7 @@ function RegisterForm(){
     }
 
     function RemoveErrors(){
-        setbooleanStates(startBoolenState)
+        setbooleanStates(FormValidationState)
         setnetworkError("none");
         setFormData(startData);
     }
@@ -84,41 +77,7 @@ function RegisterForm(){
            }
     })}
 
-    const PasswordsAreNotValid = ()=> {
-        let isPasswordValid=true;
-        //check if passwords match
-        if(formData.password !== formData.confirmPassword){
-            setbooleanStates(prev=>({...prev,isPasswordMatch:false}))
-            isPasswordValid=false;
-        }
-        else{setbooleanStates(prev=>({...prev,isPasswordMatch:true}))}
-        //check that password is valid
-        if(validatePassword(formData.password) || formData.password===""){
-            setbooleanStates(prev=> ({...prev,isValidPassword:true}))
-        }
-        else{
-            setbooleanStates(prev=> ({...prev,isValidPassword:false}));
-            isPasswordValid=false;
-        }
-        return !isPasswordValid;
-    }
-
-    const EmailIsNotValid = () =>{
-        if(formData.username===""){
-            setbooleanStates(prev=>({...prev,"isValidEmail":true,isEmailAvailable:true}))
-            return false;
-        }
-        else if(!validateEmail(formData.username)){
-            setbooleanStates(prev=>({...prev,"isValidEmail":false,isEmailAvailable:true}));
-            return true;
-        }
-        else{
-            setbooleanStates(prev=>({...prev,"isValidEmail":true,isEmailAvailable:true}));
-            return false;
-        }
-             
-    }
-
+    
     useEffect( () =>{
         let isFormDataValid=true;
         //validate that all feilds are not empty
@@ -126,9 +85,10 @@ function RegisterForm(){
             if(formData[key]==="") { isFormDataValid=false }
         })
         //validate that passwords match and is a valid password
-        if(PasswordsAreNotValid()) { isFormDataValid= false }
+        if(PasswordsAreNotValid(setbooleanStates,formData.password,formData.confirmPassword)) 
+        { isFormDataValid= false }
         //check email validity
-        if(EmailIsNotValid()) { isFormDataValid= false}
+        if(EmailIsNotValid(setbooleanStates,formData.username)) { isFormDataValid= false}
 
         //allow request submission depending on validation state
         if(isFormDataValid){
