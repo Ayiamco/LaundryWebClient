@@ -38,10 +38,8 @@ function LoginForm(){
         
         //authenticate user
         let res =  await loginUser(formData.username,formData.password)
-        console.log("login resp:",res.statusCode, res, typeof(res))
         //Reset states based on server response
         if(res.statusCode==="400"){
-             console.log("status code is 400")
             setErrorMessage(()=> {return res.message})
             setnetworkError( "block")
             setboolStates(prev=>{
@@ -62,7 +60,8 @@ function LoginForm(){
                
         }
         else if (res.statusCode==="200"){
-            localStorage.setItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22",res.token) 
+            console.log(res)
+            localStorage.setItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22",res.data) 
             //reset states and redirect to home page 
              setboolStates(prev=>{
                 return {...prev,[boolStatesKeys.shouldButtonDisable]:false,
@@ -71,7 +70,7 @@ function LoginForm(){
                 }
             })
             setnetworkError("none")
-            history.push('/home');
+            history.push('/dashboard');
         }
         
         

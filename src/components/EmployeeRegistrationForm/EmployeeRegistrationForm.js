@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from "react";
+import { useLocation,Link} from "react-router-dom";
 import {useHistory} from "react-router-dom";
 import {PasswordsAreNotValid,EmailStateIsInvalid,FormValidationState} from "../../Utilities/helper";
 import FormInput from "../FormInput/FormInput";
@@ -6,9 +7,10 @@ import FormBtn from "../FormBtn/FormBtn";
 import registerUser from "../../apis/registerUser";
 import loginUser from "../../apis/LoginUser"
 
+import "./EmployeeRegistrationForm.css"
+
 
 const startData={
-        laundryName:"",
         username:"",
         password:"",
         confirmPassword:"",
@@ -17,7 +19,7 @@ const startData={
         name:""
     };
 
-function RegisterForm(){
+export default function EmployeeRegistrationForm(){
     const [formData,setFormData]=useState(startData)
 
     const [booleanStates,setbooleanStates]=useState(FormValidationState);
@@ -25,6 +27,15 @@ function RegisterForm(){
     const [errorMessage,setErrorMessage]=useState("Error: Please check your network connection")
     const [networkError,setnetworkError]=useState("none")
     const history=useHistory();
+    const [data,setData]=useState({
+        password:"",
+        confirmPassword:"",
+        id:useQuery().get("id")
+    })
+    function useQuery() {
+        return new URLSearchParams(useLocation().search);
+    }
+    
 
     function AddError(resp){
         if(resp.statusCode==="500"){
@@ -103,10 +114,8 @@ function RegisterForm(){
             <p style={{display:networkError,color:"red",fontSize:"0.8em",paddingLeft:"2em"}}>{errorMessage}</p>
             
             <form onSubmit={handleForm} >
-                <FormInput type="text" placeholder="Laundry Name" name="laundryName" handleInput={handleInput}
-                    value={formData.laundryName} 
-                />
-                <FormInput type="text" placeholder="Laundry Owner Full Name" name="name" handleInput={handleInput}
+                
+                <FormInput type="text" placeholder=" Full Name" name="name" handleInput={handleInput}
                     value={formData.name}
                 />
                 <FormInput type="email" placeholder="Email Address" name="username" handleInput={handleInput}
@@ -126,12 +135,15 @@ function RegisterForm(){
                 <FormInput type="text" placeholder="Phone Number *" name="phoneNumber" handleInput={handleInput}
                     value={formData.phoneNumber}
                 />
-                <FormBtn text="Register" isRequestProcessing={booleanStates.isRequestProcessing} shouldButtonDisable={booleanStates.shouldButtonDisable}>
+                
+                <div id="ERF-btn-con"> 
+                    <FormBtn text="Register" isRequestProcessing={booleanStates.isRequestProcessing} shouldButtonDisable={booleanStates.shouldButtonDisable}>
 
-                </FormBtn>
+                    </FormBtn>
+                </div>
+                
             </form>
         </div>
     )
 }
 
-export default RegisterForm;

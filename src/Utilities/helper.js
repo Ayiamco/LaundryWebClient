@@ -37,21 +37,21 @@ export const PasswordsAreNotValid = (setbooleanStates,password,confirmPassword)=
     }
 
 
-export const EmailIsNotValid = (setbooleanStates,username) =>{
-        if(username===""){
-            setbooleanStates(prev=>({...prev,"isValidEmail":true,isEmailAvailable:true}))
-            return false;
-        }
-        else if(!validateEmail(username)){
-            setbooleanStates(prev=>({...prev,"isValidEmail":false,isEmailAvailable:true}));
-            return true;
-        }
-        else{
-            setbooleanStates(prev=>({...prev,"isValidEmail":true,isEmailAvailable:true}));
-            return false;
-        }
-             
+export function EmailStateIsInvalid(setbooleanStates, username) {
+    if (username === "") {
+        setbooleanStates(prev => ({ ...prev, "isValidEmail": true, isEmailAvailable: true }));
+        return false;
     }
+    else if (!validateEmail(username)) {
+        setbooleanStates(prev => ({ ...prev, "isValidEmail": false, isEmailAvailable: true }));
+        return true;
+    }
+    else {
+        setbooleanStates(prev => ({ ...prev, "isValidEmail": true, isEmailAvailable: true }));
+        return false;
+    }
+
+}
 
 export  const FormValidationState={
         "isPasswordMatch":true,

@@ -13,6 +13,7 @@ import NewEmployee from "./Pages/NewEmployee/NewEmployee";
 import NewService from "./Pages/NewService/NewService";
 import NewCustomer from "./Pages/NewCustomer/NewCustomer";
 import NewInvoice from "./Pages/NewInvoice/NewInvoice";
+import EmployeeRegistration from "./Pages/EmployeeRegistration/EmployeeRegistration"
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
         <Route exact path ="/service/new" component={NewService}></Route>
         <Route exact path ="/customer/new" component={NewCustomer}></Route>
         <Route exact path ="/invoice/new" component={NewInvoice}></Route>
+        <Route exact path= "/employee/registration" component={EmployeeRegistration} />
 
         <Route path='/*' >
           <h1>Error</h1>

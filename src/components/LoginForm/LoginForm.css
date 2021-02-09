@@ -20,7 +20,7 @@
   width: 10em;
   height: 3.5em;
   color: white;
-  background-color: #42378c;
+  background-color: var(--blue-1);
   border-radius: 25px;
   cursor: pointer;
   border: none;

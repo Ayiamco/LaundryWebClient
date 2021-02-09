@@ -1,0 +1,9 @@
+#ERF-btn-con {
+  width: 8em;
+  margin: auto;
+  margin-top: 1em;
+}
+
+#ERF-btn-con button {
+  background-color: var(--blue-1);
+}
