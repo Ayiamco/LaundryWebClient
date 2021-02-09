@@ -1,1 +1,6 @@
-
+#navbar-show {
+  display: block;
+}
+#navbar-hide {
+  display: none;
+}

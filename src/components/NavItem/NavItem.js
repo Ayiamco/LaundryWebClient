@@ -14,7 +14,6 @@ export default function NavItem({icon,text,isItemFocused,navigate}) {
     }
 
     useEffect(()=>{
-        console.log(text);
         if(isItemFocused["New"+text]===true){
             setClassName("fas fa-angle-up");
             setHideItem("block")

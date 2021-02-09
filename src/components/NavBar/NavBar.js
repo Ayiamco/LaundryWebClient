@@ -5,13 +5,14 @@ import "./NavBar.css"
 
 const items=["DashBoard","Employee","Customer","Service","Invoice",]
 const classes=["fas fa-th","fas fa-users-cog","fas fa-user","fas fa-network-wired","fas fa-file-alt",]
-export default function NavBar({activeItem}) {
+export default function NavBar({activeItem,display}) {
     const history =useHistory()
     const booleanStates={
         Dashboard:false,Customer:false,Employee:false,Invoice:false,Service:false,
         NewCustomer:false,NewEmployee:false,NewInvoice:false,NewService:false,
         [activeItem]:true,     
     }
+    
 
     const handleClick = (e) => {
         const navItemClicked=e.target.getAttribute("data-navbtn");
@@ -24,7 +25,7 @@ export default function NavBar({activeItem}) {
         }
     }
     return (
-        <ul className="nav-bar-con">
+        <ul className="nav-bar-con" id={display}>
             
             {
                 items.map( (item,index)=> (

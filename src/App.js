@@ -15,7 +15,6 @@ import NewCustomer from "./Pages/NewCustomer/NewCustomer";
 import NewInvoice from "./Pages/NewInvoice/NewInvoice";
 
 
-
 function App() {
   return (
     <Router>
