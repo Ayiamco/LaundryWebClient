@@ -14,7 +14,6 @@ export const addEmployee= async (email)=>{
         }).then(res=> {
             return res.json()
         }).catch( (e)=>{
-            console.log(e)
             return {
                     "statusCode":"500"
                 };

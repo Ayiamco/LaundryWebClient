@@ -1,0 +1,27 @@
+.PU-con {
+  padding: 1em 1.5em;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.PU-con i {
+  float: right;
+}
+
+.PU-hide {
+  display: none;
+}
+
+.PU-show {
+  display: block;
+}
+
+.PU-success {
+  background-color: var(--purple-3);
+  color: var(--purple-2);
+}
+
+.PU-failure {
+  background-color: rgb(238, 124, 124);
+  color: rgb(22, 3, 3);
+}

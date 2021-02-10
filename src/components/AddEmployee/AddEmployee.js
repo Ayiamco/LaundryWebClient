@@ -3,7 +3,7 @@ import FormInput from "../FormInput/FormInput";
 import FormBtn from "../FormBtn/FormBtn"
 import {EmailStateIsInvalid,FormValidationState} from "../../Utilities/helper"
 import {addEmployee} from "../../apis/Employee"
-
+import PopUp from "../PopUp/PopUp";
 import "./AddEmployee.css"
 
 export default function AddEmployee() {
@@ -11,14 +11,14 @@ export default function AddEmployee() {
     const [formData,setFormData]=useState({
         username:""
     })
+    const [popUpMessage,setPopUpMessage]=useState("");
+    const [shouldPopUpDisplay,setShouldPopUpDisplay]=useState(false)
     const [isValidProp,setIsValidProp]=useState(boolenStates.isValidEmail)
-    const [mailErrorMessage,setMailErrorMessage]=useState("Email is invalid")
+    const [requestStatus,setRequestStatus]=useState("success")
+   
 
-    //REMEMBER TO CHANGE THE ERROR MESSAGE STATE
     function handleInput(e){
          setFormData(prev => {return {...prev,  [e.target.name]:e.target.value}})
-         console.log(boolenStates.isValidEmail)
-            
     }
 
     useEffect(()=>{
@@ -37,14 +37,28 @@ export default function AddEmployee() {
 
     async function handleForm(e){
         e.preventDefault()
-        let resp=await addEmployee(formData.username)
-        console.log(resp);
+        setBooleanStates(prev=>({...prev,isRequestProcessing:true}))
+        let resp=await addEmployee(formData.username); 
+        setBooleanStates(prev=>({...prev,isRequestProcessing:false}))
+        setShouldPopUpDisplay(true)
+        if(resp.statusCode==="200"){
+            setPopUpMessage(`Employee Registration Link has being sent to ${formData.username}`)
+            setRequestStatus("success");
+            
+        }
+        else{
+            setPopUpMessage(`Employee Registration Link has being sent to ${formData.username}`)
+            setRequestStatus("failure");
+        }
     }
+
+    
     return (
         <div className="AE-con">
+            <PopUp shouldPopUpDisplay={shouldPopUpDisplay} message={popUpMessage} display={requestStatus}/>
             <form className="AE-form" onSubmit={handleForm}>
                  <FormInput value={formData.email} isValid={isValidProp} placeholder="Enter Employee Email"
-                    name="username" type="email" errorMessage={mailErrorMessage} handleInput={handleInput}
+                    name="username" type="email" errorMessage="Email is Invalid" handleInput={handleInput}
                  />
 
                 <div className="AE-btn-con">
