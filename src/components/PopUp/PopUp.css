@@ -6,6 +6,7 @@
 
 .PU-con i {
   float: right;
+  cursor: pointer;
 }
 
 .PU-hide {
@@ -22,6 +23,6 @@
 }
 
 .PU-failure {
-  background-color: rgb(238, 124, 124);
+  background-color: rgb(231, 157, 157);
   color: rgb(22, 3, 3);
 }

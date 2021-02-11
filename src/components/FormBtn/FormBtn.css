@@ -16,12 +16,9 @@
 
 .FB-con button:disabled {
   cursor: not-allowed;
-}
-
-.FB-con button:disabled {
   background-color: var(--gray-2);
 }
 
 #btn-waiting {
-  cursor: wait;
+  cursor: progress;
 }

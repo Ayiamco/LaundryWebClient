@@ -7,3 +7,7 @@
 #ERF-btn-con button {
   background-color: var(--blue-1);
 }
+
+#ERF-btn-con button:disabled {
+  background-color: var(--gray-2);
+}

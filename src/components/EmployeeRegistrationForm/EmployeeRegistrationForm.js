@@ -1,36 +1,23 @@
 import React,{useState,useEffect} from "react";
-import { useLocation,Link} from "react-router-dom";
+import { useLocation} from "react-router-dom";
 import {useHistory} from "react-router-dom";
 import {PasswordsAreNotValid,EmailStateIsInvalid,FormValidationState} from "../../Utilities/helper";
 import FormInput from "../FormInput/FormInput";
 import FormBtn from "../FormBtn/FormBtn";
-import registerUser from "../../apis/registerUser";
 import loginUser from "../../apis/LoginUser"
 
 import "./EmployeeRegistrationForm.css"
-
-
-const startData={
-        username:"",
-        password:"",
-        confirmPassword:"",
-        phoneNumber:"",
-        address:"",
-        name:""
-    };
+import { registerEmployee } from "../../apis/Employee";
+import PopUp from "../PopUp/PopUp";
 
 export default function EmployeeRegistrationForm(){
-    const [formData,setFormData]=useState(startData)
-
     const [booleanStates,setbooleanStates]=useState(FormValidationState);
-    
-    const [errorMessage,setErrorMessage]=useState("Error: Please check your network connection")
-    const [networkError,setnetworkError]=useState("none")
+    const [errorMessage,setErrorMessage]=useState("Error: Please check your network connection");
+    const [networkError,setnetworkError]=useState(false)
     const history=useHistory();
-    const [data,setData]=useState({
-        password:"",
-        confirmPassword:"",
-        id:useQuery().get("id")
+    const [formData,setFormData]=useState({
+        password:"",confirmPassword:"",laundryId:useQuery().get("id"),
+        username:"",phoneNumber:"",address:"",name:""
     })
     function useQuery() {
         return new URLSearchParams(useLocation().search);
@@ -40,7 +27,7 @@ export default function EmployeeRegistrationForm(){
     function AddError(resp){
         if(resp.statusCode==="500"){
             setErrorMessage(" Network Error: please check your network ")
-            setnetworkError("inline")
+            setnetworkError(true)
         }
         else if(resp.statusCode==="400" && resp.message==="user email already exist"){
             setbooleanStates(prev=>({...prev,isEmailAvailable:false,isValidEmail:false}))
@@ -51,8 +38,9 @@ export default function EmployeeRegistrationForm(){
 
     function RemoveErrors(){
         setbooleanStates(FormValidationState)
-        setnetworkError("none");
-        setFormData(startData);
+        setnetworkError(false);
+        setFormData({password:"",confirmPassword:"",laundryId:"",
+        username:"",phoneNumber:"",address:"",name:""});
     }
     
     const handleForm = async(e)=>{
@@ -60,8 +48,9 @@ export default function EmployeeRegistrationForm(){
 
         //prevent btn from being clicked while request is sent
         setbooleanStates(prev=> ({...prev,"isRequestProcessing":true}))
+        setnetworkError(false)
         //post user data
-        let registerResp=await registerUser(formData)
+        let registerResp=await registerEmployee(formData)
         if (registerResp.statusCode!=="201"){
             AddError(registerResp)} //return to page and display Errors}
         else if(registerResp.statusCode==="201"){
@@ -111,7 +100,8 @@ export default function EmployeeRegistrationForm(){
 
     return (
         <div className="">
-            <p style={{display:networkError,color:"red",fontSize:"0.8em",paddingLeft:"2em"}}>{errorMessage}</p>
+            <PopUp message={errorMessage} display="failure" shouldPopUpDisplay={networkError}></PopUp>
+            {/* <p style={{display:networkError,color:"red",fontSize:"0.8em",paddingLeft:"2em"}}>{errorMessage}</p> */}
             
             <form onSubmit={handleForm} >
                 

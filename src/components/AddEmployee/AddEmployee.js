@@ -47,7 +47,7 @@ export default function AddEmployee() {
             
         }
         else{
-            setPopUpMessage(`Employee Registration Link has being sent to ${formData.username}`)
+            setPopUpMessage(`Registration Link failed to send. Check network connection `)
             setRequestStatus("failure");
         }
     }

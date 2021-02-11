@@ -5,6 +5,8 @@ import FormBtn from "../FormBtn/FormBtn";
 import loginUser from  "../../apis/LoginUser";
 import {validateEmail} from "../../Utilities/helper";
 
+import "./LoginForm.css"
+
 const boolStatesKeys={
     isValidEmail:"isValidEmail",
     shouldButtonDisable:"shouldButtonDisable",
@@ -140,10 +142,12 @@ function LoginForm(){
                 
                 <FormInput placeholder="Password" name="password" handleInput={handleInput} isValid={boolStates.isPasswordCorrect}
                      value={formData.password} type="password" errorMessage="Password is Incorrect"/>
-                    
-                <FormBtn isRequestProcessing={boolStates.isRequestProcessing} shouldButtonDisable={boolStates.shouldButtonDisable}
+                <div className="LF-btn-con">
+                    <FormBtn isRequestProcessing={boolStates.isRequestProcessing} shouldButtonDisable={boolStates.shouldButtonDisable}
                     text="Login"
-                />          
+                    /> 
+                </div>
+                        
             </form>
         </div>
     )

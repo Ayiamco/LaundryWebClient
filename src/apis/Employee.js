@@ -23,5 +23,25 @@ export const addEmployee= async (email)=>{
 }
 
 export const registerEmployee = async (formData)=>{
+let resp =await fetch("https://localhost:44322/api/employee/new",{
+                    method:"POST",
+                    headers:{
+                        "Content-Type":'application/json; charset=utf-8',
+                    },
+                    mode:'cors',
+                    body: JSON.stringify({
+                        "username":formData.username, 
+                        "password":formData.password,
+                        "confirmPassword":formData.confirmPassword,
+                        "address":formData.address,
+                        "phoneNumber":formData.phoneNumber,
+                        "laundryId":formData.laundryName,
+                        "name":formData.name
+                    })})
+                    .then(res=>{
+                        return  res.json()
+                    })  
+                    .catch(e=>({"statusCode":"500"}))
 
+    return resp;
 }
