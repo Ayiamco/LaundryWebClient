@@ -34,6 +34,9 @@
   border-radius: 5px;
   background-color: white;
   margin-top: 2em;
+  width:100%;
+  padding-right:2em;
+  justify-content:space-between;
 }
 
 .FI-password input,
@@ -61,3 +64,5 @@
     width: 85%;
   }
 }
+
+

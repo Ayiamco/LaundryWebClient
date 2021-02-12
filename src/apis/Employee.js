@@ -35,13 +35,13 @@ let resp =await fetch("https://localhost:44322/api/employee/new",{
                         "confirmPassword":formData.confirmPassword,
                         "address":formData.address,
                         "phoneNumber":formData.phoneNumber,
-                        "laundryId":formData.laundryName,
+                        "laundryId":formData.laundryId,
                         "name":formData.name
                     })})
                     .then(res=>{
                         return  res.json()
                     })  
                     .catch(e=>({"statusCode":"500"}))
-
+           
     return resp;
 }

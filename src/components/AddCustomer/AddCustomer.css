@@ -1,0 +1,16 @@
+.AC-con{
+    width: 70%;
+    margin: auto;
+}
+
+@media only screen and (min-width:500px){
+    .AC-con{
+        width:60%;
+    }
+}
+
+@media only screen and (min-width:700px){
+    .AC-con{
+        width:50%;
+    }
+}

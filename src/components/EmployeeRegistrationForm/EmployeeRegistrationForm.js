@@ -23,7 +23,6 @@ export default function EmployeeRegistrationForm(){
         return new URLSearchParams(useLocation().search);
     }
     
-
     function AddError(resp){
         if(resp.statusCode==="500"){
             setErrorMessage(" Network Error: please check your network ")
@@ -45,11 +44,8 @@ export default function EmployeeRegistrationForm(){
     
     const handleForm = async(e)=>{
         e.preventDefault()
-
-        //prevent btn from being clicked while request is sent
-        setbooleanStates(prev=> ({...prev,"isRequestProcessing":true}))
-        setnetworkError(false)
-        //post user data
+        setbooleanStates(prev=> ({...prev,"isRequestProcessing":true}))//prevent btn from being clicked while request is sent
+        setnetworkError(false);
         let registerResp=await registerEmployee(formData)
         if (registerResp.statusCode!=="201"){
             AddError(registerResp)} //return to page and display Errors}
