@@ -1,5 +1,6 @@
-import React,{useEffect,useState} from 'react'
-import {getAllEmployees,deleteEmployee} from "../../apis/EmployeeApi";
+import React,{useEffect,useState} from 'react';
+import {useLocation,useHistory} from "react-router-dom";
+import {getEmployees,deleteEmployee} from "../../apis/EmployeeApi";
 import "./EmployeeLayout.css"
 import Modal from 'react-modal';
 
@@ -7,19 +8,27 @@ Modal.setAppElement("#root")
 export default function EmployeeLayout() {
     const [employeeList,setEmployeeList]=useState([])
     const [modalIsOpen,setIsModalOpen]=useState(false);
+    const [page,setPage]=useState(useQuery().get("page"))
+    let history=useHistory();
+
+    function useQuery() {
+        return new URLSearchParams(useLocation().search);
+    }
     
     const getData = async ()=>{
         console.log("function called",employeeList.length)
-        let resp= await getAllEmployees();
+        let resp= await getEmployees(page);
         console.log(resp)
         if(resp.statusCode==="200"){
-            setEmployeeList(resp.data)
+            setEmployeeList(resp.data.data);
+            history.push("/employees?page="+ resp.data.pageNumber)
         }
     }
 
     useEffect(()=>{
+        console.log("page:",page)
         getData()
-    },[])
+    },[page])
 
     async function confirmDelete(e){
         if(e.target.name==="delete-employee"){
@@ -64,17 +73,17 @@ export default function EmployeeLayout() {
                                 <td>{employee.revenue}</td>
                                 <td>{employee.noOfCustomers}</td>
                                 <td>
-                                    <span data-id={employee.id} className="EL-btn-edit" name="edit-employee">Edit</span>
-                                    <div data-id={employee.id} className="EL-btn-del" name="delete-employee" onClick={confirmDelete}>
+                                    <button data-id={employee.id} className="EL-btn-edit EL-btn" name="edit-employee">Edit</button>
+                                    <button data-id={employee.id} className="EL-btn-del EL-btn" name="delete-employee" onClick={confirmDelete}>
                                         <Modal isOpen={modalIsOpen} onRequestClose={()=>{return setIsModalOpen(false)}}
                                         shouldCloseOnOverlayClick={false} className="modal" overlayClassName="modal-overlay"
                                         >
                                             <p>Are you sure you want to delete</p>
-                                            <button id={"delete//"+employee.id} onClick={confirmDelete} name="delete-yes">Yes</button>
-                                            <button  onClick={confirmDelete} name="delete-no">No</button>
+                                            <button className="EL-btn" id={"delete//"+employee.id} onClick={confirmDelete} name="delete-yes">Yes</button>
+                                            <button  onClick={confirmDelete} name="delete-no" className="EL-btn">No</button>
                                         </Modal>
                                         Delete
-                                    </div>
+                                    </button>
                                 </td>
                                 
                             </tr>  
@@ -85,6 +94,10 @@ export default function EmployeeLayout() {
 
             </table>
             }
+            <div className="EL-btn-pagination">
+                <button className="EL-btn" onClick={()=>{setPage(prev=>(parseInt(prev) -1))}}> Prev</button>
+                <button className="EL-btn" onClick={()=>{setPage(prev=>( parseInt(prev) +1))}}> Next</button>
+            </div>
             
         </div>
     )

@@ -46,10 +46,10 @@ let resp =await fetch("https://localhost:44322/api/employee/new",{
     return resp;
 }
 
-export async function getAllEmployees(){
+export async function getEmployees(page){
     const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
-    console.log(token)
-    let resp =await fetch("https://localhost:44322/api/employee/all",{
+    let url="https://localhost:44322/api/employee/?page=" + (page===null ? 1 : page);
+    let resp =await fetch(url,{
             method:"GET",
             headers:{
                 "Content-Type":'application/json; charset=utf-8',
@@ -64,7 +64,7 @@ export async function getAllEmployees(){
                     "statusCode":"500"
                 };
         })
-
+    console.log(resp)
     return resp;
 }
 

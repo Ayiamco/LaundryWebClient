@@ -13,6 +13,7 @@ export default function EmployeeRegistrationForm(){
     const [booleanStates,setbooleanStates]=useState(FormValidationState);
     const [errorMessage,setErrorMessage]=useState("Error: Please check your network connection");
     const [networkError,setnetworkError]=useState(false)
+
     const history=useHistory();
     const [formData,setFormData]=useState({
         password:"",confirmPassword:"",laundryId:useQuery().get("id"),
@@ -29,6 +30,10 @@ export default function EmployeeRegistrationForm(){
         }
         else if(resp.statusCode==="400" ){
             setbooleanStates(prev=>({...prev,isEmailAvailable:false,isValidEmail:false}))
+            setnetworkError(resp.message)
+        }
+        else if(resp.statusCode==="401"){
+            setnetworkError(true)
             setErrorMessage(resp.message)
         }
         setbooleanStates(prev=>( {...prev,"shouldButtonDisable":false,"isRequestProcessing":false}))
@@ -46,6 +51,7 @@ export default function EmployeeRegistrationForm(){
         setbooleanStates(prev=> ({...prev,"isRequestProcessing":true}))//prevent btn from being clicked while request is sent
         setnetworkError(false);
         let registerResp=await registerEmployee(formData)
+        console.log(registerResp)
         if (registerResp.statusCode!=="201"){
             AddError(registerResp)} //return to page and display Errors}
         else if(registerResp.statusCode==="201"){

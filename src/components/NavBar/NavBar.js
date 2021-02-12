@@ -20,7 +20,7 @@ export default function NavBar({activeItem,display}) {
             if(navItemClicked.includes("New")){
                 history.push(`/${navItemClicked.split("New")[1].toLowerCase()}/new`)
             }
-            else{history.push("/"+ navItemClicked.toLowerCase())}
+            else{history.push(`/${navItemClicked.toLowerCase()}${navItemClicked==="Dashboard"? "":"s"}`)}
             
         }
     }

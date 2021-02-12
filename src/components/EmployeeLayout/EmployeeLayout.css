@@ -10,24 +10,31 @@
   text-align: center;
   color: var(--purple-2);
 }
-.EL-btn-del,
-.EL-btn-edit {
-  padding: 0.3em 1em;
+.EL-btn {
+  padding: 0.6em 1em;
   color: var(--gray-1);
   width: 5em;
   border-radius: 5px;
   cursor: pointer;
   margin-bottom: 0.5em;
+  margin-right: 0.5em;
 }
 
 .EL-btn-del {
   background-color: rgb(114, 7, 7);
   border: 1px solid var(--purple-2);
+  display: inline-block;
 }
 .EL-btn-edit {
   background-color: var(--purple-2);
   border: 1px solid red;
-  margin-right: 0.5em;
+}
+.EL-btn-pagination {
+  display: flex;
+  justify-content: center;
+}
+.EL-btn-pagination button {
+  background-color: var(--purple-2);
 }
 .EL-table {
   width: 90vw;
@@ -38,9 +45,11 @@
 
 .EL-table th,
 .EL-table td {
-  padding: 15px;
   text-align: center;
   border: 1px solid white;
+}
+.EL-table th {
+  padding: 15px;
 }
 
 .EL-table tr {
@@ -50,8 +59,22 @@
 .EL-table tbody tr:nth-child(odd) {
   background-color: var(--purple-3);
 }
+.EL-table tbody tr:nth-child(even) {
+  background-color: white;
+}
 
 .EL-table thead {
   background-color: var(--purple-2);
   color: var(--gray-1);
+}
+
+@media only screen and (min-width: 700px) {
+  .EL-con {
+    width: 90%;
+    overflow: hidden;
+  }
+
+  .EL-table {
+    width: 100%;
+  }
 }

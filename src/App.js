@@ -26,10 +26,10 @@ function App() {
         <Route exact path="/register" component={Register}></Route>
         <Route exact path="/forgot-password" component={ForgotPassword}></Route>
         <Route exact path ="/change-password" component={PasswordChange}></Route>
-        <Route exact path ="/employee" component={Employee}></Route>
-        <Route exact path ="/service" component={Service}></Route>
-        <Route exact path ="/invoice" component={Invoice}></Route>
-        <Route exact path ="/customer" component={Customer}></Route>
+        <Route exact path ="/employees" component={Employee}></Route>
+        <Route exact path ="/services" component={Service}></Route>
+        <Route exact path ="/invoices" component={Invoice}></Route>
+        <Route exact path ="/customers" component={Customer}></Route>
         <Route exact path ="/employee/new" component={NewEmployee}></Route>
         <Route exact path ="/service/new" component={NewService}></Route>
         <Route exact path ="/customer/new" component={NewCustomer}></Route>

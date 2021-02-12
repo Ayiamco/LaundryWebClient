@@ -4,7 +4,7 @@ import {useHistory} from "react-router-dom";
 import {EmailStateIsInvalid,FormValidationState} from "../../Utilities/helper";
 import FormInput from "../FormInput/FormInput";
 import FormBtn from "../FormBtn/FormBtn";
-import {addCustomer} from "../../apis/Customer"
+import {addCustomer} from "../../apis/CustomerApi"
 import PopUp from "../PopUp/PopUp";
 import "./AddCustomer.css"
 
