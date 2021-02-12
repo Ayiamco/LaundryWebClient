@@ -31,9 +31,9 @@ function RegisterForm(){
             setErrorMessage(" Network Error: please check your network ")
             setnetworkError("inline")
         }
-        else if(resp.statusCode==="400" && resp.message==="user email already exist"){
+        else if(resp.statusCode==="400" ){
             setbooleanStates(prev=>({...prev,isEmailAvailable:false,isValidEmail:false}))
-            setErrorMessage("Email Error: Email already taken")
+            setErrorMessage(resp.message)
         }
         setbooleanStates(prev=>( {...prev,"shouldButtonDisable":false,"isRequestProcessing":false}))
     }
@@ -49,23 +49,23 @@ function RegisterForm(){
 
         //prevent btn from being clicked while request is sent
         setbooleanStates(prev=> ({...prev,"isRequestProcessing":true}))
-        //post user data
+
         let registerResp=await registerUser(formData)
         if (registerResp.statusCode!=="201"){
-            AddError(registerResp)} //return to page and display Errors}
+            AddError(registerResp)
+        } 
         else if(registerResp.statusCode==="201"){
-            //user was created successfully so login user 
-            let loginResp= await loginUser(formData.username,formData.password)
+            let loginResp= await loginUser(formData)
             if (loginResp.statusCode!=="200"){
                 //remove displayed validation errors and redirect to login page
                 RemoveErrors();
                 history.push("/")
             }
-
-            //remove displayed validation errors, save token and redirect to homepage
-            RemoveErrors();
-            localStorage.setItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22",loginResp.data)
-            history.push("/dashboard")  
+            else{
+                RemoveErrors();
+                localStorage.setItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22",loginResp.data)
+                history.push("/dashboard")  
+            }
         }
 
     }

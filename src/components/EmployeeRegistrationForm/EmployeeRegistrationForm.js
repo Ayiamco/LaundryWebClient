@@ -1,13 +1,12 @@
 import React,{useState,useEffect} from "react";
-import { useLocation} from "react-router-dom";
-import {useHistory} from "react-router-dom";
+import { useLocation,useHistory} from "react-router-dom";
 import {PasswordsAreNotValid,EmailStateIsInvalid,FormValidationState} from "../../Utilities/helper";
 import FormInput from "../FormInput/FormInput";
 import FormBtn from "../FormBtn/FormBtn";
 import loginUser from "../../apis/LoginUser"
 
 import "./EmployeeRegistrationForm.css"
-import { registerEmployee } from "../../apis/Employee";
+import { registerEmployee } from "../../apis/EmployeeApi";
 import PopUp from "../PopUp/PopUp";
 
 export default function EmployeeRegistrationForm(){
@@ -28,9 +27,9 @@ export default function EmployeeRegistrationForm(){
             setErrorMessage(" Network Error: please check your network ")
             setnetworkError(true)
         }
-        else if(resp.statusCode==="400" && resp.message==="user email already exist"){
+        else if(resp.statusCode==="400" ){
             setbooleanStates(prev=>({...prev,isEmailAvailable:false,isValidEmail:false}))
-            setErrorMessage("Email Error: Email already taken")
+            setErrorMessage(resp.message)
         }
         setbooleanStates(prev=>( {...prev,"shouldButtonDisable":false,"isRequestProcessing":false}))
     }

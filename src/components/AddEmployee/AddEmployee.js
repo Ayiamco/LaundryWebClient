@@ -2,9 +2,9 @@ import React,{useState,useEffect} from 'react';
 import FormInput from "../FormInput/FormInput";
 import FormBtn from "../FormBtn/FormBtn"
 import {EmailStateIsInvalid,FormValidationState} from "../../Utilities/helper"
-import {addEmployee} from "../../apis/Employee"
+import {addEmployee} from "../../apis/EmployeeApi"
 import PopUp from "../PopUp/PopUp";
-import "./AddEmployee.css"
+import "./AddEmployee.css";
 
 export default function AddEmployee() {
     const [boolenStates,setBooleanStates]=useState(FormValidationState)

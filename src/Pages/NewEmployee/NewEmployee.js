@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React from 'react'
 import PageLayout from "../../components/PageLayout/PageLayout";
 import AddEmployee from "../../components/AddEmployee/AddEmployee"
 

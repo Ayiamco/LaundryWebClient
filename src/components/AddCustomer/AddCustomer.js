@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from "react";
 import { useLocation} from "react-router-dom";
 import {useHistory} from "react-router-dom";
-import {PasswordsAreNotValid,EmailStateIsInvalid,FormValidationState} from "../../Utilities/helper";
+import {EmailStateIsInvalid,FormValidationState} from "../../Utilities/helper";
 import FormInput from "../FormInput/FormInput";
 import FormBtn from "../FormBtn/FormBtn";
 import {addCustomer} from "../../apis/Customer"
@@ -84,7 +84,6 @@ export default function AddCustomer(){
     return (
         <div className="AC-con">
             <PopUp message={errorMessage} display="failure" shouldPopUpDisplay={networkError}></PopUp>
-            {/* <p style={{display:networkError,color:"red",fontSize:"0.8em",paddingLeft:"2em"}}>{errorMessage}</p> */}
             
             <form onSubmit={handleForm} >
                 

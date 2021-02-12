@@ -1,4 +1,4 @@
-const  loginUser = async (username,password)=>{
+const  loginUser = async (formData)=>{
 
     let resp =await fetch("https://localhost:44322/api/account/login",{
             method:"POST",
@@ -7,8 +7,9 @@ const  loginUser = async (username,password)=>{
             },
             mode:'cors',
             body: JSON.stringify({
-                "username":username,
-                "password":password,
+                "username":formData.username,
+                "password":formData.password,
+                "role": formData.role ===undefined ? null : formData.role
                 
             })
         }).then(res=> {

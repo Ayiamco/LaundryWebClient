@@ -39,9 +39,15 @@ function LoginForm(){
         });
         
         //authenticate user
-        let res =  await loginUser(formData.username,formData.password)
-        //Reset states based on server response
-        if(res.statusCode==="400"){
+        let res =  await loginUser(formData)
+        if(res.statusCode==="400" && res.message==="username is tied to two roles"){
+            console.log("user has two roles");
+            setnetworkError("none");
+            localStorage.setItem("username",formData.username);
+            localStorage.setItem("password",formData.password);
+            history.push("/account/select") 
+        }
+        else if(res.statusCode==="400"){
             setErrorMessage(()=> {return res.message})
             setnetworkError( "block")
             setboolStates(prev=>{
@@ -74,6 +80,8 @@ function LoginForm(){
             setnetworkError("none")
             history.push('/dashboard');
         }
+
+        
         
         
     }

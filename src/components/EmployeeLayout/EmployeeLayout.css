@@ -1,0 +1,57 @@
+.EL-con {
+  width: 90vw;
+  overflow: auto;
+  margin: 2em auto;
+  border: 2px solid var(--purple-3);
+  margin-top: 2em;
+  padding-top: 1em;
+}
+.EL-con h2 {
+  text-align: center;
+  color: var(--purple-2);
+}
+.EL-btn-del,
+.EL-btn-edit {
+  padding: 0.3em 1em;
+  color: var(--gray-1);
+  width: 5em;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 0.5em;
+}
+
+.EL-btn-del {
+  background-color: rgb(114, 7, 7);
+  border: 1px solid var(--purple-2);
+}
+.EL-btn-edit {
+  background-color: var(--purple-2);
+  border: 1px solid red;
+  margin-right: 0.5em;
+}
+.EL-table {
+  width: 90vw;
+  margin: auto;
+  margin-top: 2em;
+  padding: 1em 2em;
+}
+
+.EL-table th,
+.EL-table td {
+  padding: 15px;
+  text-align: center;
+  border: 1px solid white;
+}
+
+.EL-table tr {
+  border: 1px solid white;
+}
+
+.EL-table tbody tr:nth-child(odd) {
+  background-color: var(--purple-3);
+}
+
+.EL-table thead {
+  background-color: var(--purple-2);
+  color: var(--gray-1);
+}

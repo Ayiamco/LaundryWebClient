@@ -3,6 +3,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: white;
+  width: 100vw;
+  margin-top: 0px;
+  padding: 2em;
 }
 
 .LH-img-con {
@@ -24,5 +28,10 @@
 @media only screen and (min-width: 700px) {
   .LH-con h1 {
     text-align: center;
+  }
+  .LH-con {
+    width: 100%;
+    margin-top: 0px;
+    padding: 2em;
   }
 }
