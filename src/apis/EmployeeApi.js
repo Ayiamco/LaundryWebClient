@@ -1,6 +1,6 @@
 export const addEmployee= async (email)=>{
     const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
-    console.log(token)
+
     let resp =await fetch("https://localhost:44322/api/employee/add",{
             method:"POST",
             headers:{
@@ -18,7 +18,7 @@ export const addEmployee= async (email)=>{
                     "statusCode":"500"
                 };
         })
-
+     console.log(resp)
     return resp;
 }
 
@@ -51,6 +51,29 @@ export async function getEmployees(page,searchParam){
     url=searchParam !== null ?  url+`&name=${searchParam}`: url + "&name=";
     const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
     
+    let resp =await fetch(url,{
+            method:"GET",
+            headers:{
+                "Content-Type":'application/json; charset=utf-8',
+                "Authorization":token
+            },
+            mode:'cors',
+        }).then(res=> {
+            return res.json()
+        }).catch( (e)=>{
+            console.log(e)
+            return {
+                    "statusCode":"500"
+                };
+        })
+    console.log(resp)
+    return resp;
+}
+
+export async function findEmployee(employeeId){
+    let url="https://localhost:44322/api/employee/" + employeeId;
+    console.log(url)
+    const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
     let resp =await fetch(url,{
             method:"GET",
             headers:{

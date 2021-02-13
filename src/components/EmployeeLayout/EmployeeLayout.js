@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useHistory } from "react-router-dom";
-import { getEmployees, deleteEmployee } from "../../apis/EmployeeApi";
+import { getEmployees} from "../../apis/EmployeeApi";
+import {toTitleCase} from "../../Utilities/helper"
 import "./EmployeeLayout.css";
-import Modal from "react-modal";
+import EmployeeLayoutModal from "../../components/AppModals/Components/EmployeeLayoutModal";
 
-Modal.setAppElement("#root");
 export default function EmployeeLayout() {
   const [employeeList, setEmployeeList] = useState([]);
-  const [modalIsOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [page, setPage] = useState(useQuery().get("page"));
   const [searchParam,setSearchParam]=useState(useQuery().get("name"))
   const [inputValue,setInputValue]=useState("")
   const [maxPageIndex, setMaxPageIndex] = useState(1);
+  const [employeeId,setEmployeeId]=useState("");
+  const [employeeName,setEmployeeName]=useState("");
+  const [modalType,setModalType]=useState("")
   let history = useHistory();
 
   function useQuery() {
@@ -23,10 +26,11 @@ export default function EmployeeLayout() {
 
    function handleInput(e){
        setInputValue(e.target.value)
-       setSearchParam(e.target.value)
+       setSearchParam(e.target.value.toLowerCase())
    }
   const getData = async () => {
     let resp = await getEmployees(page,searchParam);
+    console.log(resp)
     if (resp.statusCode === "200") {
       setEmployeeList(resp.data.data);
       setMaxPageIndex(resp.data.maxPageIndex);
@@ -46,21 +50,29 @@ export default function EmployeeLayout() {
     getData();
   }, [page,searchParam]);
 
-  async function confirmDelete(e) {
-    if (e.target.name === "delete-employee") {
-      setIsModalOpen(true);
-    } else if (e.target.name === "delete-no") {
-      setIsModalOpen(false);
-    } else if (e.target.name === "delete-yes") {
-      let id = e.target.id;
-      await deleteEmployee(id.split("//")[1]);
-      getData();
-      setIsModalOpen(false);
+  async function handleModals(e) {
+    let id = e.target.id.split("//")[1];
+    setEmployeeName(e.target.name.split("//")[1])
+    if (e.target.name.includes("delete-employee")) {
+      setModalType("DeleteEmployeeModal")
+    } 
+    else if(e.target.name.includes("employee-detail")){ 
+      setModalType("EmployeeDetailsModal")
     }
+    console.log(id)
+    setEmployeeId(id);
+    setIsModalOpen(true);
+    
+    
   }
 
   return (
     <div className="EL-con">
+      <EmployeeLayoutModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
+        id={employeeId} modalType={modalType} name={employeeName}
+      >
+
+      </EmployeeLayoutModal>
       <div className="EL-con-header">
         <h2>My Employees</h2>
         <div>
@@ -86,56 +98,16 @@ export default function EmployeeLayout() {
             {employeeList.map((employee) => {
               return (
                 <tr key={employee.id}>
-                  <td>{employee.name}</td>
+                  <td>
+                    <button  className="EL-btn-detail" name={`employee-detail//${employee.name}`} onClick={handleModals} 
+                      id={"id//"+ employee.id} children={toTitleCase(employee.name)}
+                    />
+                  </td>
                   <td>{employee.revenue}</td>
                   <td>{employee.noOfCustomers}</td>
                   <td>
-                    <button
-                      data-id={employee.id}
-                      className="EL-btn-edit EL-btn"
-                      name="edit-employee"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      data-id={employee.id}
-                      className="EL-btn-del EL-btn"
-                      name="delete-employee"
-                      onClick={confirmDelete}
-                    >
-                      <Modal
-                        isOpen={modalIsOpen}
-                        onRequestClose={() => {
-                          return setIsModalOpen(false);
-                        }}
-                        shouldCloseOnOverlayClick={false}
-                        className="EL-modal"
-                        overlayClassName="EL-modal-overlay"
-                      >
-                        <div className="EL-popup">
-                          <p className="EL-block">
-                            Are you sure you want to delete
-                          </p>
-
-                          <div className="EL-popup-btm">
-                            <button
-                              className="EL-btn EL-btn-del"
-                              id={"delete//" + employee.id}
-                              onClick={confirmDelete}
-                              name="delete-yes"
-                            >
-                              Yes
-                            </button>
-                            <button
-                              onClick={confirmDelete}
-                              name="delete-no"
-                              className="EL-btn EL-btn-edit"
-                            >
-                              No
-                            </button>
-                          </div>
-                        </div>
-                      </Modal>
+                    <button className="EL-btn-del EL-btn" name={`delete-employee//${employee.name}`} 
+                      onClick={handleModals} id={"id//"+ employee.id}>
                       Delete
                     </button>
                   </td>

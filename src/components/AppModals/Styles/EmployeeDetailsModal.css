@@ -1,0 +1,45 @@
+.EDM-modal {
+  position: fixed;
+  top: 30%;
+  left: 0.8em;
+  right: 0.8em;
+  bottom: 2em;
+  border: 1px solid #ccc;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 5px;
+  outline: none;
+  padding: 0.7em 1.5em;
+  width: calc(100% - 2em);
+  height: fit-content;
+  color: #fff;
+  background: green;
+}
+.EDM-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  -pie-background: rgba(0, 0, 0, 0.8);
+  z-index: 100;
+}
+.EDM-details p {
+  margin: 0.5em 0em;
+}
+.EDM-details span {
+  font-weight: bold;
+}
+
+.EDM-h2 {
+  text-align: center;
+}
+
+@media only screen and (min-width: 700px) {
+  .EDM-modal {
+    margin: auto;
+    margin-left: 33%;
+    width: 50%;
+  }
+}

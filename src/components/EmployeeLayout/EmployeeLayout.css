@@ -46,10 +46,7 @@
   border: 1px solid var(--purple-2);
   display: inline-block;
 }
-.EL-btn-edit {
-  background-color: var(--purple-2);
-  border: 1px solid red;
-}
+
 .EL-btn-pagination {
   display: flex;
   justify-content: center;
@@ -97,49 +94,12 @@
   font-size: small;
   margin: 1em 0.5em;
 }
-
-.EL-popup {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: large;
-}
-
-.EL-popup-btm {
-  margin-top: 1em;
-}
-
-.EL-modal {
-  position: fixed;
-  top: 2em;
-  left: 0.8em;
-  right: 0.8em;
-  bottom: 2em;
-  border: 1px solid #ccc;
-  background: green;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  border-radius: 5px;
+.EL-btn-detail {
+  border: 0px;
+  color: var(--purple-2);
+  cursor: pointer;
   outline: none;
-  padding: 0.7em 1.5em;
-  box-shadow: 5px 5px 5px rgb(216, 211, 211);
-  z-index: 100000;
-  width: calc(100% - 2em);
-  margin: auto;
-  height: fit-content;
-  color: white;
-  opacity: 1;
-}
-.EL-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(255, 255, 255, 0.75);
-  z-index: 100;
-  opacity: 0.5;
+  background-color: inherit;
 }
 
 @media only screen and (min-width: 700px) {
@@ -159,9 +119,5 @@
     bottom: 3em;
     left: 25%;
     margin: 0;
-  }
-
-  .EL-modal {
-    margin-left: 33%;
   }
 }
