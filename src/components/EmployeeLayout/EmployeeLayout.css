@@ -1,14 +1,35 @@
+/* Employee Layout componet style section */
 .EL-con {
   width: 90vw;
-  overflow: auto;
   margin: 2em auto;
   border: 2px solid var(--purple-3);
   margin-top: 2em;
   padding-top: 1em;
+  padding-bottom: 2em;
 }
-.EL-con h2 {
-  text-align: center;
+.EL-con-header {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   color: var(--purple-2);
+  padding: 1em 2.2em;
+  align-items: center;
+}
+
+.EL-con-header input,
+.EL-con-header button {
+  height: 2em;
+  margin-top: 1em;
+}
+.EL-con-header input,
+.EL-con-header input::placeholder {
+  padding-left: 0.5em;
+}
+.EL-con-header button {
+  margin-left: 0.5em;
+  padding: 0 1em;
+  background-color: var(--purple-2);
+  color: white;
 }
 .EL-btn {
   padding: 0.6em 1em;
@@ -36,10 +57,13 @@
 .EL-btn-pagination button {
   background-color: var(--purple-2);
 }
+
+/* Employee Layout component table section styles  */
+.EL-table-con {
+  overflow: auto;
+}
 .EL-table {
-  width: 90vw;
   margin: auto;
-  margin-top: 2em;
   padding: 1em 2em;
 }
 
@@ -68,13 +92,76 @@
   color: var(--gray-1);
 }
 
+.EL-ft {
+  font-weight: bold;
+  font-size: small;
+  margin: 1em 0.5em;
+}
+
+.EL-popup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: large;
+}
+
+.EL-popup-btm {
+  margin-top: 1em;
+}
+
+.EL-modal {
+  position: fixed;
+  top: 2em;
+  left: 0.8em;
+  right: 0.8em;
+  bottom: 2em;
+  border: 1px solid #ccc;
+  background: green;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 5px;
+  outline: none;
+  padding: 0.7em 1.5em;
+  box-shadow: 5px 5px 5px rgb(216, 211, 211);
+  z-index: 100000;
+  width: calc(100% - 2em);
+  margin: auto;
+  height: fit-content;
+  color: white;
+  opacity: 1;
+}
+.EL-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.75);
+  z-index: 100;
+  opacity: 0.5;
+}
+
 @media only screen and (min-width: 700px) {
   .EL-con {
     width: 90%;
     overflow: hidden;
+    min-height: 90%;
+    border: 0;
   }
 
   .EL-table {
     width: 100%;
+  }
+
+  .EL-ft {
+    position: absolute;
+    bottom: 3em;
+    left: 25%;
+    margin: 0;
+  }
+
+  .EL-modal {
+    margin-left: 33%;
   }
 }

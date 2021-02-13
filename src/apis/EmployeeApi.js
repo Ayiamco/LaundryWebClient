@@ -46,9 +46,11 @@ let resp =await fetch("https://localhost:44322/api/employee/new",{
     return resp;
 }
 
-export async function getEmployees(page){
-    const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
+export async function getEmployees(page,searchParam){
     let url="https://localhost:44322/api/employee/?page=" + (page===null ? 1 : page);
+    url=searchParam !== null ?  url+`&name=${searchParam}`: url + "&name=";
+    const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
+    
     let resp =await fetch(url,{
             method:"GET",
             headers:{

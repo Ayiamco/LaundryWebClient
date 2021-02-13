@@ -1,104 +1,173 @@
-import React,{useEffect,useState} from 'react';
-import {useLocation,useHistory} from "react-router-dom";
-import {getEmployees,deleteEmployee} from "../../apis/EmployeeApi";
-import "./EmployeeLayout.css"
-import Modal from 'react-modal';
+import React, { useEffect, useState } from "react";
+import { useLocation, useHistory } from "react-router-dom";
+import { getEmployees, deleteEmployee } from "../../apis/EmployeeApi";
+import "./EmployeeLayout.css";
+import Modal from "react-modal";
 
-Modal.setAppElement("#root")
+Modal.setAppElement("#root");
 export default function EmployeeLayout() {
-    const [employeeList,setEmployeeList]=useState([])
-    const [modalIsOpen,setIsModalOpen]=useState(false);
-    const [page,setPage]=useState(useQuery().get("page"))
-    let history=useHistory();
+  const [employeeList, setEmployeeList] = useState([]);
+  const [modalIsOpen, setIsModalOpen] = useState(false);
+  const [page, setPage] = useState(useQuery().get("page"));
+  const [searchParam,setSearchParam]=useState(useQuery().get("name"))
+  const [inputValue,setInputValue]=useState("")
+  const [maxPageIndex, setMaxPageIndex] = useState(1);
+  let history = useHistory();
 
-    function useQuery() {
-        return new URLSearchParams(useLocation().search);
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
+   function handleForm(e){
+        e.preventDefault()
+   }
+
+   function handleInput(e){
+       setInputValue(e.target.value)
+       setSearchParam(e.target.value)
+   }
+  const getData = async () => {
+    let resp = await getEmployees(page,searchParam);
+    if (resp.statusCode === "200") {
+      setEmployeeList(resp.data.data);
+      setMaxPageIndex(resp.data.maxPageIndex);
+      setPage(resp.data.pageIndex);
+
+    if(searchParam!==null){
+        history.push(`/employees?page=${resp.data.pageIndex}&name=${searchParam}`);
     }
-    
-    const getData = async ()=>{
-        console.log("function called",employeeList.length)
-        let resp= await getEmployees(page);
-        console.log(resp)
-        if(resp.statusCode==="200"){
-            setEmployeeList(resp.data.data);
-            history.push("/employees?page="+ resp.data.pageNumber)
-        }
+    else{
+        history.push(`/employees?page=${resp.data.pageIndex}`);
     }
-
-    useEffect(()=>{
-        console.log("page:",page)
-        getData()
-    },[page])
-
-    async function confirmDelete(e){
-        if(e.target.name==="delete-employee"){
-            setIsModalOpen(true)
-        }
-        else if(e.target.name==="delete-no"){
-            setIsModalOpen(false);
-        }
-
-        else if(e.target.name==="delete-yes"){
-            let id =e.target.id;
-            let resp=await  deleteEmployee(id.split("//")[1])
-            console.log(resp)
-            getData()
-            setIsModalOpen(false)
-        }
-        
+      
     }
+  };
 
-    return (
-        <div className="EL-con">
-            <h2>My Employees</h2>
-            {
-                 employeeList.lenght ===0 ? <div>You have not Added your employees</div> :
-                 <table className="EL-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Revenue</th>
-                        <th>No of Customers</th>
-                        <th></th>
-                    </tr>
-                    
-                </thead>
-                <tbody>
-                    {
-                       
-                        employeeList.map((employee)=>{
-                           return (
-                             <tr key={employee.id}>
-                                <td>{employee.name}</td>
-                                <td>{employee.revenue}</td>
-                                <td>{employee.noOfCustomers}</td>
-                                <td>
-                                    <button data-id={employee.id} className="EL-btn-edit EL-btn" name="edit-employee">Edit</button>
-                                    <button data-id={employee.id} className="EL-btn-del EL-btn" name="delete-employee" onClick={confirmDelete}>
-                                        <Modal isOpen={modalIsOpen} onRequestClose={()=>{return setIsModalOpen(false)}}
-                                        shouldCloseOnOverlayClick={false} className="modal" overlayClassName="modal-overlay"
-                                        >
-                                            <p>Are you sure you want to delete</p>
-                                            <button className="EL-btn" id={"delete//"+employee.id} onClick={confirmDelete} name="delete-yes">Yes</button>
-                                            <button  onClick={confirmDelete} name="delete-no" className="EL-btn">No</button>
-                                        </Modal>
-                                        Delete
-                                    </button>
-                                </td>
-                                
-                            </tr>  
-                           ) 
-                        })
-                    }
-                </tbody>
+  useEffect(() => {
+    getData();
+  }, [page,searchParam]);
 
-            </table>
-            }
-            <div className="EL-btn-pagination">
-                <button className="EL-btn" onClick={()=>{setPage(prev=>(parseInt(prev) -1))}}> Prev</button>
-                <button className="EL-btn" onClick={()=>{setPage(prev=>( parseInt(prev) +1))}}> Next</button>
-            </div>
-            
+  async function confirmDelete(e) {
+    if (e.target.name === "delete-employee") {
+      setIsModalOpen(true);
+    } else if (e.target.name === "delete-no") {
+      setIsModalOpen(false);
+    } else if (e.target.name === "delete-yes") {
+      let id = e.target.id;
+      await deleteEmployee(id.split("//")[1]);
+      getData();
+      setIsModalOpen(false);
+    }
+  }
+
+  return (
+    <div className="EL-con">
+      <div className="EL-con-header">
+        <h2>My Employees</h2>
+        <div>
+          <form onSubmit={handleForm}>
+            <input placeholder="Enter employee name" onChange={handleInput} value={inputValue}></input>
+            <button>Search</button>
+          </form>
         </div>
-    )
+      </div>
+
+      <div style={{ display: employeeList.lenght === 0 ? "none" : "block" }} >
+        <div className="EL-table-con">
+            <table className="EL-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Revenue</th>
+              <th>No of Customers</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {employeeList.map((employee) => {
+              return (
+                <tr key={employee.id}>
+                  <td>{employee.name}</td>
+                  <td>{employee.revenue}</td>
+                  <td>{employee.noOfCustomers}</td>
+                  <td>
+                    <button
+                      data-id={employee.id}
+                      className="EL-btn-edit EL-btn"
+                      name="edit-employee"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      data-id={employee.id}
+                      className="EL-btn-del EL-btn"
+                      name="delete-employee"
+                      onClick={confirmDelete}
+                    >
+                      <Modal
+                        isOpen={modalIsOpen}
+                        onRequestClose={() => {
+                          return setIsModalOpen(false);
+                        }}
+                        shouldCloseOnOverlayClick={false}
+                        className="EL-modal"
+                        overlayClassName="EL-modal-overlay"
+                      >
+                        <div className="EL-popup">
+                          <p className="EL-block">
+                            Are you sure you want to delete
+                          </p>
+
+                          <div className="EL-popup-btm">
+                            <button
+                              className="EL-btn EL-btn-del"
+                              id={"delete//" + employee.id}
+                              onClick={confirmDelete}
+                              name="delete-yes"
+                            >
+                              Yes
+                            </button>
+                            <button
+                              onClick={confirmDelete}
+                              name="delete-no"
+                              className="EL-btn EL-btn-edit"
+                            >
+                              No
+                            </button>
+                          </div>
+                        </div>
+                      </Modal>
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        </div>
+        <div className="EL-btn-pagination">
+          <button
+            style={{ display: parseInt(page) === 1 ? "none" : "block" }} className="EL-btn"
+            onClick={() => {setPage((prev) => parseInt(prev) - 1);}} >
+            Prev
+          </button>
+          <button
+            style={{
+              display: parseInt(page) === maxPageIndex ? "none" : "block",
+            }}
+            className="EL-btn"
+            onClick={() => {
+              setPage((prev) => parseInt(prev) + 1);
+            }}
+          >
+            {" "}
+            Next
+          </button>
+        </div>
+        <p className="EL-ft">
+          Showing page {page} of {maxPageIndex}
+        </p>
+      </div>
+    </div>
+  );
 }
