@@ -84,7 +84,7 @@ export default function AddCustomer(){
     return (
         <div className="AC-con">
             <PopUp message={errorMessage} display="failure" shouldPopUpDisplay={networkError}></PopUp>
-            
+            <h1>Add Customer</h1>
             <form onSubmit={handleForm} >
                 
                 <FormInput type="text" placeholder=" Full Name" name="name" handleInput={handleInput}

@@ -1,16 +1,20 @@
-.AC-con{
-    width: 70%;
-    margin: auto;
+.AC-con {
+  width: 70%;
+  margin: auto;
+}
+.AC-con h1 {
+  text-align: center;
+  margin-top: 2em;
+  color: var(--purple-2);
+}
+@media only screen and (min-width: 500px) {
+  .AC-con {
+    width: 60%;
+  }
 }
 
-@media only screen and (min-width:500px){
-    .AC-con{
-        width:60%;
-    }
-}
-
-@media only screen and (min-width:700px){
-    .AC-con{
-        width:50%;
-    }
+@media only screen and (min-width: 700px) {
+  .AC-con {
+    width: 50%;
+  }
 }
