@@ -1,75 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useHistory } from "react-router-dom";
-import { getEmployees} from "../../apis/EmployeeApi";
+import React from "react";
 import {toTitleCase} from "../../Utilities/helper"
 import "./EmployeeLayout.css";
 import EmployeeLayoutModal from "../../components/AppModals/Components/EmployeeLayoutModal";
+import usePagedList from "../../CustomHooks/usePagedList";
+import useModals from "../../CustomHooks/useModals";
 
 export default function EmployeeLayout() {
-  const [employeeList, setEmployeeList] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [page, setPage] = useState(useQuery().get("page"));
-  const [searchParam,setSearchParam]=useState(useQuery().get("name"))
-  const [inputValue,setInputValue]=useState("")
-  const [maxPageIndex, setMaxPageIndex] = useState(1);
-  const [employeeId,setEmployeeId]=useState("");
-  const [employeeName,setEmployeeName]=useState("");
-  const [modalType,setModalType]=useState("")
-  let history = useHistory();
-
-  function useQuery() {
-    return new URLSearchParams(useLocation().search);
-  }
-   function handleForm(e){
-        e.preventDefault()
-   }
-
-   function handleInput(e){
-       setInputValue(e.target.value)
-       setSearchParam(e.target.value.toLowerCase())
-   }
-  const getData = async () => {
-    let resp = await getEmployees(page,searchParam);
-    console.log(resp)
-    if (resp.statusCode === "200") {
-      setEmployeeList(resp.data.data);
-      setMaxPageIndex(resp.data.maxPageIndex);
-      setPage(resp.data.pageIndex);
-
-    if(searchParam!==null){
-        history.push(`/employees?page=${resp.data.pageIndex}&name=${searchParam}`);
-    }
-    else{
-        history.push(`/employees?page=${resp.data.pageIndex}`);
-    }
-      
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, [page,searchParam]);
-
-  async function handleModals(e) {
-    let id = e.target.id.split("//")[1];
-    setEmployeeName(e.target.name.split("//")[1])
-    if (e.target.name.includes("delete-employee")) {
-      setModalType("DeleteEmployeeModal")
-    } 
-    else if(e.target.name.includes("employee-detail")){ 
-      setModalType("EmployeeDetailsModal")
-    }
-    console.log(id)
-    setEmployeeId(id);
-    setIsModalOpen(true);
-    
-    
-  }
-
+  const [itemList,page,inputValue,maxPageIndex,handleInput,handleForm,setPage]= usePagedList("employee");
+  const [isModalOpen ,setIsModalOpen,entityId,modalType, entityName,handleModals]=useModals();
+  
   return (
     <div className="EL-con">
       <EmployeeLayoutModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
-        id={employeeId} modalType={modalType} name={employeeName}
+        id={entityId} modalType={modalType} name={entityName}
       >
 
       </EmployeeLayoutModal>
@@ -81,9 +24,10 @@ export default function EmployeeLayout() {
             <button>Search</button>
           </form>
         </div>
+        <p style={{ display: itemList.length ? "none" : "block" }}>No employee matches your search</p>
       </div>
 
-      <div style={{ display: employeeList.lenght === 0 ? "none" : "block" }} >
+      <div style={{ display: itemList.length ? "block" : "none" }} >
         <div className="EL-table-con">
             <table className="EL-table">
           <thead>
@@ -95,7 +39,7 @@ export default function EmployeeLayout() {
             </tr>
           </thead>
           <tbody>
-            {employeeList.map((employee) => {
+            {itemList.map((employee) => {
               return (
                 <tr key={employee.id}>
                   <td>

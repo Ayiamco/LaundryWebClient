@@ -4,8 +4,8 @@ import {toTitleCase} from "../../Utilities/helper"
 
 
 export default function CustomerLayout() {
-    const[itemList,page,searchParam,inputValue,maxPageIndex,
-        setInputValue,handleInput,handleForm,setPage] = usePagedList("customers");
+    const[itemList,page,inputValue,maxPageIndex,
+        handleInput,handleForm,setPage] = usePagedList("customer");
     // const [isModalOpen, setIsModalOpen] = useState(false);
     // const [employeeId,setEmployeeId]=useState("");
     // const [employeeName,setEmployeeName]=useState("");
@@ -40,9 +40,10 @@ export default function CustomerLayout() {
             <button>Search</button>
           </form> 
         </div>
+        <p style={{ display: itemList.length ? "none" : "block" }}>No employee matches your search</p>
       </div>
 
-      <div style={{ display: itemList.lenght === 0 ? "none" : "block" }} >
+      <div style={{ display: itemList.lenght  ? "none" : "block" }} >
         <div className="EL-table-con">
             <table className="EL-table">
           <thead>

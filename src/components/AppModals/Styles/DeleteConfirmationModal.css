@@ -1,4 +1,4 @@
-.DEM-modal {
+.DCM-modal {
   position: fixed;
   top: 2em;
   left: 0.8em;
@@ -15,7 +15,7 @@
   color: #fff;
   background: rgba(101, 8, 140, 1);
 }
-.DEM-modal-overlay {
+.DCM-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -26,7 +26,7 @@
   z-index: 100;
 }
 
-#DEM-popup {
+#DCM-popup {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,27 +37,27 @@
   position: relative;
 }
 
-.DEM-popup-btm {
+.DCM-popup-btm {
   margin-top: 1em;
 }
 
-#DEM-popup p:nth-child(1) {
+#DCM-popup p:nth-child(1) {
   font-weight: bold;
 }
-.DEM-btn {
+.DCM-btn {
   padding: 0.5em 1.5em;
   border-radius: 5px;
   color: white;
   margin: 0.5em;
 }
-.DEM-btn-del {
+.DCM-btn-del {
   background-color: rgb(167, 18, 18);
 }
-.DEM-btn-no {
+.DCM-btn-no {
   background-color: green;
 }
 @media only screen and (min-width: 700px) {
-  .DEM-modal {
+  .DCM-modal {
     margin: auto;
     margin-left: 33%;
     width: 50%;

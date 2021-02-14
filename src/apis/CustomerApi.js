@@ -75,3 +75,26 @@ export async function getCustomers(page,searchParam){
     console.log(resp)
     return resp;
 }
+
+export async function deleteCustomer(id){
+     const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
+     const url = "https://localhost:44322/api/customer/delete/"+ id
+    
+    let resp =await fetch(url,{
+            method:"DELETE",
+            headers:{
+                "Content-Type":'application/json; charset=utf-8',
+                "Authorization":token
+            },
+            mode:'cors',
+            
+        }).then(res=> {
+            return res.json()
+        }).catch( (e)=>{
+            return {
+                    "statusCode":"500"
+                };
+        })
+
+    return resp;
+}

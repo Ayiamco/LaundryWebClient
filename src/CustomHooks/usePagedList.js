@@ -6,8 +6,8 @@ import {getCustomers} from "../apis/CustomerApi";
 
 
 const Apis={
-    "employees": getEmployees,
-    "customers": getCustomers,
+    "employee": getEmployees,
+    "customer": getCustomers,
 }
 export default function usePagedList(entity) {
     const [itemList, setitemList] = useState([])
@@ -19,7 +19,7 @@ export default function usePagedList(entity) {
 
     function handleInput(e){
        setInputValue(e.target.value)
-       setSearchParam(e.target.value.toLowerCase())
+       setSearchParam(e.target.value)
     }
 
    function handleForm(e){
@@ -39,13 +39,13 @@ export default function usePagedList(entity) {
                 setMaxPageIndex(resp.data.maxPageIndex);
                 setPage(resp.data.pageIndex);
 
-                searchParam ? history.push(`/${entity}?page=${resp.data.pageIndex}&name=${searchParam}`)    
-                                : history.push(`/${entity}?page=${resp.data.pageIndex}`);
+                searchParam ? history.push(`/${entity}s?page=${resp.data.pageIndex}&name=${searchParam}`)    
+                                : history.push(`/${entity}s?page=${resp.data.pageIndex}`);
         
             }
         };
         getData();
     }, [page,searchParam]);
-    return [itemList,page,searchParam,inputValue,maxPageIndex,setInputValue,handleInput,handleForm]
+    return [itemList,page,inputValue,maxPageIndex,handleInput,handleForm,setPage]
     
 }

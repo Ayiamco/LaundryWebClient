@@ -1,15 +1,15 @@
 import React from 'react'
-import  DeleteEmployeeModal from "./DeleteEmployeeModal"
+import  DeleteConfirmationModal from "./DeleteConfirmationModal"
 import EmployeeDetailsModal from "./EmployeeDetailsModal"
 export default function EmployeeLayoutModal({id,name,isModalOpen, setIsModalOpen, modalType}) {
     return (
         <div>
             {
-                modalType==="DeleteEmployeeModal" ? 
-                <DeleteEmployeeModal modalIsOpen={isModalOpen} setIsModalOpen={setIsModalOpen} id={id}
-                    name={name} 
+                modalType==="DeleteConfirmationModal" ? 
+                <DeleteConfirmationModal modalIsOpen={isModalOpen} setIsModalOpen={setIsModalOpen} id={id}
+                    name={name}  entityToDelete="employee"
                 >
-                </DeleteEmployeeModal>
+                </DeleteConfirmationModal>
                 :
                 <EmployeeDetailsModal  modalIsOpen={isModalOpen} setIsModalOpen={setIsModalOpen} id={id}
                 >
