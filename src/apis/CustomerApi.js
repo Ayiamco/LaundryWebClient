@@ -98,3 +98,26 @@ export async function deleteCustomer(id){
 
     return resp;
 }
+
+export async function findCustomer(customerId){
+    let url="https://localhost:44322/api/customer/" + customerId;
+    console.log(url)
+    const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
+    let resp =await fetch(url,{
+            method:"GET",
+            headers:{
+                "Content-Type":'application/json; charset=utf-8',
+                "Authorization":token
+            },
+            mode:'cors',
+        }).then(res=> {
+            return res.json()
+        }).catch( (e)=>{
+            console.log(e)
+            return {
+                    "statusCode":"500"
+                };
+        })
+    console.log(resp)
+    return resp;
+}

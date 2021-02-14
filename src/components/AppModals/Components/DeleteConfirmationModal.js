@@ -26,7 +26,7 @@ export default function DeleteConfirmationModal({modalIsOpen,setIsModalOpen,id,n
         >
             <div id="DCM-popup">
                 <p >Warning: This action cannot be reversed</p>
-                <p >Do you still want to delete {name} employee account?</p>
+                <p >Do you still want to delete {name} {entityToDelete} account?</p>
                 <div className="DCM-popup-btm">
                     <button className="DCM-btn DCM-btn-del" id={"delete//"+id} onClick={confirmDelete} name="delete-yes">
                         Yes

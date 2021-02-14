@@ -1,7 +1,7 @@
 import React from "react";
 import {toTitleCase} from "../../Utilities/helper"
 import "./EmployeeLayout.css";
-import EmployeeLayoutModal from "../../components/AppModals/Components/EmployeeLayoutModal";
+import ModalSelector from "../AppModals/Components/ModalSelector";
 import usePagedList from "../../CustomHooks/usePagedList";
 import useModals from "../../CustomHooks/useModals";
 
@@ -11,11 +11,10 @@ export default function EmployeeLayout() {
   
   return (
     <div className="EL-con">
-      <EmployeeLayoutModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
+      <ModalSelector isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
         id={entityId} modalType={modalType} name={entityName}
-      >
+      />
 
-      </EmployeeLayoutModal>
       <div className="EL-con-header">
         <h2>My Employees</h2>
         <div>

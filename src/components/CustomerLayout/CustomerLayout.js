@@ -1,37 +1,22 @@
 import React,{useState} from 'react'
+import useModals from '../../CustomHooks/useModals';
 import usePagedList from "../../CustomHooks/usePagedList";
 import {toTitleCase} from "../../Utilities/helper"
+import ModalSelector from '../AppModals/Components/ModalSelector';
 
 
 export default function CustomerLayout() {
     const[itemList,page,inputValue,maxPageIndex,
         handleInput,handleForm,setPage] = usePagedList("customer");
-    // const [isModalOpen, setIsModalOpen] = useState(false);
-    // const [employeeId,setEmployeeId]=useState("");
-    // const [employeeName,setEmployeeName]=useState("");
-    // const [modalType,setModalType]=useState("")
+    const [isModalOpen ,setIsModalOpen,entityId,modalType, entityName,GenerateModal]=useModals();
     
-
-    // async function handleModals(e) {
-    //     let id = e.target.id.split("//")[1];
-    //     setEmployeeName(e.target.name.split("//")[1])
-    //     if (e.target.name.includes("delete-employee")) {
-    //         setModalType("DeleteEmployeeModal")
-    //     } 
-    //     else if(e.target.name.includes("employee-detail")){ 
-    //     setModalType("EmployeeDetailsModal")
-    //     }
-    //     console.log(id)
-    //     setEmployeeId(id);
-    //     setIsModalOpen(true);
-    // }
-
+    
   return (
     <div className="EL-con">
-      {/* <EmployeeLayoutModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
-        id={employeeId} modalType={modalType} name={employeeName}
-      >
-      </EmployeeLayoutModal> */}
+      <ModalSelector isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
+        id={entityId} modalType={modalType} name={entityName}
+      />
+      
       <div className="EL-con-header">
         <h2>My Customers</h2>
         <div>
@@ -58,14 +43,14 @@ export default function CustomerLayout() {
               return (
                 <tr key={customer.id}>
                   <td>
-                    <button  className="EL-btn-detail" name={`employee-detail//${customer.name}`}  
-                      id={"id//"+ customer.id} children={toTitleCase(customer.name)}
+                    <button  className="EL-btn-detail" name={`customer-details//${customer.name}`}  
+                      id={"id//"+ customer.id} children={toTitleCase(customer.name)} onClick={GenerateModal}
                     />
                   </td>
                   <td>{customer.totalPurchase}</td>
                   <td>
-                    <button className="EL-btn-del EL-btn" name={`delete-employee//${customer.name}`} 
-                       id={"id//"+ customer.id}>
+                    <button className="EL-btn-del EL-btn" name={`delete-customer//${customer.name}`} 
+                       id={"id//"+ customer.id} onClick={GenerateModal}> 
                       Delete
                     </button>
                   </td>

@@ -8,19 +8,23 @@ export default function useModals() {
   
 
   
-  async function handleModals(e) {
-    let id = e.target.id.split("//")[1];
+  async function SelectModal(e) {
     setEntityName(e.target.name.split("//")[1])
     if (e.target.name.includes("delete-employee")) {
-        console.log("del clicked")
-      setModalType("DeleteConfirmationModal")
+      setModalType("EmployeeDeleteConfirmationModal")
     } 
-    else if(e.target.name.includes("employee-detail")){ 
+    else if (e.target.name.includes("delete-customer")) {
+      setModalType("CustomerDeleteConfirmationModal")
+    } 
+    else if(e.target.name.includes("employee-details")){ 
       setModalType("EmployeeDetailsModal")
     }
-    console.log(id)
-    setEntityId(id);
+    else if(e.target.name.includes("customer-details")){
+      setModalType("CustomerDetailsModal")
+    }
+   
+    setEntityId(e.target.id.split("//")[1]);
     setIsModalOpen(true); 
   }
-    return [isModalOpen ,setIsModalOpen,entityId,modalType, entityName,handleModals];
+    return [isModalOpen ,setIsModalOpen,entityId,modalType, entityName,SelectModal];
 }
