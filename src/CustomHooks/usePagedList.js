@@ -46,6 +46,6 @@ export default function usePagedList(entity) {
         };
         getData();
     }, [page,searchParam]);
-    return [itemList,page,inputValue,maxPageIndex,handleInput,handleForm,setPage]
+    return [itemList,page,inputValue,maxPageIndex,searchParam,handleInput,handleForm,setPage]
     
 }

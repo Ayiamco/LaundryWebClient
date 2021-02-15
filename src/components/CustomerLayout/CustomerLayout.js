@@ -6,7 +6,7 @@ import ModalSelector from '../AppModals/Components/ModalSelector';
 
 
 export default function CustomerLayout() {
-    const[itemList,page,inputValue,maxPageIndex,
+    const[itemList,page,inputValue,maxPageIndex,searchParam,
         handleInput,handleForm,setPage] = usePagedList("customer");
     const [isModalOpen ,setIsModalOpen,entityId,modalType, entityName,GenerateModal]=useModals();
     
@@ -25,10 +25,12 @@ export default function CustomerLayout() {
             <button>Search</button>
           </form> 
         </div>
-        <p style={{ display: itemList.length ? "none" : "block" }}>No employee matches your search</p>
+        <p style={{ display: itemList.length ? "none" : "block" }}>
+          {searchParam ?  "No customer matches your search":"You are yet to add customers to your laundry" }
+        </p>
       </div>
 
-      <div style={{ display: itemList.lenght  ? "none" : "block" }} >
+      <div style={{ display: itemList.lenght  ?  "none": "block" }} >
         <div className="EL-table-con">
             <table className="EL-table">
           <thead>

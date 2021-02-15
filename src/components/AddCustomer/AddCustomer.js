@@ -50,7 +50,7 @@ export default function AddCustomer(){
         else if(registerResp.statusCode==="201"){
             //remove displayed validation errors, save token and redirect to homepage
             RemoveErrors();
-            history.push("/Customer")  
+            history.push("/Customers")  
         }
 
     }

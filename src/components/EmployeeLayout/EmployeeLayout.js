@@ -6,7 +6,7 @@ import usePagedList from "../../CustomHooks/usePagedList";
 import useModals from "../../CustomHooks/useModals";
 
 export default function EmployeeLayout() {
-  const [itemList,page,inputValue,maxPageIndex,handleInput,handleForm,setPage]= usePagedList("employee");
+  const [itemList,page,inputValue,maxPageIndex,searchParam,handleInput,handleForm,setPage]= usePagedList("employee");
   const [isModalOpen ,setIsModalOpen,entityId,modalType, entityName,handleModals]=useModals();
   
   return (
@@ -23,7 +23,9 @@ export default function EmployeeLayout() {
             <button>Search</button>
           </form>
         </div>
-        <p style={{ display: itemList.length ? "none" : "block" }}>No employee matches your search</p>
+        <p style={{ display: itemList.length ? "none" : "block" }}>
+           {searchParam ?  "No employee matches your search":"You are yet to add employees to your laundry" }
+        </p>
       </div>
 
       <div style={{ display: itemList.length ? "block" : "none" }} >

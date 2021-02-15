@@ -78,7 +78,7 @@ export async function getCustomers(page,searchParam){
 
 export async function deleteCustomer(id){
      const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
-     const url = "https://localhost:44322/api/customer/delete/"+ id
+     const url = "https://localhost:44322/api/customer/"+ id
     
     let resp =await fetch(url,{
             method:"DELETE",
@@ -95,7 +95,7 @@ export async function deleteCustomer(id){
                     "statusCode":"500"
                 };
         })
-
+    console.log(resp)
     return resp;
 }
 

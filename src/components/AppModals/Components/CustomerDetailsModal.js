@@ -28,7 +28,7 @@ export default function CustomerDetailsModal({id,modalIsOpen,setIsModalOpen}) {
         <Modal isOpen={modalIsOpen} shouldCloseOnOverlayClick={true} className="EDM-modal"
                 overlayClassName="EDM-modal-overlay" onRequestClose={() => {return setIsModalOpen(false)}}
         >
-            <h2 className="EDM-h2">Customer Details {Object.keys(customer).length ?"Not Found": ""}</h2>
+            <h2 className="EDM-h2">Customer Details { customer ? "": "Not Found"}</h2>
             {
                 Object.keys(customer).length ===0 ? "" :
                 <div className="EDM-details">
