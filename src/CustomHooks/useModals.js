@@ -6,8 +6,6 @@ export default function useModals() {
   const [entityName,setEntityName]=useState("");
   const [modalType,setModalType]=useState("")
   
-
-  
   async function SelectModal(e) {
     setEntityName(e.target.name.split("//")[1])
     if (e.target.name.includes("delete-employee")) {
@@ -22,9 +20,9 @@ export default function useModals() {
     else if(e.target.name.includes("customer-details")){
       setModalType("CustomerDetailsModal")
     }
-   
     setEntityId(e.target.id.split("//")[1]);
     setIsModalOpen(true); 
+    return;
   }
     return [isModalOpen ,setIsModalOpen,entityId,modalType, entityName,SelectModal];
 }

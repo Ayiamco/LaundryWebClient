@@ -6,7 +6,8 @@ import usePagedList from "../../CustomHooks/usePagedList";
 import useModals from "../../CustomHooks/useModals";
 
 export default function EmployeeLayout() {
-  const [itemList,page,inputValue,maxPageIndex,searchParam,handleInput,handleForm,setPage]= usePagedList("employee");
+  const [itemList,page,inputValue,maxPageIndex,searchParam,isLoading,
+    handleInput,handleForm,setPage]= usePagedList("employee");
   const [isModalOpen ,setIsModalOpen,entityId,modalType, entityName,handleModals]=useModals();
   
   return (
@@ -14,10 +15,14 @@ export default function EmployeeLayout() {
       <ModalSelector isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
         id={entityId} modalType={modalType} name={entityName}
       />
+      <h2>My Employees</h2>
+      
+      {
+        isLoading ? "" :
 
-      <div className="EL-con-header">
-        <h2>My Employees</h2>
-        <div>
+        <div className="EL-con-header">
+        
+      <div>
           <form onSubmit={handleForm}>
             <input placeholder="Enter employee name" onChange={handleInput} value={inputValue}></input>
             <button>Search</button>
@@ -26,8 +31,6 @@ export default function EmployeeLayout() {
         <p style={{ display: itemList.length ? "none" : "block" }}>
            {searchParam ?  "No employee matches your search":"You are yet to add employees to your laundry" }
         </p>
-      </div>
-
       <div style={{ display: itemList.length ? "block" : "none" }} >
         <div className="EL-table-con">
             <table className="EL-table">
@@ -84,7 +87,13 @@ export default function EmployeeLayout() {
         <p className="EL-ft">
           Showing page {page} of {maxPageIndex}
         </p>
+        
       </div>
+    
+      </div>
+
+      }
+    
     </div>
   );
 }

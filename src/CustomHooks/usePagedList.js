@@ -1,4 +1,4 @@
-import {useState,useEffect} from 'react';
+import {useState,useEffect,useCallback} from 'react';
 import {useHistory} from "react-router-dom";
 import useQuery from "./useQuery";
 import {getEmployees} from "../apis/EmployeeApi";
@@ -15,6 +15,7 @@ export default function usePagedList(entity) {
     const [searchParam,setSearchParam]=useState(useQuery().get("name"))
     const [inputValue,setInputValue]=useState("")
     const [maxPageIndex, setMaxPageIndex] = useState(1);
+    const [isLoading,setIsLoading]=useState(true);
     const history=useHistory();
 
     function handleInput(e){
@@ -25,16 +26,14 @@ export default function usePagedList(entity) {
    function handleForm(e){
         e.preventDefault()
    }
-    
 
-     useEffect(() => {
-        const getData = 
-        async () => {
+   const getData = useCallback(
+        async () => { 
             const getItems= Apis[entity]
-            console.log("search param:",searchParam)
             let resp = await getItems(page,searchParam);
+            setTimeout(setIsLoading(false),5000)
+            
             if (resp.statusCode === "200") {
-                console.log(resp.data.data.length)
                 setitemList(resp.data.data);
                 setMaxPageIndex(resp.data.maxPageIndex);
                 setPage(resp.data.pageIndex);
@@ -43,9 +42,11 @@ export default function usePagedList(entity) {
                                 : history.push(`/${entity}s?page=${resp.data.pageIndex}`);
         
             }
-        };
-        getData();
-    }, [page,searchParam]);
-    return [itemList,page,inputValue,maxPageIndex,searchParam,handleInput,handleForm,setPage]
+        },[searchParam,entity,history,page]
+   )
+       
+     useEffect(() => {getData()},[getData])
+        
+    return [itemList,page,inputValue,maxPageIndex,searchParam,isLoading,handleInput,handleForm,setPage]
     
 }

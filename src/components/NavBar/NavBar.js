@@ -16,13 +16,15 @@ export default function NavBar({activeItem,display}) {
 
     const handleClick = (e) => {
         const navItemClicked=e.target.getAttribute("data-navbtn");
-        if(navItemClicked!==activeItem){
-            if(navItemClicked.includes("New")){
-                history.push(`/${navItemClicked.split("New")[1].toLowerCase()}/new`)
-            }
-            else{history.push(`/${navItemClicked.toLowerCase()}${navItemClicked==="Dashboard"? "":"s"}`)}
-            
+        if(navItemClicked.includes("New")){
+            history.push(`/${navItemClicked.split("New")[1].toLowerCase()}/new`)
         }
+        else if(navItemClicked==="DashBoard"){
+            history.push(`/${navItemClicked.toLowerCase()}`)
+        }
+        else{history.push(`/${navItemClicked.toLowerCase()}s`)}
+            
+        
     }
     return (
         <ul className="nav-bar-con" id={display}>

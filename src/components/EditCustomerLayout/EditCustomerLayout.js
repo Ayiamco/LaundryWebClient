@@ -1,19 +1,18 @@
-import React from "react";
-import FormInput from "../FormInput/FormInput";
-import FormBtn from "../FormBtn/FormBtn";
-import {addCustomer} from "../../apis/CustomerApi"
-import useFormSubmit from "../../CustomHooks/useFormSubmit"
-import PopUp from "../PopUp/PopUp";
-import "./AddCustomer.css"
-
-export default function AddCustomer(){
-    const [formData,booleanStates,errorMessage,networkError
-        ,handleInput,handleForm]=useFormSubmit(addCustomer,"customers")
+import React from 'react';
+import useFormSubmit from "../../CustomHooks/useFormSubmit";
+import FormInput from "../../components/FormInput/FormInput"
+import {updateCustomer,findCustomer} from "../../apis/CustomerApi";
+import useQuery from "../../CustomHooks/useQuery";
+import PopUp from "../../components/PopUp/PopUp";
+import FormBtn from "../../components/FormBtn/FormBtn"
+export default function EditCustomerLayout() {
+    const [formData,booleanStates,errorMessage,networkError,
+        handleInput,handleForm]= useFormSubmit(updateCustomer,"customers",useQuery().get("id"),findCustomer)
 
     return (
-        <div className="AC-con">
+        <div>
             <PopUp message={errorMessage} display="failure" shouldPopUpDisplay={networkError}></PopUp>
-            <h1>Add Customer</h1>
+            <h1>Edit Customer</h1>
             <form onSubmit={handleForm} >
                 
                 <FormInput type="text" placeholder=" Full Name" name="name" handleInput={handleInput}
@@ -31,13 +30,13 @@ export default function AddCustomer(){
                 />
                 
                 <div id="ERF-btn-con"> 
-                    <FormBtn text="Register" isRequestProcessing={booleanStates.isRequestProcessing} shouldButtonDisable={booleanStates.shouldButtonDisable}>
+                    <FormBtn text="Edit" isRequestProcessing={booleanStates.isRequestProcessing} shouldButtonDisable={booleanStates.shouldButtonDisable}>
 
                     </FormBtn>
                 </div>
                 
             </form>
+            
         </div>
     )
 }
-
