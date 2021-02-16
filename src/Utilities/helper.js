@@ -59,7 +59,8 @@ export  const FormValidationState={
         "shouldButtonDisable":true,
         "isRequestProcessing":false,
         "isEmailAvailable":true,
-        "isValidPassword":true
+        "isValidPassword":true,
+        "isServiceAvailable":true,
     }
 
 export const toTitleCase = function (str) {

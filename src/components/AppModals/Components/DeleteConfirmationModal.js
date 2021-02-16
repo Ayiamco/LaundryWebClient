@@ -2,10 +2,12 @@ import React from 'react';
 import Modal from "react-modal";
 import {deleteEmployee} from "../../../apis/EmployeeApi"
 import {deleteCustomer} from "../../../apis/CustomerApi"
+import {deleteService} from "../../../apis/ServiceApi"
 import "../Styles/DeleteConfirmationModal.css";
 const Api={
     "employee":deleteEmployee,
     "customer":deleteCustomer,
+    "service": deleteService
 }
 Modal.setAppElement("#root");
 export default function DeleteConfirmationModal({modalIsOpen,setIsModalOpen,id,name,entityToDelete}) {

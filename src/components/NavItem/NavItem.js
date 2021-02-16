@@ -38,7 +38,7 @@ export default function NavItem({icon,text,isItemFocused,navigate}) {
             
             {/* section to add new item (customer,invoice etc) */}
             <div style={{display:hideItem}} id={hideItem==="block" ? "nav-item-focused":""} 
-                className="nav-item-bottom" >  
+                className="nav-item-bottom" data-navbtn={"New"+text}>  
                  <p data-navbtn={"New"+text} onClick={navigate}>{ `${data[text]} ${text}`} </p>
             </div>
         </li>

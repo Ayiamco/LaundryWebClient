@@ -4,7 +4,8 @@ import {useHistory} from "react-router-dom";
 import {FormValidationState,EmailStateIsInvalid} from "../Utilities/helper";
 
 const formFields={
-    "customers":["username","phoneNumber","address","name"]
+    "customers":["username","phoneNumber","address","name"],
+    "services":["name","price"]
 }
 
 export default function useFormSubmit(callBack,nextPage, id=null,onMountCallBack=null) {
@@ -14,29 +15,35 @@ export default function useFormSubmit(callBack,nextPage, id=null,onMountCallBack
     const history=useHistory();
     const [formData,setFormData]=useState({
         password:"",confirmPassword:"",laundryId:useQuery().get("id"),
-        username:"",phoneNumber:"",address:"",name:"",customerId:""
+        username:"",phoneNumber:"",address:"",name:"",customerId:"","price":""
     })
     
     
     function AddError(resp){
         console.log(resp)
         if(resp.statusCode==="500"){
-            setErrorMessage(" Network Error: please check your network ")
+            setErrorMessage(" Server Error: something went wrong ")
             setnetworkError(true)
         }
+        else if(resp.statusCode==="400" && resp.message==="service already exist"){
+            console.log("jkljkljklsdhfhjou")
+            setErrorMessage("service already exist")
+            setbooleanStates(prev=> ({...prev,isServiceAvailable:false}));
+            setnetworkError(true);
+        }
         else if(resp.statusCode==="400"){
-            console.log("hjkhjk")
             setbooleanStates(prev=>({...prev,isEmailAvailable:false,isValidEmail:false}))
             setErrorMessage("Email Error: Email already taken")
         }
+        
         setbooleanStates(prev=>( {...prev,"shouldButtonDisable":false,"isRequestProcessing":false}))
     }
 
     function RemoveErrors(){
         setbooleanStates(FormValidationState)
         setnetworkError(false);
-        setFormData({password:"",confirmPassword:"",laundryId:"",
-        username:"",phoneNumber:"",address:"",name:"",customerId:""});
+        // setFormData({password:"",confirmPassword:"",laundryId:"",
+        // username:"",phoneNumber:"",address:"",name:"",customerId:""});
     }
     
     const handleForm = async(e)=>{
@@ -66,6 +73,7 @@ export default function useFormSubmit(callBack,nextPage, id=null,onMountCallBack
     
     useEffect( () =>{
         let isFormDataValid=true;
+        console.log(nextPage)
         //validate that all feilds are not empty
         formFields[nextPage].forEach(key=>{
             if( !formData[key]){

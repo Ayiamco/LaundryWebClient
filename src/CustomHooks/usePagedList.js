@@ -3,11 +3,14 @@ import {useHistory} from "react-router-dom";
 import useQuery from "./useQuery";
 import {getEmployees} from "../apis/EmployeeApi";
 import {getCustomers} from "../apis/CustomerApi";
+import { getServices } from '../apis/ServiceApi';
 
 
 const Apis={
     "employee": getEmployees,
-    "customer": getCustomers,
+    "customer": getCustomers,   
+    "service":getServices,
+    
 }
 export default function usePagedList(entity) {
     const [itemList, setitemList] = useState([])
@@ -45,8 +48,7 @@ export default function usePagedList(entity) {
         },[searchParam,entity,history,page]
    )
        
-     useEffect(() => {getData()},[getData])
-        
+    useEffect(() => {getData()},[getData])  
     return [itemList,page,inputValue,maxPageIndex,searchParam,isLoading,handleInput,handleForm,setPage]
     
 }
