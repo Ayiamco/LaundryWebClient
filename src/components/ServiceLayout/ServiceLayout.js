@@ -52,22 +52,22 @@ export default function ServiceLayout() {
                         </tr>
                       </thead>
                       <tbody>
-                {itemList.map((customer) => {
+                {itemList.map((service) => {
                   return (
-                    <tr key={customer.id}>
+                    <tr key={service.id}>
                       <td>
-                        <button  className="EL-btn-detail" name={`service-details//${customer.name}`}  
-                          id={"id//"+ customer.id} children={toTitleCase(customer.name)} onClick={GenerateModal}
+                        <button  className="EL-btn-detail" name={`service-details//${service.name}`}  
+                          id={"id//"+ service.id} children={toTitleCase(service.name)} onClick={GenerateModal}
                         />
                       </td>
-                      <td>{customer.price}</td>
+                      <td>{service.price}</td>
                       <td>
-                        <button className="EL-btn-del EL-btn" name={`service-customer//${customer.name}`} 
-                          id={"id//"+ customer.id} onClick={GenerateModal}> 
+                        <button className="EL-btn-del EL-btn" name={`delete-service//${service.name}`} 
+                          id={"id//"+ service.id} onClick={GenerateModal}> 
                           Delete
                         </button>
-                        <button className="EL-btn-edit EL-btn" name={`edit-service//${customer.name}`} 
-                          id={"id/"+ customer.id} onClick={MoveToEditPage}> 
+                        <button className="EL-btn-edit EL-btn" name={`edit-service//${service.name}`} 
+                          id={"id/"+ service.id} onClick={MoveToEditPage}> 
                           Edit
                         </button>
                       </td>

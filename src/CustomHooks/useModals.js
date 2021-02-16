@@ -7,6 +7,7 @@ export default function useModals() {
   const [modalType,setModalType]=useState("")
   
   async function SelectModal(e) {
+    console.log(e.target.name)
     setEntityName(e.target.name.split("//")[1])
     if (e.target.name.includes("delete-employee")) {
       setModalType("EmployeeDeleteConfirmationModal")
@@ -19,6 +20,14 @@ export default function useModals() {
     }
     else if(e.target.name.includes("customer-details")){
       setModalType("CustomerDetailsModal")
+    }
+    else if (e.target.name.includes("delete-service")){
+      console.log(e.target.name)
+      setModalType("ServiceDeleteConfirmationModal")
+    }
+    else if (e.target.name.includes("service-details")){
+      setModalType("ServiceDetailsModal")
+
     }
     setEntityId(e.target.id.split("//")[1]);
     setIsModalOpen(true); 

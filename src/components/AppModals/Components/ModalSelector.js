@@ -16,11 +16,11 @@ export default function ModalSelector({id,name,isModalOpen, setIsModalOpen, moda
                 <DeleteConfirmationModal modalIsOpen={isModalOpen} setIsModalOpen={setIsModalOpen} id={id}
                     name={name}  entityToDelete="customer"
                 >
-                </DeleteConfirmationModal>
-                ? modalType==="ServiceDeleteConfirmationModal":
-                
+                </DeleteConfirmationModal> 
+                :
+                 modalType==="ServiceDeleteConfirmationModal" ?
                 <DeleteConfirmationModal modalIsOpen={isModalOpen} setIsModalOpen={setIsModalOpen} id={id}
-                    name={name}  entityToDelete="servie"
+                    name={name}  entityToDelete="service"
                 >
                 </DeleteConfirmationModal>
                 :

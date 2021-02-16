@@ -68,13 +68,12 @@ export async function getServices(page,searchParam){
                     "statusCode":"500"
                 };
         })
-    console.log(resp)
     return resp;
 }
 
 export async function deleteService(id){
      const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
-     const url = "https://localhost:44322/api/customer/"+ id
+     const url = "https://localhost:44322/api/service/"+ id
     
     let resp =await fetch(url,{
             method:"DELETE",
