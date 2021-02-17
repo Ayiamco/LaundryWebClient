@@ -15,18 +15,16 @@ export default function useFormSubmit(callBack,nextPage, id=null,onMountCallBack
     const history=useHistory();
     const [formData,setFormData]=useState({
         password:"",confirmPassword:"",laundryId:useQuery().get("id"),
-        username:"",phoneNumber:"",address:"",name:"",customerId:"","price":""
+        username:"",phoneNumber:"",address:"",name:"",customerId:"",price:""
     })
     
     
     function AddError(resp){
-        console.log(resp)
         if(resp.statusCode==="500"){
             setErrorMessage(" Server Error: something went wrong ")
             setnetworkError(true)
         }
         else if(resp.statusCode==="400" && resp.message==="service already exist"){
-            console.log("jkljkljklsdhfhjou")
             setErrorMessage("service already exist")
             setbooleanStates(prev=> ({...prev,isServiceAvailable:false}));
             setnetworkError(true);
@@ -42,8 +40,6 @@ export default function useFormSubmit(callBack,nextPage, id=null,onMountCallBack
     function RemoveErrors(){
         setbooleanStates(FormValidationState)
         setnetworkError(false);
-        // setFormData({password:"",confirmPassword:"",laundryId:"",
-        // username:"",phoneNumber:"",address:"",name:"",customerId:""});
     }
     
     const handleForm = async(e)=>{
@@ -51,9 +47,8 @@ export default function useFormSubmit(callBack,nextPage, id=null,onMountCallBack
         setbooleanStates(prev=> ({...prev,"isRequestProcessing":true}))//prevent btn from being clicked while request is sent
         setnetworkError(false);
         let resp=await callBack(formData)
-    
+        console.log("update response:",resp)
         if(resp.statusCode==="201" || resp.statusCode==="200" ){
-            console.log("succeful")
             RemoveErrors();
             history.push(`/${nextPage}`)  
         }
@@ -64,6 +59,7 @@ export default function useFormSubmit(callBack,nextPage, id=null,onMountCallBack
     }
 
     const handleInput=(e)=>{
+        console.log("form data:",formData)
         setFormData(prev=>{
            return {
                ...prev, [e.target.name]: e.target.value
@@ -73,28 +69,31 @@ export default function useFormSubmit(callBack,nextPage, id=null,onMountCallBack
     
     useEffect( () =>{
         let isFormDataValid=true;
-        console.log(nextPage)
         //validate that all feilds are not empty
         formFields[nextPage].forEach(key=>{
             if( !formData[key]){
                  isFormDataValid=false 
             }
         })
-        //check email validity
+        //validate email feild
         if(EmailStateIsInvalid(setbooleanStates,formData.username)) { isFormDataValid= false}
+
         //allow request submission depending on validation state
         if(isFormDataValid){
-           setbooleanStates(prev=>({...prev,"shouldButtonDisable":false}))}
+           setbooleanStates(prev=>({...prev,"shouldButtonDisable":false,"isRequestProcessing":false}))}
         else{
-           setbooleanStates(prev=>({...prev,"shouldButtonDisable":true}))}
+           setbooleanStates(prev=>({...prev,"shouldButtonDisable":true,"isRequestProcessing":false}))}
     },[formData,nextPage])
 
     const setData= useCallback( async() => {
-        console.log("setData...");
         if(onMountCallBack){
             let resp=await onMountCallBack(id)
             if(resp.statusCode==="200"){
-                setFormData(resp.data) 
+                let formFeilds=Object.keys(resp.data);
+                formFeilds.forEach(formField =>{
+                    setFormData(prev =>({...prev,[formField]:resp.data[formField]}));
+                })
+                setbooleanStates(prev=>({...prev,"shouldButtonDisable":false,"isRequestProcessing":false}));
             }
         }},
         [onMountCallBack,id],

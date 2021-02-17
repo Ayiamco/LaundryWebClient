@@ -23,8 +23,8 @@ export async function addService (formData){
     return resp;
 }
 
-
 export async function updateService(formData){
+    console.log("form data in update service:",formData)
     const authToken= "Bearer " + localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
     let resp =await fetch("https://localhost:44322/api/service",{
                     method:"PATCH",
@@ -34,10 +34,12 @@ export async function updateService(formData){
                     },
                     mode:'cors',
                     body: JSON.stringify({
-                        "name":formData.username, 
-                        "price":formData.address,
+                        "name":formData.name, 
+                        "price":formData.price,
+                        "id":formData.id,
+                        "laundryId":formData.laundryId
                     })})
-                    .then(res=>{
+                    .then(res=>{ 
                         return  res.json()
                     })  
                     .catch(e=>{
@@ -94,9 +96,9 @@ export async function deleteService(id){
     return resp;
 }
 
-export async function findCustomer(customerId){
-    let url="https://localhost:44322/api/customer/" + customerId;
-    console.log(url)
+export async function findService(serviceId){
+    console.log("find service reached:",serviceId)
+    let url="https://localhost:44322/api/service/" + serviceId;
     const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
     let resp =await fetch(url,{
             method:"GET",

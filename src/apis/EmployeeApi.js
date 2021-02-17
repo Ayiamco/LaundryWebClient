@@ -72,7 +72,6 @@ export async function getEmployees(page,searchParam){
 
 export async function findEmployee(employeeId){
     let url="https://localhost:44322/api/employee/" + employeeId;
-    console.log(url)
     const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
     let resp =await fetch(url,{
             method:"GET",

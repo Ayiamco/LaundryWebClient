@@ -30,9 +30,9 @@ export default function EmployeeDetailsModal({id,modalIsOpen,setIsModalOpen}) {
                 Object.keys(service).length ===0 ? "" :
                 <div className="EDM-details">
                     <p><span>Name:</span> {toTitleCase(service.name)}</p>
-                    <p><span>Price:</span> {service.username}</p>
-                    <p><span>Date Added:</span> {service.address}</p>
-                    <p><span>Revenue Generated:</span>  {service.noOfCustomers}</p>
+                    <p><span>Price:</span> &#8358;{service.price}</p>
+                    <p><span>Date Added:</span> {service.createdAt.slice(0,10)}</p>
+                    <p><span>Revenue Generated:</span> &#8358;{service.revenue}</p>
                 </div>
             }
            

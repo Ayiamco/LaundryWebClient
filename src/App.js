@@ -16,6 +16,7 @@ import NewInvoice from "./Pages/NewInvoice/NewInvoice";
 import EmployeeRegistration from "./Pages/EmployeeRegistration/EmployeeRegistration"
 import SelectAccount from "./Pages/SelectAccount/SelectAccount"
 import EditCustomer from "./Pages/EditCustomer/EditCustomer"
+import EditService from "./Pages/EditService/EditService"
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
         <Route exact path= "/employee/registration" component={EmployeeRegistration} />
         <Route exact path= "/account/select" component={SelectAccount} />
         <Route exact path="/customer/edit" component={EditCustomer}/>
+        <Route exact path="/service/edit" component={EditService}/>
         <Route path='/*' >
           <h1>Error</h1>
         </Route>
