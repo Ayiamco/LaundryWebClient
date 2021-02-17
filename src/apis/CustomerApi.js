@@ -47,7 +47,6 @@ export async function updateCustomer (formData){
                         return  res.json()
                     })  
                     .catch(e=>{
-                        console.log(e)
                         return {"statusCode":"500"}
                     })         
     return resp;
@@ -74,7 +73,7 @@ export async function getCustomers(page,searchParam){
                     "statusCode":"500"
                 };
         })
-    console.log(resp)
+    
     return resp;
 }
 

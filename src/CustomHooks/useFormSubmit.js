@@ -59,7 +59,6 @@ export default function useFormSubmit(callBack,nextPage, id=null,onMountCallBack
     }
 
     const handleInput=(e)=>{
-        console.log("form data:",formData)
         setFormData(prev=>{
            return {
                ...prev, [e.target.name]: e.target.value
