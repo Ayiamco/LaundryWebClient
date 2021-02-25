@@ -102,7 +102,11 @@ export default function ForgotPassword() {
                         </FormInput>
                      
                    }
-                    <FormBtn text="Reset Password" isRequestProcessing={isRequestProcessing} shouldButtonDisable={shouldButtonDisable}/>  
+                   <div className="FP-btn">
+                        <FormBtn text="Reset Password" isRequestProcessing={isRequestProcessing} 
+                        shouldButtonDisable={shouldButtonDisable}/>  
+                   </div>
+                    
                 </form>
                 <div className="auth-link-con">
                      <Link className="auth-link" to="/">Login</Link>

@@ -1,0 +1,8 @@
+.reg-btn {
+  margin: 1em 0em;
+  width: calc(100% - 8em);
+}
+
+.reg-btn button {
+  background-color: var(--blue-1);
+}

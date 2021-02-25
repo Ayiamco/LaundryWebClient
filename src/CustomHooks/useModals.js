@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import {toTitleCase} from "../Utilities/helper"
 
 export default function useModals() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -7,8 +8,7 @@ export default function useModals() {
   const [modalType,setModalType]=useState("")
   
   async function SelectModal(e) {
-    console.log(e.target.name)
-    setEntityName(e.target.name.split("//")[1])
+    setEntityName(toTitleCase(e.target.name.split("//")[1]))
     if (e.target.name.includes("delete-employee")) {
       setModalType("EmployeeDeleteConfirmationModal")
     } 

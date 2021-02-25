@@ -1,3 +1,4 @@
+/* authentication pages utitities */
 .pg-con {
   display: flex;
   flex-direction: column-reverse;
@@ -49,6 +50,129 @@
 .auth-link:hover {
   color: #070607;
 }
+
+/* Employee,Service and Customer layout utilities */
+/* Employee Layout component style section */
+.ECSL-con {
+  margin: 2em;
+  padding-top: 1em;
+  padding-bottom: 2em;
+  width: calc(100% - 4em);
+}
+
+.ECSL-con h2 {
+  text-align: center;
+  color: var(--purple-2);
+}
+.ECSL-con-header {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  color: var(--purple-2);
+  align-items: center;
+}
+
+.ECSL-con-header form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+.ECSL-con-header input {
+  width: 50vw;
+}
+.ECSL-con-header input:focus {
+  outline-color: var(--purple-2);
+}
+.ECSL-con-header input,
+.ECSL-con-header button {
+  height: 2em;
+  margin-top: 1em;
+}
+.ECSL-con-header input,
+.ECSL-con-header input::placeholder {
+  padding-left: 0.5em;
+}
+.ECSL-btn {
+  padding: 0.3em;
+  display: inline-block;
+  color: white;
+  width: 4.5em;
+  background-color: var(--purple-2);
+  margin: 0em 0.3em;
+}
+.ECSL-con-header-btn {
+  color: whitesmoke;
+}
+
+.ECSL-btn-del,
+.ECSL-btn-edit,
+.ECSL-btn-pagination button {
+  margin-top: 1em;
+}
+.ECSL-btn-del {
+  background-color: rgb(114, 7, 7);
+}
+.ECSL-btn-del:focus {
+  outline-color: var(--purple-2);
+}
+.ECSL-btn-pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+/* Employee Layout component table section styles  */
+.ECSL-table-con {
+  overflow: scroll;
+  padding: 0px;
+  margin-top: 0.3em;
+}
+.ECSL-table {
+  margin: auto;
+}
+
+.ECSL-table th,
+.ECSL-table td {
+  text-align: center;
+  border: 1px solid white;
+  width: 10em;
+  padding: 10px;
+}
+.ECSL-table td {
+  color: var(--purple-2);
+}
+
+.ECSL-table tr {
+  border: 1px solid white;
+}
+
+.ECSL-table tbody tr:nth-child(odd) {
+  background-color: var(--purple-3);
+}
+.ECSL-table tbody tr:nth-child(even) {
+  background-color: rgb(197, 184, 184);
+}
+
+.ECSL-table thead {
+  background-color: var(--purple-2);
+  color: var(--gray-1);
+}
+
+.ECSL-ft {
+  font-weight: bold;
+  font-size: small;
+  margin: 1em 0.5em;
+  color: var(--purple-2);
+}
+.ECSL-btn-detail {
+  border: 0px;
+  color: var(--purple-2);
+  cursor: pointer;
+  outline: none;
+  background-color: inherit;
+}
+
 @media only screen and (min-width: 700px) {
   .pg-con {
     display: flex;
@@ -75,5 +199,24 @@
     margin: 0;
     padding: 0;
     margin-bottom: 0.3em;
+  }
+
+  /* Employee,customer and service layout style utilities */
+  .ECSL-con {
+    width: 90%;
+    overflow: hidden;
+    min-height: 90%;
+    border: 0;
+  }
+
+  .ECSL-table {
+    width: 100%;
+  }
+
+  .ECSL-ft {
+    position: absolute;
+    bottom: 3em;
+    left: 25%;
+    margin: 0;
   }
 }

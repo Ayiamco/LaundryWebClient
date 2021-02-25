@@ -19,8 +19,9 @@ export default function usePagedList(entity) {
     const [inputValue,setInputValue]=useState("")
     const [maxPageIndex, setMaxPageIndex] = useState(1);
     const [isLoading,setIsLoading]=useState(true);
+    const [isNetworkError,setIsNetworkError]=useState(false);
     const history=useHistory();
-
+    
     function handleInput(e){
        setInputValue(e.target.value)
        setSearchParam(e.target.value)
@@ -33,22 +34,25 @@ export default function usePagedList(entity) {
    const getData = useCallback(
         async () => { 
             const getItems= Apis[entity]
+            console.log("isLoading:",isLoading)
             let resp = await getItems(page,searchParam);
-            setTimeout(setIsLoading(false),5000)
             
-            if (resp.statusCode === "200") {
+            if (resp.statusCode === "200" ) {
                 setitemList(resp.data.data);
+                setTimeout(setIsLoading(false), 5000);
                 setMaxPageIndex(resp.data.maxPageIndex);
                 setPage(resp.data.pageIndex);
-
                 searchParam ? history.push(`/${entity}s?page=${resp.data.pageIndex}&name=${searchParam}`)    
                                 : history.push(`/${entity}s?page=${resp.data.pageIndex}`);
         
+            }
+            else{
+                setIsNetworkError(true);
             }
         },[searchParam,entity,history,page]
    )
        
     useEffect(() => {getData()},[getData])  
-    return [itemList,page,inputValue,maxPageIndex,searchParam,isLoading,handleInput,handleForm,setPage]
+    return [itemList,page,inputValue,maxPageIndex,searchParam,isLoading,handleInput,handleForm,setPage,isNetworkError]
     
 }

@@ -4,6 +4,7 @@ import {getAllServices} from "../../apis/ServiceApi"
 
 export default function AddInvoice() {
     const [services,setServices]=useState([]);
+    const [servicesObj,setServicesObj]=useState({})
     const [invoiceItems,setInvoiceItems]=useState([])
     const [itemCount,setItemCount]=useState(1)
     const [formData,setFormData]=useState({
@@ -11,7 +12,7 @@ export default function AddInvoice() {
             isDeleted:false,
             data:{
                 serviceId:"",
-                quantity:"",
+                quantity:0,
             }
         }
     })
@@ -20,23 +21,29 @@ export default function AddInvoice() {
 
     let getServices=useCallback( async ()=>{
         let resp = await getAllServices()
+        let dataObj= {}
         if(resp.statusCode==="200"){
             setServices(resp.data)
+            for(let item in resp.data){
+                dataObj[resp.data[item].id]= resp.data[item]
+            }
         }
+        setServicesObj(dataObj)
     },[])
 
     function addItem(e){
         setItemCount(count=>(count + 1));
         setInvoiceItems(prev=>(
             [...prev,<InvoiceItem services={services} id={`${itemCount +1}`} 
-                setFormData={setFormData} formData={formData}  key={`${itemCount +1}`}/>]))
+                setFormData={setFormData} formData={formData}  key={`${itemCount +1}`} 
+                servicesObj={servicesObj}/>]))
         setFormData(prev=>({...prev,
                     [`${itemCount + 1}`]:{
                             isDeleted:false,
                             data:{
                                 serviceId:"",
-                                quantity:"",
-                                description:""
+                                quantity:0,
+                               
                             }
                         }
                     }
@@ -49,7 +56,8 @@ export default function AddInvoice() {
     return (
         <div>
             <form>
-                <InvoiceItem services={services} id="1"  setFormData={setFormData} formData={formData}/>
+                <InvoiceItem services={services} id="1"  setFormData={setFormData}
+                 formData={formData} servicesObj={servicesObj}/>
                 <div className="AI-items-con"  children={invoiceItems}/>
             </form>
             

@@ -28,12 +28,12 @@ export default function DeleteConfirmationModal({modalIsOpen,setIsModalOpen,id,n
         >
             <div id="DCM-popup">
                 <p >Warning: This action cannot be reversed</p>
-                <p >Do you still want to delete {name} {entityToDelete} {entityToDelete==="service"? "":"account"}?</p>
+                <p >Are you sure you want  to delete {name} {entityToDelete} {entityToDelete==="service"? "":"account"}?</p>
                 <div className="DCM-popup-btm">
                     <button className="DCM-btn DCM-btn-del" id={"delete//"+id} onClick={confirmDelete} name="delete-yes">
                         Yes
                     </button>
-                    <button onClick={confirmDelete} name="delete-no" className="DCM-btn DEM-btn-no">
+                    <button onClick={confirmDelete} name="delete-no" className="DCM-btn DCM-btn-no">
                         No
                     </button>
                 </div>

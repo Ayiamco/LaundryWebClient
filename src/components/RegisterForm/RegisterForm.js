@@ -5,7 +5,7 @@ import FormInput from "../FormInput/FormInput";
 import FormBtn from "../FormBtn/FormBtn";
 import registerUser from "../../apis/registerUser";
 import loginUser from "../../apis/LoginUser"
-
+import "./RegisterForm.css"
 
 const startData={
         laundryName:"",
@@ -126,9 +126,11 @@ function RegisterForm(){
                 <FormInput type="text" placeholder="Phone Number *" name="phoneNumber" handleInput={handleInput}
                     value={formData.phoneNumber}
                 />
-                <FormBtn text="Register" isRequestProcessing={booleanStates.isRequestProcessing} shouldButtonDisable={booleanStates.shouldButtonDisable}>
-
-                </FormBtn>
+                <div className="reg-btn">
+                    <FormBtn text="Register" isRequestProcessing={booleanStates.isRequestProcessing} 
+                    shouldButtonDisable={booleanStates.shouldButtonDisable}/>
+                </div>
+                
             </form>
         </div>
     )

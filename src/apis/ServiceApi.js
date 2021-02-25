@@ -52,7 +52,8 @@ export async function updateService(formData){
 
 export async function getServices(page,searchParam){
     let url="https://localhost:44322/api/service/?page=" + (page===null ? 1 : page);
-    url=url+`&name=${searchParam}`;
+    url=url+`&name=${searchParam? searchParam:""}`;
+    console.log("get service url:",url)
     const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
     
     let resp =await fetch(url,{
@@ -70,6 +71,7 @@ export async function getServices(page,searchParam){
                     "statusCode":"500"
                 };
         })
+    console.log("service resp:",resp.data)
     return resp;
 }
 
