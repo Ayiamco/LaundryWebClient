@@ -10,9 +10,9 @@ export default function EditCustomerLayout() {
         handleInput,handleForm]= useFormSubmit(updateCustomer,"customers",useQuery().get("id"),findCustomer)
 
     return (
-        <div>
+        <div className="ESCL-edit-con">
             <PopUp message={errorMessage} display="failure" shouldPopUpDisplay={networkError}></PopUp>
-            <h1>Edit Customer</h1>
+            <h1 >Edit Customer</h1>
             <form onSubmit={handleForm} >
                 
                 <FormInput type="text" placeholder=" Full Name" name="name" handleInput={handleInput}

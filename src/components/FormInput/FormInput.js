@@ -5,6 +5,7 @@ export default function FormInput({isValid,errorMessage,handleInput,value,name,t
     const [isPassword,setIsPassword]=useState(false);
     const [eyeClass,setEyeClass]=useState("far fa-eye")
     const [inputType, setInputType]=useState(type);
+    const [passwordClassName,setPasswordClassName]=useState("")
 
     useEffect(() => {
         
@@ -24,13 +25,17 @@ export default function FormInput({isValid,errorMessage,handleInput,value,name,t
             setInputType("password");
         }
     }
+    function highlight(e){
+        passwordClassName==="" ? 
+        setPasswordClassName("FI-password-active") :setPasswordClassName("")
+    }
     return (
         <div className="FI-con">
             {isPassword?
             <div className="FI-con-md">
                 <label></label>
-                <div className="FI-password">
-                    <input type={inputType} name={name} placeholder={placeholder} onChange={handleInput} value={value}/>
+                <div className={`FI-password ${passwordClassName}`}>
+                    <input onFocus={highlight} onBlur={highlight} type={inputType} name={name} placeholder={placeholder} onChange={handleInput} value={value}/>
                     <span className="FI-i"><i className={eyeClass} onClick={changeEye}></i></span>
                 </div>
             </div>
@@ -38,7 +43,9 @@ export default function FormInput({isValid,errorMessage,handleInput,value,name,t
             :
                 <div className="FI-con-md">
                     <label></label>
-                    <input type={type} name={name} placeholder={ placeholder} onChange={handleInput} value={value}/>
+                    <div className="FI-other">
+                        <input type={type} name={name} placeholder={ placeholder} onChange={handleInput} value={value}/>
+                    </div>  
                 </div>
                 
             }

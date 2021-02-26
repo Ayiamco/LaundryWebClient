@@ -80,6 +80,7 @@
 }
 .ECSL-con-header input {
   width: 50vw;
+  border-radius: 15px;
 }
 .ECSL-con-header input:focus {
   outline-color: var(--purple-2);
@@ -89,6 +90,7 @@
   height: 2em;
   margin-top: 1em;
 }
+
 .ECSL-con-header input,
 .ECSL-con-header input::placeholder {
   padding-left: 0.5em;
@@ -108,7 +110,7 @@
 .ECSL-btn-del,
 .ECSL-btn-edit,
 .ECSL-btn-pagination button {
-  margin-top: 1em;
+  margin: 0.2em;
 }
 .ECSL-btn-del {
   background-color: rgb(114, 7, 7);
@@ -120,8 +122,16 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
 }
-
+.ESCL-edit-con {
+  width: 70%;
+  margin: auto;
+  margin-top: 2em;
+}
+.ESCL-edit-con h1 {
+  text-align: center;
+}
 /* Employee Layout component table section styles  */
 .ECSL-table-con {
   overflow: scroll;
@@ -208,15 +218,43 @@
     min-height: 90%;
     border: 0;
   }
-
+  .ECSL-con-header input {
+    width: 30vw;
+  }
+  .ECSL-btn-del,
+  .ECSL-btn-edit,
+  .ECSL-btn-pagination button {
+    margin-bottom: 1em;
+  }
+  .ECSL-table-con {
+    overflow: hidden;
+  }
   .ECSL-table {
     width: 100%;
   }
 
   .ECSL-ft {
-    position: absolute;
-    bottom: 3em;
+    position: sticky;
+    bottom: 1em;
+    left: 35%;
+    margin: 3em 0;
+  }
+}
+
+@media only screen and (min-width: 800px) {
+  .ECSL-ft {
+    left: 30%;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .ECSL-ft {
     left: 25%;
-    margin: 0;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .ECSL-ft {
+    left: 20%;
   }
 }

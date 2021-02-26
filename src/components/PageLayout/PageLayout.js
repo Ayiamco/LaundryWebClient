@@ -12,7 +12,8 @@ export default function PageLayout({activeItem,PageItem}) {
     return (
         <div className="PL-con"  >
             <header className={`PL-header ${navDisplay? "header-gray": "header-purple"}`}>
-               <i className="fas fa-soap"> Laundry Solution</i>
+               <i className="fas fa-soap"> <p className="soln">Laundry Solution</p></i>
+               <i className= "far fa-user-circle"></i>
                 <i id="PL-toggle-btn" onClick={handleNavDisplay}style={{color:" #65088c"}}className="fas fa-bars"></i>
             </header>
             <section className="PL-section">

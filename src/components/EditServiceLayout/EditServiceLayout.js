@@ -11,7 +11,7 @@ export default function EditServiceLayout() {
         handleInput,handleForm]= useFormSubmit(updateService,"services",useQuery().get("id"),findService)
 
     return (
-        <div>
+        <div className="ESCL-edit-con">
             <PopUp message={errorMessage} display="failure" shouldPopUpDisplay={networkError}></PopUp>
             <h1>Edit Service</h1>
             <form onSubmit={handleForm} >

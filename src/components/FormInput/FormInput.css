@@ -1,28 +1,37 @@
-.FI-con input {
+.FI-con {
   width: 100%;
-  height: 3.5em;
-  border-radius: 25px;
-  border: white;
-  background-color: white;
-  margin-top: 2em;
-  padding-left: 2em;
 }
-
 .FI-con-md {
   display: flex;
   align-items: center;
   width: 100%;
 }
+.FI-other {
+  width: 100%;
+}
+.FI-other input {
+  width: 100%;
+  height: 3.5em;
+  background-color: white;
+  margin-top: 2em;
+  padding-left: 2em;
+  border: 0;
+  border: 3px solid rgb(148, 147, 147);
+  border-radius: 25px;
+}
+
 .FI-con label::after {
   content: "*";
   color: red;
   margin-right: 5px;
 }
-.FI-con input::placeholder {
+.FI-other input::placeholder {
   padding-left: 0em;
 }
 
-.FI-con input:focus {
+.FI-other input:focus {
+  border: 3px solid var(--purple-2);
+  box-shadow: 5px 5px 10px 5px white;
   outline: none;
 }
 
@@ -35,28 +44,35 @@
   background-color: white;
   margin-top: 2em;
   width: 100%;
-  padding-right: 2em;
+  padding-right: 1em;
   justify-content: space-between;
+  border: 3px solid rgb(148, 147, 147);
+  padding-left: 0.5em;
 }
-
+.FI-password-active {
+  border: 3px solid var(--purple-2);
+}
 .FI-password input,
 .FI-password span {
   background-color: white;
   box-sizing: border-box;
   outline: none;
   margin: 0px;
+  border: 0;
 }
 
 .FI-password input {
   width: 90%;
+  padding-left: 2em;
+  border-right: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .FI-password span {
   display: flex;
   align-items: center;
   height: 100%;
-  border-top-right-radius: 25px;
-  border-bottom-right-radius: 25px;
 }
 
 @media only screen and (min-width: 700px) {

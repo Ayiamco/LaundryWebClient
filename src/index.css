@@ -49,3 +49,11 @@ input[type="number"] {
   --purple-3: #f4d4f5;
   --blue-1: #42378c;
 }
+.txt-danger {
+  color: red;
+}
+
+.center {
+  text-align: center;
+  margin: auto;
+}

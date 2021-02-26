@@ -5,10 +5,11 @@ import "../../Utilities/utilities.css"
 import ModalSelector from "../AppModals/Components/ModalSelector";
 import usePagedList from "../../CustomHooks/usePagedList";
 import useModals from "../../CustomHooks/useModals";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 export default function EmployeeLayout() {
   const [itemList,page,inputValue,maxPageIndex,searchParam,isLoading,
-    handleInput,handleForm,setPage]= usePagedList("employee");
+    handleInput,handleForm,setPage,isNetworkError]= usePagedList("employee");
   const [isModalOpen ,setIsModalOpen,entityId,modalType, entityName,handleModals]=useModals();
   
   return (
@@ -16,17 +17,16 @@ export default function EmployeeLayout() {
       <ModalSelector isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
         id={entityId} modalType={modalType} name={entityName}
       />
-      <h2>My Employees</h2>
+     
       
       {
-        isLoading ? "" :
-
+        isLoading ? <LoadingSpinner isNetworkError={isNetworkError}></LoadingSpinner> :
         <div>
           <div className="ECSL-con-header">
-
+             <h2>My Employees</h2>
             <form onSubmit={handleForm}>
               <input placeholder="Enter employee name" onChange={handleInput} value={inputValue}></input>
-              <button className="ECSL-con-header-btn">Search</button>
+              <button className="ECSL-con-header-btn ECSL-btn">Search</button>
             </form>
             </div>
             <p style={{ display: itemList.length ? "none" : "block" }}>
@@ -51,14 +51,14 @@ export default function EmployeeLayout() {
                 return (
                   <tr key={employee.id}>
                     <td>
-                      <button  className="ECSL-btn-detail" name={`employee-detail//${employee.name}`} onClick={handleModals} 
+                      <button  className="ECSL-btn-detail" name={`employee-details//${employee.name}`} onClick={handleModals} 
                         id={"id//"+ employee.id} children={toTitleCase(employee.name)}
                       />
                     </td>
                     <td>{employee.revenue}</td>
                     <td>{employee.noOfCustomers}</td>
                     <td>
-                      <button className="ECSL-btn-del" name={`delete-employee//${employee.name}`} 
+                      <button className="ECSL-btn-del ECSL-btn" name={`delete-employee//${employee.name}`} 
                         onClick={handleModals} id={"id//"+ employee.id}>
                         Delete
                       </button>

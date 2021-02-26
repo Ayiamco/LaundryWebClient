@@ -1,3 +1,4 @@
+import {validateEmail} from "../Utilities/helper"
 export async function addCustomer (formData){
     const authToken= "Bearer " + localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
     console.log(formData,authToken)
@@ -68,12 +69,10 @@ export async function getCustomers(page,searchParam){
         }).then(res=> {
             return res.json()
         }).catch( (e)=>{
-            console.log(e)
             return {
                     "statusCode":"500"
                 };
         })
-    
     return resp;
 }
 
@@ -121,4 +120,13 @@ export async function findCustomer(customerId){
         })
     console.log(resp)
     return resp;
+}
+
+export async function searchForCustomer(customerInfo){
+    let infoType= validateEmail(customerInfo) ? "email" : isNaN(parseInt(customerInfo))? "name" : "phone";
+    
+    return {
+        statusCode:"500"
+    }
+
 }

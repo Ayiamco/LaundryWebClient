@@ -22,7 +22,7 @@ export default function AddService() {
                 />
                 
                 <div id="ERF-btn-con"> 
-                    <FormBtn text="Register" isRequestProcessing={booleanStates.isRequestProcessing} shouldButtonDisable={booleanStates.shouldButtonDisable}>
+                    <FormBtn text="Add Service" isRequestProcessing={booleanStates.isRequestProcessing} shouldButtonDisable={booleanStates.shouldButtonDisable}>
 
                     </FormBtn>
                 </div>

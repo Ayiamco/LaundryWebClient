@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useCallback} from 'react';
 import Modal from "react-modal";
 import {toTitleCase} from "../../../Utilities/helper"
 import {findEmployee} from "../../../apis/EmployeeApi"
@@ -9,19 +9,19 @@ Modal.setAppElement("#root");
 export default function EmployeeDetailsModal({id,modalIsOpen,setIsModalOpen}) {
     const [employee,setEmployee]=useState({})
 
-    const getData= async ()=>{
+    const getData= useCallback( async ()=>{
+        console.log("employee details called")
         if(modalIsOpen){
             let  resp = await findEmployee(id);
-            console.log(resp)
             if(resp.statusCode==="200"){
                     setEmployee(resp.data)
             }
-            
         }
-    }
+    },[id,modalIsOpen])
+    
     useEffect(()=>{
         getData();
-    },[id])
+    },[id,getData])
     
 
     return (

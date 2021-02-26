@@ -34,7 +34,6 @@ export default function usePagedList(entity) {
    const getData = useCallback(
         async () => { 
             const getItems= Apis[entity]
-            console.log("isLoading:",isLoading)
             let resp = await getItems(page,searchParam);
             
             if (resp.statusCode === "200" ) {
@@ -49,7 +48,7 @@ export default function usePagedList(entity) {
             else{
                 setIsNetworkError(true);
             }
-        },[searchParam,entity,history,page]
+        },[searchParam,entity,history,page,]
    )
        
     useEffect(() => {getData()},[getData])  

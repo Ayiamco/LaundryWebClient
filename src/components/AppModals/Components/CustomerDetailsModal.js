@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useCallback} from 'react';
 import Modal from "react-modal";
 import {toTitleCase} from "../../../Utilities/helper"
 import {findCustomer} from "../../../apis/CustomerApi"
@@ -8,20 +8,18 @@ import "../Styles/EmployeeDetailsModal.css"
 Modal.setAppElement("#root");
 export default function CustomerDetailsModal({id,modalIsOpen,setIsModalOpen}) {
     const [customer,setCustomer]=useState({})
-
-    const getData= async ()=>{
+    const getData= useCallback( async ()=>{
         if(modalIsOpen){
             let  resp = await findCustomer(id);
-            console.log(resp)
             if(resp.statusCode==="200"){
                     setCustomer(resp.data)
             }
-            
         }
-    }
+    },[id,modalIsOpen]) 
+    
     useEffect(()=>{
         getData();
-    },[id])
+    },[getData])
     
 
     return (
@@ -37,6 +35,7 @@ export default function CustomerDetailsModal({id,modalIsOpen,setIsModalOpen}) {
                     <p><span>Address:</span> {customer.address}</p>
                     <p><span>Total Purchase:</span> {customer.totalPurchase} </p>
                     <p><span>Phone Number:</span> {customer.phoneNumber}</p>
+                    <p><span>Date Added:</span> {new Date(customer.createdAt.slice(0,10)).toDateString()}</p>
                 </div>
             }
            
