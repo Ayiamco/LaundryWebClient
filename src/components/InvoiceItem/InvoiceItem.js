@@ -1,69 +1,58 @@
-import React,{useState,useEffect} from 'react';
-export default function InvoiceItem({services,setFormData,id,formData,servicesObj}) {
-    const [showItem,setShowItem]=useState("block")
-    const [price,setPrice]=useState(0);
-    const [quantity,setQuantity]=useState(0)
-    const [amt,setAmt]=useState(0);
+import React,{useState,useEffect,useContext,useCallback} from 'react';
+import {InvoiceContext} from "../AddInvoice/AddInvoice";
+
+export default function InvoiceItem({data}) {
+    const {services,setFormData,formData}=useContext(InvoiceContext);
+    const [currentService,setCurrentService]=useState({name:""})
+    const [isServiceDeleted,setIsServiceDeleted]=useState(false);
+    const [quantity,setQuantity]=useState(parseInt(data.quantity))
     
-    function hideItem(){
-        setShowItem("none");
-        setFormData(prev=>{
-            let current=prev[id];
-            current["isDeleted"]=true
-            return { ...prev,[id]:current}
-        })
+    const getServiceData= useCallback(()=>{
+         let filteredService=services.filter(ele=> ( ele.id === data.serviceId ))
+         setCurrentService(filteredService[0])
+    },[data,services])
+
+    
+    useEffect(()=>{
+        getServiceData()
+    },[getServiceData])
+
+    function changeQuantity(e){
+        if(e.target.className==="fas fa-minus"){
+            quantity>1 ? setQuantity(prev=> (prev-1)) : setQuantity(prev=>(prev));
+        }
+        else{
+            setQuantity(prev=> (prev+1))
+        }
+    }
+    function removeService(e) {
+        setIsServiceDeleted(true);
+        setFormData(prev=> ({...prev,[currentService.id]:{isDeleted:true}}))
     }
 
-    function updateInvoice(e){
-       if(e.target.name==="service")  {
-            setFormData(prev=>{
-            let current=prev[id];
-            current.data.serviceId=e.target.value;
-            return {...prev,[id]:current}
-            })
-            setPrice(servicesObj[e.target.value].price)
-            
-       }
-        else if (e.target.name==="quantity"){
-            setFormData(prev=>{
-            let current=prev[id];
-            current.data.quantity=e.target.value;
-            return {...prev,[id]:current}
-            })
-            setQuantity(e.target.value)
-        }
-        
-    }
     useEffect(()=>{
-        setAmt(price*quantity)
-    },[price,quantity])
-    return (
-        <div className="IT-con" style={{display:showItem}}>
-            {Array.isArray(services) && services.length===0 ? "":
-                <div>
-                    <select onChange={updateInvoice} name="service" >
-                        <option>Select service</option>
-                        {
-                            services.map( (service,index) => {
-                                return (
-                                <option value={service.id} key={index}>
-                                    {service.name}
-                                </option>
-                                )
-                            })
+        console.log(currentService)
+        setFormData(prev=>({...prev,[currentService.id]:{
+                            isDeleted:false,
+                            data:{
+                                serviceId:currentService.id,
+                                quantity:quantity,
+                            }
                         }
-                    </select>
-                    <input placeholder="Enter quantity"  name="quantity" type="number" onChange={updateInvoice}></input>
-                    <p>Unit Price: {price}</p>
-                    <p>Amount:
-                         {amt}
-                    
-                    </p>
-                    <i className="fas fa-times" onClick={hideItem}></i>
-                </div>
-                 
-            }
+                    }))
+}, [quantity,currentService.id,setFormData])
+
+    return (
+        <div className="IT-con" style={{display:isServiceDeleted? "none": "block",border:"1px solid black"}}>
+            <p>This is invoice item for {currentService.name}</p>
+            <p>price: <span>&#8358;</span>{currentService.price}</p>
             
+            <i className="fas fa-trash-alt" onClick={removeService} id=""></i>
+            <div>
+                <i className="fas fa-plus" onClick={changeQuantity}></i>
+                    <p>quantity:{quantity} </p>
+                <i className="fas fa-minus" onClick={changeQuantity}></i>
+            </div>
         </div>
     )
 }

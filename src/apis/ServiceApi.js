@@ -140,5 +140,6 @@ export async function getAllServices(){
                     "statusCode":"500"
                 };
         })
+       
     return resp;
 }

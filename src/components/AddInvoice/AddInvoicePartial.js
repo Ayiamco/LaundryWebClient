@@ -3,7 +3,12 @@ import {InvoiceContext} from "./AddInvoice";
 import FormInput from "../../components/FormInput/FormInput";
 
 export default function AddInvoicePartial() {
-    const {customerInfo,customer,invoiceItems,handleInput,handleModal,isCustomerFound}=useContext(InvoiceContext)
+    const {customerInfo,customer,invoiceItems,handleInput,handleModal,isCustomerFound,formData}=useContext(InvoiceContext)
+    
+    function submitInvoice(){
+        console.log(formData)
+        console.log(invoiceItems)
+    }
     return (
         <div>
             <form onSubmit={handleInput}> 
@@ -22,9 +27,11 @@ export default function AddInvoicePartial() {
                         <h1>Invoice for {customer.name}</h1>
                         <button onClick={handleModal}>Add Item</button>
                         <div className="AI-items-con"  children={invoiceItems}/>
+                        <button onClick={submitInvoice}>submit</button>
                     </div>
                 :   ""
             }
+            
         </div>
     )
 }

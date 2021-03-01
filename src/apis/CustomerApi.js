@@ -124,9 +124,17 @@ export async function findCustomer(customerId){
 
 export async function searchForCustomer(customerInfo){
     let infoType= validateEmail(customerInfo) ? "email" : isNaN(parseInt(customerInfo))? "name" : "phone";
-    
-    return {
-        statusCode:"500"
-    }
-
+    const authToken= "Bearer " + localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
+    let url=`https://localhost:44322/api/customer/search?customerInfo=${customerInfo}&infoType=${infoType}`;
+     let resp =await fetch(url,{
+                    method:"GET",
+                    headers:{
+                        "Content-Type":'application/json; charset=utf-8',
+                        Authorization:authToken
+                    }})
+                    .then(res=>{
+                        return  res.json()
+                    })
+   
+   return resp;
 }
