@@ -12,8 +12,8 @@ export default function LoginPage() {
         <section className="pg-con">
             <div className="pg-con-top">
                 
-                <h1 className="pg-con-top-h1">Login to</h1>
-                <h2 className="pg-con-top-h2">Access your Account</h2>
+                <h1 className="pg-con-top-h1">Login to{process.env.NODE_ENV}</h1>
+                <h2 className="pg-con-top-h2">Access your Account {process.env.REACT_APP_API_URL}</h2>
                 <LoginForm/>
                 <div className="auth-link-con">
                      <Link className="auth-link auth-link-left" to="/register">Register</Link>
