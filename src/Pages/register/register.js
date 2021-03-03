@@ -7,7 +7,7 @@ import "../../Utilities/utilities.css";
 import "./register.css";
 
 export default function Register() {
-
+//this is the register page
     return (
         <section className="pg-con">
             <div className="pg-con-top">

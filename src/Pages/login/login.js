@@ -7,7 +7,7 @@ import "./Login.css";
 import "../../Utilities/utilities.css"
 
 export default function Login() {
-    
+    //this is the login page
 
     return (
         <section className="pg-con">
