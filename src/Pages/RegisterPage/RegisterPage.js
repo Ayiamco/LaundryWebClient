@@ -6,7 +6,7 @@ import LoginHero from "../../components/LoginHero/LoginHero"
 import "../../Utilities/utilities.css";
 import "./register.css";
 
-export default function Register() {
+export default function RegisterPage() {
 //this is the register page
     return (
         <section className="pg-con">
@@ -29,6 +29,3 @@ export default function Register() {
         </section>
     )
 }
-
-
-

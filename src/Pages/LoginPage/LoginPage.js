@@ -6,7 +6,7 @@ import LoginHero from "../../components/LoginHero/LoginHero"
 import "./Login.css";
 import "../../Utilities/utilities.css"
 
-export default function Login() {
+export default function LoginPage() {
     //this is the login page
 
     return (
