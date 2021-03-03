@@ -1,8 +1,8 @@
 import React from "react"
 import {BrowserRouter as Router,Route,Switch} from "react-router-dom"
-import Login from './Pages/Login/Login'
-import Home from './Pages/Home/Home'
-import Register from "./Pages/Register/Register"
+import LoginPage from './Pages/LoginPage/LoginPage'
+import HomePage from './Pages/HomePage/HomePage'
+import RegisterPage from "./Pages/RegisterPage/RegisterPage"
 import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 import PasswordChange from "./Pages/PasswordChange/PasswordChange";
 import Employee from "./Pages/Employee/Employee";
@@ -23,9 +23,9 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/" component={Login}></Route>
-        <Route exact path="/dashboard" component={Home}></Route>
-        <Route exact path="/register" component={Register}></Route>
+        <Route exact path="/" component={LoginPage}></Route>
+        <Route exact path="/dashboard" component={HomePage}></Route>
+        <Route exact path="/register" component={RegisterPage}></Route>
         <Route exact path="/forgot-password" component={ForgotPassword}></Route>
         <Route exact path ="/change-password" component={PasswordChange}></Route>
         <Route exact path ="/employees" component={Employee}></Route>
