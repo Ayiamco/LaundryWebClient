@@ -4,7 +4,6 @@ import RegisterForm from "../../components/RegisterForm/RegisterForm"
 import LoginHero from "../../components/LoginHero/LoginHero"
 
 import "../../Utilities/utilities.css";
-import "./register.css";
 
 export default function RegisterPage() {
 //this is the register page
