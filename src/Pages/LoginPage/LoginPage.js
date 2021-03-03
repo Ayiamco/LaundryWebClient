@@ -3,7 +3,6 @@ import  {Link } from "react-router-dom"
 import LoginForm from "../../components/LoginForm/LoginForm"
 import LoginHero from "../../components/LoginHero/LoginHero"
 
-import "./Login.css";
 import "../../Utilities/utilities.css"
 
 export default function LoginPage() {
