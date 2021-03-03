@@ -2,7 +2,7 @@ import React,{useState,useEffect,useContext,useCallback} from 'react';
 import {InvoiceContext} from "../AddInvoice/AddInvoice";
 
 export default function InvoiceItem({data}) {
-    const {services,setFormData,formData}=useContext(InvoiceContext);
+    const {services,setFormData,setInvoiceTotal}=useContext(InvoiceContext);
     const [currentService,setCurrentService]=useState({name:""})
     const [isServiceDeleted,setIsServiceDeleted]=useState(false);
     const [quantity,setQuantity]=useState(parseInt(data.quantity))
@@ -19,19 +19,23 @@ export default function InvoiceItem({data}) {
 
     function changeQuantity(e){
         if(e.target.className==="fas fa-minus"){
-            quantity>1 ? setQuantity(prev=> (prev-1)) : setQuantity(prev=>(prev));
+            if(quantity>1){
+                setQuantity(prev=> (prev-1));
+                setInvoiceTotal(prev=> (prev-currentService.price))
+            }
         }
         else{
             setQuantity(prev=> (prev+1))
+            setInvoiceTotal(prev=> (prev + currentService.price))
         }
     }
     function removeService(e) {
         setIsServiceDeleted(true);
         setFormData(prev=> ({...prev,[currentService.id]:{isDeleted:true}}))
+        setInvoiceTotal(prev=>(prev- (currentService.price*quantity)))
     }
 
     useEffect(()=>{
-        console.log(currentService)
         setFormData(prev=>({...prev,[currentService.id]:{
                             isDeleted:false,
                             data:{
@@ -42,11 +46,13 @@ export default function InvoiceItem({data}) {
                     }))
 }, [quantity,currentService.id,setFormData])
 
+
+
     return (
         <div className="IT-con" style={{display:isServiceDeleted? "none": "block",border:"1px solid black"}}>
             <p>This is invoice item for {currentService.name}</p>
-            <p>price: <span>&#8358;</span>{currentService.price}</p>
-            
+            <p>unit price: <span>&#8358;</span>{currentService.price}</p>
+            <p>amount:  <span>&#8358;</span>{currentService.price*quantity} </p> 
             <i className="fas fa-trash-alt" onClick={removeService} id=""></i>
             <div>
                 <i className="fas fa-plus" onClick={changeQuantity}></i>

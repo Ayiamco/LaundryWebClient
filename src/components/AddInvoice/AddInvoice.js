@@ -9,7 +9,8 @@ export default function AddInvoice() {
     const {customerInfo,setCustomerInfo,isCustomerFound,setIsCustomerFound,
         customer,setCustomer,services,setServices,
        invoiceItems,setInvoiceItems,itemCount,setItemCount,
-        isModalShown,setIsModalShown,formData,setFormData,handleInput,handleModal}=useAddInvoice();
+        isModalShown,setIsModalShown,formData,setFormData,handleInput,
+        handleModal,invoiceTotal,setInvoiceTotal}=useAddInvoice();
 
 
     return (
@@ -17,7 +18,8 @@ export default function AddInvoice() {
             value={{customerInfo,setCustomerInfo,isCustomerFound,setIsCustomerFound,customer,
                     setCustomer,services,setServices,
                     invoiceItems,setInvoiceItems,itemCount,setItemCount,isModalShown,
-                    setIsModalShown,formData,setFormData,handleInput,handleModal}}
+                    setIsModalShown,formData,setFormData,handleInput,handleModal,
+                    invoiceTotal,setInvoiceTotal}}
         >
             <AddInvoicePartial></AddInvoicePartial>
             <AddInvoiceModal></AddInvoiceModal>          

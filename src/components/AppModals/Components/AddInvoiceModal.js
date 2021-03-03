@@ -5,7 +5,8 @@ import InvoiceItem from "../../InvoiceItem/InvoiceItem"
 
 export default function AddInvoiceModal() {
     
-     const {services,isModalShown,setIsModalShown,setInvoiceItems,formData,setFormData}=useContext(InvoiceContext)
+     const {services,isModalShown,setIsModalShown,setInvoiceItems,
+            formData,setFormData,setInvoiceTotal}=useContext(InvoiceContext)
      const [modalData,setModalData]=useState({quantity:"",serviceId:""});
      const [isValidAddition,setIsValidAddititon]=useState(true);
      const [errorMessage,setErrorMessage]=useState("");
@@ -25,13 +26,11 @@ export default function AddInvoiceModal() {
                 setIsValidAddititon(false);
              }
              else{
-                 console.log(modalData)
                 if(formData[modalData.serviceId] &&  !formData[modalData.serviceId].isDeleted){
                     setIsValidAddititon(false)
                     setErrorMessage("service already added")
                 }
                 else{
-                    console.log("reached here")
                     closeModal();
                     setInvoiceItems(prev=>([...prev,<InvoiceItem data={modalData}key={modalData.serviceId+Date.now()} ></InvoiceItem>]))
                     setFormData(prev=>({...prev,
@@ -42,6 +41,8 @@ export default function AddInvoiceModal() {
                             quantity:modalData.quantity,
                         }
                     }}))
+                    let serviceChoosen = services.filter(x=> x.id===modalData.serviceId)[0];
+                    setInvoiceTotal(prev=>(prev + (modalData.quantity * serviceChoosen.price) ))
                     
                 }
              }

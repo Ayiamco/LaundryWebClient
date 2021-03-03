@@ -11,6 +11,7 @@ export default function useAddInvoice() {
     const [itemCount,setItemCount]=useState(1)
     const [isModalShown,setIsModalShown]=useState(false);
     const [formData,setFormData]=useState({})
+    const [invoiceTotal,setInvoiceTotal]=useState(0)
     
     function handleInput(e){
         e.preventDefault()
@@ -53,5 +54,6 @@ export default function useAddInvoice() {
     return {customerInfo,setCustomerInfo,isCustomerFound,setIsCustomerFound,
         customer,setCustomer,services,setServices,
         invoiceItems,setInvoiceItems,itemCount,setItemCount,
-        isModalShown,setIsModalShown,formData,setFormData,handleInput,handleModal}
+        isModalShown,setIsModalShown,formData,setFormData,handleInput,handleModal,
+        invoiceTotal,setInvoiceTotal}
 }

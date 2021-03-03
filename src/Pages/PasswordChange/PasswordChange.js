@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useState,useCallback} from 'react'
 import { useLocation,Link} from "react-router-dom";
 import FormInput from "../../components/FormInput/FormInput";
 import FormBtn from "../../components/FormBtn/FormBtn";
@@ -35,7 +35,7 @@ export default function PasswordChange() {
     const handleInput = (e)=>{
         setData(prev=> ({...prev,[e.target.name]:e.target.value}))
     }
-    const PasswordsAreNotValid = ()=> {
+    const PasswordsAreNotValid = useCallback(()=> {
         let isPasswordValid=true;
         //check if passwords match
         if(data.password !== data.confirmPassword){
@@ -52,7 +52,7 @@ export default function PasswordChange() {
             isPasswordValid=false;
         }
         return !isPasswordValid;
-    }
+    },[data.password,data.confirmPassword])
 
     useEffect(()=>{
         if(PasswordsAreNotValid()){
@@ -61,7 +61,7 @@ export default function PasswordChange() {
         else{
             setbooleanStates(prev=>({...prev,shouldButtonDisable:false}))
         }
-    },[data.confirmPassword,data.password])
+    },[data.confirmPassword,data.password,PasswordsAreNotValid])
        
     return (
         <section className="pg-con">
