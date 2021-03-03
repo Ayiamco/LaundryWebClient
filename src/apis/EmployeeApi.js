@@ -1,7 +1,9 @@
+const baseUrl= process.env.REACT_APP_API_URL;
+
 export const addEmployee= async (email)=>{
     const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
 
-    let resp =await fetch("https://localhost:44322/api/employee/add",{
+    let resp =await fetch(baseUrl+"/employee/add",{
             method:"POST",
             headers:{
                 "Content-Type":'application/json; charset=utf-8',
@@ -23,7 +25,7 @@ export const addEmployee= async (email)=>{
 }
 
 export const registerEmployee = async (formData)=>{
-let resp =await fetch("https://localhost:44322/api/employee/new",{
+let resp =await fetch(baseUrl+"/employee/new",{
                     method:"POST",
                     headers:{
                         "Content-Type":'application/json; charset=utf-8',
@@ -47,7 +49,7 @@ let resp =await fetch("https://localhost:44322/api/employee/new",{
 }
 
 export async function getEmployees(page,searchParam){
-    let url="https://localhost:44322/api/employee/?page=" + (page===null ? 1 : page);
+    let url=baseUrl+"/employee/?page=" + (page===null ? 1 : page);
     url=searchParam !== null ?  url+`&name=${searchParam}`: url + "&name=";
     const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
     
@@ -71,7 +73,7 @@ export async function getEmployees(page,searchParam){
 }
 
 export async function findEmployee(employeeId){
-    let url="https://localhost:44322/api/employee/" + employeeId;
+    let url=baseUrl+"/employee/" + employeeId;
     const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
     let resp =await fetch(url,{
             method:"GET",
@@ -94,7 +96,7 @@ export async function findEmployee(employeeId){
 
 export async function deleteEmployee(id){
      const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
-     const url = "https://localhost:44322/api/employee/delete/"+ id
+     const url = baseUrl+"/employee/delete/"+ id
     
     let resp =await fetch(url,{
             method:"DELETE",

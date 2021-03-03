@@ -1,8 +1,9 @@
 import {validateEmail} from "../Utilities/helper"
+const baseUrl= process.env.REACT_APP_API_URL;
 export async function addCustomer (formData){
     const authToken= "Bearer " + localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
     console.log(formData,authToken)
-    let resp =await fetch("https://localhost:44322/api/customer/new",{
+    let resp =await fetch(baseUrl+"/customer/new",{
                     method:"POST",
                     headers:{
                         "Content-Type":'application/json; charset=utf-8',
@@ -28,7 +29,7 @@ export async function addCustomer (formData){
 
 export async function updateCustomer (formData){
     const authToken= "Bearer " + localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
-    let resp =await fetch("https://localhost:44322/api/customer",{
+    let resp =await fetch(baseUrl+"/customer",{
                     method:"PATCH",
                     headers:{
                         "Content-Type":'application/json; charset=utf-8',
@@ -55,7 +56,7 @@ export async function updateCustomer (formData){
 }
 
 export async function getCustomers(page,searchParam){
-    let url="https://localhost:44322/api/customer/?page=" + (page===null ? 1 : page);
+    let url=baseUrl+"/customer/?page=" + (page===null ? 1 : page);
     url=searchParam !== null ?  url+`&name=${searchParam}`: url + "&name=";
     const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
     
@@ -78,7 +79,7 @@ export async function getCustomers(page,searchParam){
 
 export async function deleteCustomer(id){
      const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
-     const url = "https://localhost:44322/api/customer/"+ id
+     const url = baseUrl+"/customer/"+ id
     
     let resp =await fetch(url,{
             method:"DELETE",
@@ -100,7 +101,7 @@ export async function deleteCustomer(id){
 }
 
 export async function findCustomer(customerId){
-    let url="https://localhost:44322/api/customer/" + customerId;
+    let url=baseUrl+"/customer/" + customerId;
     console.log(url)
     const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
     let resp =await fetch(url,{
@@ -125,7 +126,7 @@ export async function findCustomer(customerId){
 export async function searchForCustomer(customerInfo){
     let infoType= validateEmail(customerInfo) ? "email" : isNaN(parseInt(customerInfo))? "name" : "phone";
     const authToken= "Bearer " + localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
-    let url=`https://localhost:44322/api/customer/search?customerInfo=${customerInfo}&infoType=${infoType}`;
+    let url=`${baseUrl}/customer/search?customerInfo=${customerInfo}&infoType=${infoType}`;
      let resp =await fetch(url,{
                     method:"GET",
                     headers:{

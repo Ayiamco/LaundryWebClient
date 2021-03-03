@@ -1,6 +1,7 @@
+const baseUrl=process.env.REACT_APP_API_URL;
 const  loginUser = async (formData)=>{
 
-    let resp =await fetch("https://localhost:44322/api/account/login",{
+    let resp =await fetch(baseUrl+"/account/login",{
             method:"POST",
             headers:{
                 "Content-Type":'application/json; charset=utf-8',

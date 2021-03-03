@@ -1,5 +1,6 @@
+const baseUrl= process.env.REACT_APP_API_URL
 async function registerUser (formData){
-    let resp= await fetch("https://localhost:44322/api/laundry/new",{
+    let resp= await fetch(baseUrl+"/laundry/new",{
                     method:"POST",
                     headers:{
                         "Content-Type":'application/json; charset=utf-8',

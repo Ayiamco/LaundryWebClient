@@ -1,5 +1,6 @@
+const baseUrl=process.env.REACT_APP_API_URL; 
  export const sendPassowordResetMail = async (email,role)=>{
-    const url= "https://localhost:44322/api/account/forgotpassword" 
+    const url= baseUrl+"/account/forgotpassword" 
     let resp=await fetch(url,{
                         method:"POST",
                         headers:{
@@ -17,7 +18,7 @@
 }
 
 export const saveNewPassword = async  (data) =>{
-    let url="https://localhost:44322/api/account/forgotpassword/" + data.id
+    let url=baseUrl+"/account/forgotpassword/" + data.id
     console.log(data)
     let resp = await fetch(url,{
                 method:"POST",
