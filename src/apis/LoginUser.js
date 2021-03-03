@@ -5,7 +5,6 @@ const  loginUser = async (formData)=>{
             method:"POST",
             headers:{
                 "Content-Type":'application/json; charset=utf-8',
-                "Access-Control-Allow-Origin": "*"
             },
             mode:'cors',
             body: JSON.stringify({
