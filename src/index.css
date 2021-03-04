@@ -52,7 +52,11 @@ input[type="number"] {
 .txt-danger {
   color: red;
 }
-
+.txt-warning {
+  font-style: italic;
+  font-weight: bold;
+  text-transform: capitalize;
+}
 .center {
   text-align: center;
   margin: auto;

@@ -1,7 +1,7 @@
 .FB-con button {
   color: white;
   background-color: var(--purple-2);
-  border-radius: 5px;
+  border-radius: 25px;
   cursor: pointer;
   border: none;
   padding: 1.2em 2em;

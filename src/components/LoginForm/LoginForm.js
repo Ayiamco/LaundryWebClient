@@ -41,7 +41,6 @@ function LoginForm(){
         //authenticate user
         let res =  await loginUser(formData)
         if(res.statusCode==="400" && res.message==="username is tied to two roles"){
-            console.log("user has two roles");
             setnetworkError("none");
             localStorage.setItem("username",formData.username);
             localStorage.setItem("password",formData.password);

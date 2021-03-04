@@ -1,0 +1,55 @@
+.IIT-con {
+  display: flex;
+  justify-content: space-between;
+  margin: 1em 2em;
+  min-height: 10em;
+  padding: 1em;
+  border-radius: 8px;
+  background-color: whitesmoke;
+  box-shadow: 5px 5px 10px 3px gray;
+  border: 0px !important;
+  outline: none;
+  width: 80%;
+}
+.IIT-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.IIT-quant {
+  background-color: var(--gray-2);
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.IIT-quant:hover {
+  background-color: gray;
+}
+.IIT-quant i {
+  font-size: 6em;
+}
+.IIT-flex-1 {
+  width: 60%;
+}
+.IIT-flex-2 {
+  width: 25%;
+  align-items: center;
+}
+
+.IIT-flex-3 {
+  width: 15%;
+  align-items: center;
+}
+
+@media only screen and (min-width: 700px) {
+  .IIT-con {
+    width: 20em;
+  }
+}

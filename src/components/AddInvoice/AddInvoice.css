@@ -1,0 +1,60 @@
+.AIP-form {
+  width: 80%;
+  margin: auto;
+}
+.AIP-form h1,
+.AIP-form h3 {
+  color: var(--purple-2);
+  text-transform: capitalize;
+  text-align: center;
+}
+.AIP-header-sticky-top {
+  margin-bottom: -1.5em;
+}
+
+.AIP-header {
+  width: 100%;
+  text-transform: capitalize;
+  color: var(--purple-2);
+  padding: 0px 2em;
+}
+
+.AIP-header-sticky {
+  position: sticky;
+  top: 77px;
+  background-color: var(--gray-1);
+  padding-top: 2em;
+}
+
+.AIP-btn {
+  padding: 0.7em 2em;
+  background-color: var(--purple-2);
+  color: white;
+  width: fit-content;
+  text-transform: capitalize;
+  display: block;
+  margin: auto;
+  margin-top: 1em;
+  border-radius: 7px;
+  border: 0;
+}
+
+.AIP-invoiceItems {
+  margin-top: 1.5em;
+}
+.AIP-con {
+  padding-bottom: 2em;
+}
+
+@media only screen and (min-width: 700px) {
+  .AIP-invoiceItems {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .AIP-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

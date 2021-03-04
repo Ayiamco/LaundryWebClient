@@ -2,7 +2,7 @@ import React,{useState,useContext} from 'react';
 import Modal from "react-modal";
 import {InvoiceContext} from "../../AddInvoice/AddInvoice";
 import InvoiceItem from "../../InvoiceItem/InvoiceItem"
-
+import   "../Styles/AddInvoiceModal.css";
 export default function AddInvoiceModal() {
     
      const {services,isModalShown,setIsModalShown,setInvoiceItems,
@@ -57,15 +57,18 @@ export default function AddInvoiceModal() {
          setIsModalShown(false);
      }
     return (
-        <Modal isOpen={isModalShown} shouldCloseOnOverlayClick={true} className="EDM-modal"
-                overlayClassName="EDM-modal-overlay" onRequestClose={() => {return setIsModalShown(false)}}
+        <Modal isOpen={isModalShown} shouldCloseOnOverlayClick={false} className="AIM-modal"
+                overlayClassName="AIM-overlay" onRequestClose={() => {return setIsModalShown(false)}}
         >
-            <p style={{display:isValidAddition? "none":"block"}}>{errorMessage}</p>
-            <h2 className="EDM-h2">Add invoice Item</h2>
-            <i className="fas fa-times" onClick={closeModal}></i>
+            <div className="AIM-title">
+                <h2 >Add invoice Item</h2>
+            <p className="txt-danger txt-warning"style={{display:isValidAddition? "none":"block"}}>{errorMessage}</p>
+            </div>
+            
+            <i className="fas fa-times AIM-close" onClick={closeModal}></i>
             
             <form onSubmit={handleInvoiceModal}>
-                <select name="serviceId" value={modalData.serviceId} onChange={handleInvoiceModal}>
+                <select name="serviceId" className="AIM-FI"value={modalData.serviceId} onChange={handleInvoiceModal}>
                     <option>Select Service</option>
                 {
                     services.map((element,index) => {
@@ -73,8 +76,8 @@ export default function AddInvoiceModal() {
                     })
                 }
                 </select>
-                <input type="number" name="quantity" value={modalData.quantity} onChange={handleInvoiceModal}/>
-                <button>Add Item</button>
+                <input placeholder="Enter service quantity "className="AIM-FI" type="number" name="quantity" value={modalData.quantity} onChange={handleInvoiceModal}/>
+                <button className="AIM-FI AIM-btn" >Add Item</button>
             </form>
             
                 

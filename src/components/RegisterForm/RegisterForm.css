@@ -1,6 +1,7 @@
 .reg-btn {
-  margin: 1em 0em;
-  width: calc(100% - 8em);
+  margin: 2em 0em;
+  margin-left: 0.8em;
+  width: calc(100% - 0.8em);
 }
 
 .reg-btn button {

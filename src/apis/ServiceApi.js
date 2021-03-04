@@ -54,6 +54,7 @@ export async function updateService(formData){
 
 export async function getServices(page,searchParam){
     let url=baseUrl+"/service/?page=" + (page===null ? 1 : page);
+    console.log(url)
     url=url+`&name=${searchParam? searchParam:""}`;
     const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
     
@@ -122,6 +123,7 @@ export async function findService(serviceId){
 }
 export async function getAllServices(){
     let url=baseUrl+"/service/all"
+    console.log(url)
     const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
     let resp =await fetch(url,{
             method:"GET",

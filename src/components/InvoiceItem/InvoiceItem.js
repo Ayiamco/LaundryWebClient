@@ -1,6 +1,6 @@
 import React,{useState,useEffect,useContext,useCallback} from 'react';
 import {InvoiceContext} from "../AddInvoice/AddInvoice";
-
+import "./InvoiceItem.css"
 export default function InvoiceItem({data}) {
     const {services,setFormData,setInvoiceTotal}=useContext(InvoiceContext);
     const [currentService,setCurrentService]=useState({name:""})
@@ -18,7 +18,7 @@ export default function InvoiceItem({data}) {
     },[getServiceData])
 
     function changeQuantity(e){
-        if(e.target.className==="fas fa-minus"){
+        if(e.target.className.includes("fas fa-minus")){
             if(quantity>1){
                 setQuantity(prev=> (prev-1));
                 setInvoiceTotal(prev=> (prev-currentService.price))
@@ -49,16 +49,22 @@ export default function InvoiceItem({data}) {
 
 
     return (
-        <div className="IT-con" style={{display:isServiceDeleted? "none": "block",border:"1px solid black"}}>
-            <p>This is invoice item for {currentService.name}</p>
-            <p>unit price: <span>&#8358;</span>{currentService.price}</p>
-            <p>amount:  <span>&#8358;</span>{currentService.price*quantity} </p> 
-            <i className="fas fa-trash-alt" onClick={removeService} id=""></i>
-            <div>
-                <i className="fas fa-plus" onClick={changeQuantity}></i>
-                    <p>quantity:{quantity} </p>
-                <i className="fas fa-minus" onClick={changeQuantity}></i>
+        <div className="IIT-con" style={{display:isServiceDeleted? "none": "flex",border:"1px solid black"}}>
+            <div className="IIT-flex IIT-flex-1">
+                <p>Service: {currentService.name}</p>
+                <p>Unit price: <span>&#8358;</span>{currentService.price}</p>
+                <p>Amount:  <span>&#8358;</span>{currentService.price*quantity} </p> 
             </div>
+            <div className="IIT-flex IIT-flex-2">
+                <i className="fas fa-plus IIT-quant" onClick={changeQuantity}></i>
+                    <p>&#215;<span style={{fontWeight:"bold"}}>{quantity}</span> </p>
+                <i className="fas fa-minus IIT-quant" onClick={changeQuantity}></i>
+            </div>
+            <div className="IIT-flex IIT-flex-3">
+                <i className="fas fa-trash-alt txt-danger" onClick={removeService} id=""></i>
+            </div>
+            
+            
         </div>
     )
 }

@@ -1,0 +1,68 @@
+.AIM-modal {
+  position: fixed;
+  top: 30%;
+  left: 0.8em;
+  right: 0.8em;
+  bottom: 2em;
+  border: none;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 5px;
+  outline: none;
+  padding: 3em 1.5em;
+  width: calc(100% - 2em);
+  height: fit-content;
+  color: rgb(75, 73, 73);
+  background: white;
+}
+.AIM-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  -pie-background: rgba(0, 0, 0, 0.8);
+  z-index: 100;
+}
+.AIM-close {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+.AIM-title {
+  text-align: center;
+  margin-bottom: 1em;
+  color: var(--purple-2);
+}
+.AIM-FI {
+  width: 95%;
+  height: 2.5em;
+  border-radius: 5px;
+  display: block;
+  border: 1px solid gray;
+  padding-left: 1em;
+  margin: auto;
+  margin-top: 0.7em;
+}
+.AIM-FI:focus {
+  border: 1px solid var(--purple-2);
+  outline: none;
+}
+.AIM-btn {
+  background-color: var(--purple-2);
+  color: white;
+}
+@media only screen and (min-width: 700px) {
+  .AIM-modal {
+    margin-left: 33%;
+    width: 50%;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .AIM-modal {
+    margin-left: 33%;
+    width: 40%;
+  }
+}

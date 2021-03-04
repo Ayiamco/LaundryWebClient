@@ -4,12 +4,24 @@
 
 .PL-nav {
   background-color: var(--purple-2);
+  position: fixed;
+  top: 75px;
+  z-index: 100;
+  min-height: calc(100vh - 75px);
+  margin-bottom: 0px;
+  width: 50%;
 }
 
 .PL-header {
   display: flex;
   justify-content: space-between;
   padding: 1.5em;
+  position: sticky;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin: 0;
+  border-bottom: 1px solid var(--purple-2);
 }
 .header-gray {
   background-color: var(--gray-1);
@@ -32,7 +44,7 @@
   justify-content: center;
 }
 .soln {
-  display: none;
+  display: inline;
 }
 
 @media only screen and (min-width: 700px) {
@@ -51,10 +63,15 @@
   .PL-body {
     width: 80%;
     min-height: calc(100vh - 5em);
+    margin-left: 35%;
   }
   .PL-nav {
     width: 35%;
     min-height: calc(100vh - 5em);
+    position: fixed;
+    left: 0;
+    top: 75px;
+    min-height: calc(100vh - 75px);
   }
 
   #PL-toggle-btn {
@@ -66,17 +83,26 @@
   .PL-nav {
     width: 30%;
   }
+  .PL-body {
+    margin-left: 30%;
+  }
 }
 
 @media only screen and (min-width: 900px) {
   .PL-nav {
     width: 25%;
   }
+  .PL-body {
+    margin-left: 25%;
+  }
 }
 
 @media only screen and (min-width: 1000px) {
   .PL-nav {
     width: 20%;
+  }
+  .PL-body {
+    margin-left: 20%;
   }
 }
 @media only screen and (min-width: 1200px) {
@@ -85,5 +111,6 @@
   }
   .PL-body {
     width: 85%;
+    margin-left: 15%;
   }
 }
