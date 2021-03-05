@@ -9,9 +9,11 @@ export default function useAddInvoice() {
     const [services,setServices]=useState([]);
     const [invoiceItems,setInvoiceItems]=useState([])
     const [itemCount,setItemCount]=useState(1)
-    const [isModalShown,setIsModalShown]=useState(false);
+    const [isAIMShown,setIsAIMShown]=useState(false);
+    const [isIRMShown,setIsIRMShown]=useState(false);
     const [formData,setFormData]=useState({})
-    const [invoiceTotal,setInvoiceTotal]=useState(0)
+    const [invoiceTotal,setInvoiceTotal]=useState(0);
+    
     
     function handleInput(e){
         e.preventDefault()
@@ -48,12 +50,30 @@ export default function useAddInvoice() {
         getServices();
     }, [getServices])
 
-    function handleModal(){
-        isModalShown ? setIsModalShown(false): setIsModalShown(true);
+    function handleModal(e){
+        if(e.target.name==="invoice-submit"){
+            isIRMShown ? setIsIRMShown(false) : setIsIRMShown(true);
+            let invoiceItemArray=[]
+            for(let key in formData){
+                if(formData[key].isDeleted===false && key !=="undefined"){
+                    invoiceItemArray.push({serviceId:key,quantity: formData[key].data.quantity});
+                }
+            }
+            let requestData= {
+                invoiceItems:invoiceItemArray,
+                customerId:customer.id
+            }
+            
+            localStorage.setItem("invoice",JSON.stringify(requestData))
+        }
+        else{
+             isAIMShown ? setIsAIMShown(false): setIsAIMShown(true);
+        }
+       
     }
     return {customerInfo,setCustomerInfo,isCustomerFound,setIsCustomerFound,
         customer,setCustomer,services,setServices,
-        invoiceItems,setInvoiceItems,itemCount,setItemCount,
-        isModalShown,setIsModalShown,formData,setFormData,handleInput,handleModal,
+        invoiceItems,setInvoiceItems,itemCount,setItemCount,isIRMShown,setIsIRMShown,
+        isAIMShown,setIsAIMShown,formData,setFormData,handleInput,handleModal,
         invoiceTotal,setInvoiceTotal}
 }

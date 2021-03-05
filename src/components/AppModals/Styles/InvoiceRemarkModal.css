@@ -1,0 +1,31 @@
+.IRM-close {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+.IRM-con {
+  margin: auto;
+  padding: 2em;
+}
+.IRM-con label {
+  display: block;
+  text-transform: capitalize;
+  font-weight: bold;
+  color: var(--purple-2);
+}
+.IRM-con input,
+.IRM-con textarea {
+  min-width: 100%;
+  max-width: 100%;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 0.5em;
+}
+.IRM-con input[type="submit"] {
+  background-color: var(--purple-2);
+  color: white;
+}
+
+.IRM-con form:first-child {
+  margin-bottom: 1em;
+}

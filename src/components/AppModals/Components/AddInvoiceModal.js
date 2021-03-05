@@ -5,11 +5,12 @@ import InvoiceItem from "../../InvoiceItem/InvoiceItem"
 import   "../Styles/AddInvoiceModal.css";
 export default function AddInvoiceModal() {
     
-     const {services,isModalShown,setIsModalShown,setInvoiceItems,
+     const {services,isAIMShown,setIsAIMShown,setInvoiceItems,
             formData,setFormData,setInvoiceTotal}=useContext(InvoiceContext)
      const [modalData,setModalData]=useState({quantity:"",serviceId:""});
      const [isValidAddition,setIsValidAddititon]=useState(true);
      const [errorMessage,setErrorMessage]=useState("");
+     
      
     
      function handleInvoiceModal(e){
@@ -54,11 +55,11 @@ export default function AddInvoiceModal() {
         
      }
      function closeModal (){
-         setIsModalShown(false);
+         setIsAIMShown(false);
      }
     return (
-        <Modal isOpen={isModalShown} shouldCloseOnOverlayClick={false} className="AIM-modal"
-                overlayClassName="AIM-overlay" onRequestClose={() => {return setIsModalShown(false)}}
+        <Modal isOpen={isAIMShown} shouldCloseOnOverlayClick={false} className="AIM-modal"
+                overlayClassName="AIM-overlay" onRequestClose={() => {return setIsAIMShown(false)}}
         >
             <div className="AIM-title">
                 <h2 >Add invoice Item</h2>

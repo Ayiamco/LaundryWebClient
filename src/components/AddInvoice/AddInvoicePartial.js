@@ -4,20 +4,11 @@ import FormInput from "../../components/FormInput/FormInput";
 import "./AddInvoice.css";
 export default function AddInvoicePartial() {
     const {customerInfo,customer,invoiceItems,handleInput,handleModal,
-            isCustomerFound,formData,invoiceTotal}=useContext(InvoiceContext)
+            isCustomerFound,invoiceTotal}=useContext(InvoiceContext)
     
-    function submitInvoice(){
-        let invoiceItemArray=[]
-        for(let key in formData){
-            if(formData[key].isDeleted===false && key !==undefined){
-                invoiceItemArray.push({serviceId:key,quantity: formData[key].data.quantity});
-            }
-        }
-         
+    
         
-        console.log(invoiceItemArray)
-        console.table(formData)
-    }
+    
     return (
         <div className="AIP-con">
             <div className="AIP-header-sticky">
@@ -61,7 +52,7 @@ export default function AddInvoicePartial() {
 
             {
                 invoiceItems.length>0 ?
-                <button onClick={submitInvoice} className="AIP-btn AIP-submit">Add Invoice</button>
+                <button onClick={handleModal} name="invoice-submit" className="AIP-btn AIP-submit">Add Invoice</button>
                 : ""
             }
         </div>
