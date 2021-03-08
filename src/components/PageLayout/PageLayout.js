@@ -3,10 +3,11 @@ import NavBar from "../NavBar/NavBar";
 import "./PageLayout.css";
 
 export default function PageLayout({activeItem,PageItem}) {
-    const [navDisplay,setNavDisplay]=useState(true)
+    const [navDisplay,setNavDisplay]=useState(false)
     const [screenSize,setScreenSize]=useState(window.innerWidth)
     function handleNavDisplay(){
         navDisplay ? setNavDisplay(false) : setNavDisplay(true)
+        console.log("handleNavDisplay called from pageLayout")
     }
     useEffect(()=>{
         const resizeHandler=()=>{
@@ -21,6 +22,11 @@ export default function PageLayout({activeItem,PageItem}) {
         }
     },[screenSize])
    
+    useEffect(()=>{
+        if(window.innerWidth> 700){
+                setNavDisplay(true)
+            }
+    },[])
     return (
         <div className="PL-con" >
             <header className={`PL-header ${navDisplay? "header-gray": "header-purple"}`}>
@@ -30,7 +36,8 @@ export default function PageLayout({activeItem,PageItem}) {
             </header>
             <section className="PL-section">
                 <nav className="PL-nav" style={{display:navDisplay?"block":"none"}}>
-                    <NavBar activeItem={activeItem} display={navDisplay? "navbar-show":"navbar-hide"}></NavBar>
+                    <NavBar activeItem={activeItem} display={navDisplay? "navbar-show":"navbar-hide"}
+                     setNavDisplay={setNavDisplay}> </NavBar>
                 </nav>
                 <section className="PL-body">
                     <PageItem></PageItem>

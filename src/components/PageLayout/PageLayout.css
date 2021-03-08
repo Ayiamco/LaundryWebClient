@@ -10,6 +10,7 @@
   min-height: calc(100vh - 75px);
   margin-bottom: 0px;
   width: 50%;
+  display: none;
 }
 
 .PL-header {

@@ -134,7 +134,7 @@
 }
 /* Employee Layout component table section styles  */
 .ECSL-table-con {
-  overflow: scroll;
+  overflow-x: scroll;
   padding: 0px;
   margin-top: 0.3em;
 }

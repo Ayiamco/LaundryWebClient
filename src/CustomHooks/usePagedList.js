@@ -4,12 +4,14 @@ import useQuery from "./useQuery";
 import {getEmployees} from "../apis/EmployeeApi";
 import {getCustomers} from "../apis/CustomerApi";
 import { getServices } from '../apis/ServiceApi';
+import { getInvoices } from '../apis/InvoiceApi';
 
 
 const Apis={
     "employee": getEmployees,
     "customer": getCustomers,   
     "service":getServices,
+    "invoice":getInvoices,
     
 }
 export default function usePagedList(entity) {
@@ -38,7 +40,7 @@ export default function usePagedList(entity) {
             
             if (resp.statusCode === "200" ) {
                 setitemList(resp.data.data);
-                setTimeout(setIsLoading(false), 5000);
+                setTimeout(setIsLoading(false), 2000);
                 setMaxPageIndex(resp.data.maxPageIndex);
                 setPage(resp.data.pageIndex);
                 searchParam ? history.push(`/${entity}s?page=${resp.data.pageIndex}&name=${searchParam}`)    

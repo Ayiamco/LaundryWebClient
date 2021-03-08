@@ -59,7 +59,8 @@ export default function AddInvoiceModal() {
      }
     return (
         <Modal isOpen={isAIMShown} shouldCloseOnOverlayClick={false} className="AIM-modal"
-                overlayClassName="AIM-overlay" onRequestClose={() => {return setIsAIMShown(false)}}
+                overlayClassName="AIM-overlay" onRequestClose={() => {return setIsAIMShown(false)}
+            }
         >
             <div className="AIM-title">
                 <h2 >Add invoice Item</h2>

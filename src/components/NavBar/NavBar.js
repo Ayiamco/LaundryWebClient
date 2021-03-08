@@ -5,7 +5,7 @@ import "./NavBar.css"
 
 const items=["DashBoard","Employee","Customer","Service","Invoice",]
 const classes=["fas fa-th","fas fa-users-cog","fas fa-user","fas fa-network-wired","fas fa-file-alt",]
-export default function NavBar({activeItem,display}) {
+export default function NavBar({activeItem,display,setNavDisplay}) {
     const history =useHistory()
     const booleanStates={
         Dashboard:false,Customer:false,Employee:false,Invoice:false,Service:false,
@@ -16,6 +16,9 @@ export default function NavBar({activeItem,display}) {
 
     const handleClick = (e) => {
         const navItemClicked=e.target.getAttribute("data-navbtn");
+        if(window.innerWidth> 700){
+                setNavDisplay(true)
+            }
         if(navItemClicked.includes("New")){
             history.push(`/${navItemClicked.split("New")[1].toLowerCase()}/new`)
         }
@@ -23,8 +26,8 @@ export default function NavBar({activeItem,display}) {
             history.push(`/${navItemClicked.toLowerCase()}`)
         }
         else{history.push(`/${navItemClicked.toLowerCase()}s`)}
-            
         
+            
     }
     return (
         <ul className="nav-bar-con" id={display}>
