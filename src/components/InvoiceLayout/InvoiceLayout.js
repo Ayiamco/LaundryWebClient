@@ -5,21 +5,27 @@ import usePagedList from "../../CustomHooks/usePagedList";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import Modal from "react-modal";
 import InvoiceDetailsModal from "../AppModals/Components/InvoiceDetailsModal"
+import {getInvoice} from "../../apis/InvoiceApi";
 
 export default function InvoiceLayout() {
   const [itemList,page,inputValue,maxPageIndex,searchParam,isLoading,
     handleInput,handleForm,setPage,isNetworkError]= usePagedList("invoice");
     const [isModalOpen,setIsModalOpen]=useState(false)
     const [modalData,setModalData]=useState("")
-  function handleModal(){
-
+  
+  async function handleModal(e){
+    let invoiceId= e.target.id.split("//")[1]
+    let invoiceInfo= await getInvoice(invoiceId);
+    console.log(invoiceInfo)
+    setIsModalOpen(true)
+    setModalData(invoiceInfo);
   }
   return (
     <div className="ECSL-con">
       
      <Modal isOpen={isModalOpen} shouldCloseOnOverlayClick={false} className="AIM-modal"
-                overlayClassName="AIM-overlay" onRequestClose={() => {return setIsModalOpen(false)}}
-                children={<InvoiceDetailsModal data={modalData}></InvoiceDetailsModal>}
+        overlayClassName="AIM-overlay" onRequestClose={() => {return setIsModalOpen(false)}}
+        children={<InvoiceDetailsModal modalData={modalData} setIsModalOpen={setIsModalOpen}/>}
     />
       
       {
