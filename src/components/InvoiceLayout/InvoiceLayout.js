@@ -17,8 +17,9 @@ export default function InvoiceLayout() {
     let invoiceId= e.target.id.split("//")[1]
     let invoiceInfo= await getInvoice(invoiceId);
     console.log(invoiceInfo)
-    setIsModalOpen(true)
     setModalData(invoiceInfo);
+    setIsModalOpen(true)
+    
   }
   return (
     <div className="ECSL-con">
