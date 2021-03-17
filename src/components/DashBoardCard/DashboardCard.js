@@ -1,10 +1,25 @@
 import React from 'react'
-import "./DashboardCard.css"
+import "./DashboardCard.css";
+import {toTitleCase} from "../../Utilities/helper"
 const ICONS={
-    'Employees':'fa fa-users-cog',
-    'Invoices' : 'fa fa-diamond',
-    'Revenue' : 'fa fa-dollar'
+    'noOfEmployees':'fa fa-users-cog',
+    'revenue' : 'fa fa-dollar',
+    'invoiceAmount':'fa fa-dollar',
+    'topCustomer':'fas fa-user-shield',
+    'topService':'fas fa-lightbulb',
+    'invoiceCount':'fas fa-globe',
+    'customerCount':'fas fa-user-shield'
 }
+const DisplayNames={
+    'noOfEmployees':'No of Customers',
+    'revenue' : 'Total Revenue',
+    'invoiceAmount':'Total Sales',
+    'topCustomer':'Top Customer',
+    'topService':'Service with max sales',
+    'invoiceCount':'Sales Count',
+    'customerCount':'Customer Count'
+}
+ 
 export default function DashboardCard({text,data}) {
     return (
         <div className="dash-card-body">
@@ -12,8 +27,12 @@ export default function DashboardCard({text,data}) {
                     <i className={ICONS[text]}></i>
                 </span>
                 <div className="dash-widget-info">
-                    <h3>{data}</h3>
-                    <span>{text}</span>
+                    {text==="revenue" || text==="invoiceAmount"?
+                         <h3 className="title-case">&#8358;{data} </h3> :
+                          <h3 className="title-case">{data} </h3>
+                    }
+                   
+                    <span>{DisplayNames[text]}</span>
                 </div>
             </div>
     )

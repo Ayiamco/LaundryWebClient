@@ -1,44 +1,67 @@
-.dash-card-body{
-    background-color: white;
-    border-radius:5px;
-    box-shadow: 1px 1px gray;
-    padding: 1em;
-    margin: 1em;
+.dash-card-body {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 1px 1px gray;
+  padding: 1em;
+  margin: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dash-widget-icon {
+  background-color: var(--purple-3);
+  padding: 1em;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5em;
+  height: 5em;
+}
+
+.dash-widget-icon i {
+  display: block;
+  font-size: 2em;
+  color: var(--purple-2);
+}
+
+.dash-widget-info {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-weight: 500;
+  color: var(--purple-2);
+  font-size: 1em;
+}
+.dash-widget-info h3 {
+  margin-bottom: 0.5em;
+  font-weight: 700;
+}
+
+.dash-title {
+  text-align: center;
+  padding: 1em;
+}
+
+.title-case {
+  text-transform: capitalize;
+}
+
+@media only screen and (min-width: 700px) {
+  .dashboard-card-con {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 0.5px solid gray;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+  .dash-card-body {
+    width: 20em;
+  }
+  .dash-widget-info h3 {
+    margin-bottom: 0.5em;
+    font-weight: 400;
+  }
 }
-
-.dash-widget-icon{
-    background-color: var(--purple-3);
-    padding: 1em;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 5em;
-    height: 5em;
-}
-
-.dash-widget-icon i{
-   display: block;
-   font-size: 2em;
-   color: var(--purple-2);
-}
-
-.dash-widget-info{
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
-    font-weight: 500;
-    color: var(--purple-2);
-    font-size: 1em;
-}
-.dash-widget-info h3{
-    margin-bottom:0.5em ;
-    font-weight: 700;
-}
-
