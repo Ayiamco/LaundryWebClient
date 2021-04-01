@@ -1,6 +1,6 @@
 import React from 'react'
 import "./DashboardCard.css";
-import {toTitleCase} from "../../Utilities/helper"
+
 const ICONS={
     'noOfEmployees':'fa fa-users-cog',
     'revenue' : 'fa fa-dollar',

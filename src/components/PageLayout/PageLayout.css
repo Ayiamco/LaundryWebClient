@@ -5,9 +5,9 @@
 .PL-nav {
   background-color: var(--purple-2);
   position: fixed;
-  top: 75px;
+  top: 85px;
   z-index: 100;
-  min-height: calc(100vh - 75px);
+  min-height: calc(100vh - 85px);
   margin-bottom: 0px;
   width: 50%;
 }

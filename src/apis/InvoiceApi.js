@@ -39,6 +39,7 @@ export async function getInvoices(page,searchParam){
             },
             mode:'cors',
         }).then(res=> {
+             if(res.status===401) return res;
             return res.json()
         }).catch( (e)=>{
             return {
@@ -60,6 +61,7 @@ export async function getInvoice(id){
             },
             mode:'cors',
         }).then(res=> {
+             if(res.status===401) return res;
             return res.json()
         }).catch( (e)=>{
             

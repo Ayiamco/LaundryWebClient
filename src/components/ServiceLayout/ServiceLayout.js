@@ -38,8 +38,8 @@ export default function ServiceLayout() {
                 </form> 
               </div>
               <div>
-                <p style={{ display: itemList.length===0 ? "block" : "none" }}>
-                  {searchParam ?  "No service matches your search":"You are yet to add services to your laundry" }
+                <p className="center" style={{ display: itemList.length===0 ? "block" : "none" }}>
+                  No service matches your search
                 </p>
               </div>
             </div>

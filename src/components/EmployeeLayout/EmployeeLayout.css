@@ -1,0 +1,18 @@
+#btn-add-employee {
+  background-color: var(--purple-1);
+  border-radius: 5px;
+  color: white;
+  padding: 10px 28px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  height: auto !important;
+}
+
+#btn-add-employee:hover {
+  outline: 3px solid var(--purple-2);
+  padding: 15px 32px;
+  border-radius: 0;
+}

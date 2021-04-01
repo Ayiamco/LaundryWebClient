@@ -7,6 +7,7 @@ const items=["DashBoard", "Profile","Employee","Customer","Service","Invoice"]
 const classes=["fas fa-th","fas fa-address-card","fas fa-users-cog","fas fa-user","fas fa-network-wired","fas fa-file-alt",]
 export default function NavBar({activeItem,display,setNavDisplay}) {
     const history =useHistory()
+    //Boolean states are used to set the active nav item
     const booleanStates={
         Dashboard:false,Customer:false,Employee:false,Invoice:false,Service:false,
         NewCustomer:false,NewEmployee:false,NewInvoice:false,NewService:false,

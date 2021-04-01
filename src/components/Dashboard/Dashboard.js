@@ -1,5 +1,5 @@
 import React,{useCallback,useState,useEffect} from 'react';
-import {BrowserRouter as Redirect, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import { getDashboardData } from '../../apis/DashboardApi';
 import DashboardCard from '../DashBoardCard/DashboardCard';
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
@@ -11,7 +11,6 @@ export default function Dashboard() {
     const [data,setData]=useState({});
     const getData = useCallback( async () => {
         let resp= await getDashboardData();
-        console.log(resp)
         if(resp.status===401){
             localStorage.setItem("returnUrl","/dashboard")
             history.push('/'); return;

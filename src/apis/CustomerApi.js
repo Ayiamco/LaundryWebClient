@@ -17,6 +17,7 @@ export async function addCustomer (formData){
                         "name":formData.name
                     })})
                     .then(res=>{
+                        if(res.status===401) return res;
                         return  res.json()
                     })  
                     .catch(e=>{
@@ -46,6 +47,7 @@ export async function updateCustomer (formData){
                         "employeeId":formData.employeeId
                     })})
                     .then(res=>{
+                        if(res.status===401) return res;
                         return  res.json()
                     })  
                     .catch(e=>{
@@ -68,6 +70,7 @@ export async function getCustomers(page,searchParam){
             },
             mode:'cors',
         }).then(res=> {
+            if(res.status===401) return res;
             return res.json()
         }).catch( (e)=>{
             return {
@@ -90,6 +93,7 @@ export async function deleteCustomer(id){
             mode:'cors',
             
         }).then(res=> {
+            if(res.status===401) return res;
             return res.json()
         }).catch( (e)=>{
             return {
@@ -112,6 +116,7 @@ export async function findCustomer(customerId){
             },
             mode:'cors',
         }).then(res=> {
+             if(res.status===401) return res;
             return res.json()
         }).catch( (e)=>{
             console.log(e)
@@ -134,8 +139,10 @@ export async function searchForCustomer(customerInfo){
                         Authorization:authToken
                     }})
                     .then(res=>{
+                         if(res.status===401) return res;
                         return  res.json()
                     })
+                    .catch( e=> { return {statusCode:"500"}})
    
    return resp;
 }

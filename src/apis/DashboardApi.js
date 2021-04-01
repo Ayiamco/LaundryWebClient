@@ -16,7 +16,6 @@ export async function getDashboardData (){
                     .catch(e=>{
                         console.log(e)
                         return {"statusCode":"500"}
-                    })  
-    console.log(resp);         
+                    })        
     return resp;
 }

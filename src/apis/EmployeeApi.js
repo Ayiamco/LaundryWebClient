@@ -14,6 +14,7 @@ export const addEmployee= async (email)=>{
                 username:email 
             })
         }).then(res=> {
+             if(res.status===401) return res;
             return res.json()
         }).catch( (e)=>{
             return {
@@ -41,6 +42,7 @@ let resp =await fetch(baseUrl+"/employee/new",{
                         "name":formData.name
                     })})
                     .then(res=>{
+                         if(res.status===401) return res;
                         return  res.json()
                     })  
                     .catch(e=>({"statusCode":"500"}))
@@ -61,6 +63,7 @@ export async function getEmployees(page,searchParam){
             },
             mode:'cors',
         }).then(res=> {
+             if(res.status===401) return res;
             return res.json()
         }).catch( (e)=>{
             console.log(e)
@@ -83,14 +86,13 @@ export async function findEmployee(employeeId){
             },
             mode:'cors',
         }).then(res=> {
+             if(res.status===401) return res;
             return res.json()
         }).catch( (e)=>{
-            console.log(e)
             return {
                     "statusCode":"500"
                 };
         })
-    console.log(resp)
     return resp;
 }
 
@@ -107,6 +109,7 @@ export async function deleteEmployee(id){
             mode:'cors',
             
         }).then(res=> {
+             if(res.status===401) return res;
             return res.json()
         }).catch( (e)=>{
             return {

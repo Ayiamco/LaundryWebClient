@@ -4,6 +4,10 @@
 #navbar-hide {
   display: none;
 }
+
+.nav-bar-con {
+  background-color: var(--purple-2);
+}
 @media only screen and (min-width: 700px) {
   #navbar-show,
   #navbar-hide {

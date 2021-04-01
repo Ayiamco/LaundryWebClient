@@ -54,7 +54,6 @@ export async function updateService(formData){
 
 export async function getServices(page,searchParam){
     let url=baseUrl+"/service/?page=" + (page===null ? 1 : page);
-    console.log(url)
     url=url+`&name=${searchParam? searchParam:""}`;
     const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
     
@@ -66,6 +65,7 @@ export async function getServices(page,searchParam){
             },
             mode:'cors',
         }).then(res=> {
+             if(res.status===401) return res;
             return res.json()
         }).catch( (e)=>{
             console.log(e)
@@ -73,7 +73,6 @@ export async function getServices(page,searchParam){
                     "statusCode":"500"
                 };
         })
-    console.log("service resp:",resp.data)
     return resp;
 }
 
@@ -90,13 +89,13 @@ export async function deleteService(id){
             mode:'cors',
             
         }).then(res=> {
+             if(res.status===401) return res;
             return res.json()
         }).catch( (e)=>{
             return {
                     "statusCode":"500"
                 };
         })
-    console.log(resp)
     return resp;
 }
 
@@ -111,6 +110,7 @@ export async function findService(serviceId){
             },
             mode:'cors',
         }).then(res=> {
+             if(res.status===401) return res;
             return res.json()
         }).catch( (e)=>{
             console.log(e)
@@ -123,7 +123,6 @@ export async function findService(serviceId){
 }
 export async function getAllServices(){
     let url=baseUrl+"/service/all"
-    console.log(url)
     const token= "Bearer " +localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
     let resp =await fetch(url,{
             method:"GET",
@@ -133,6 +132,7 @@ export async function getAllServices(){
             },
             mode:'cors',
         }).then(res=> {
+             if(res.status===401) return res;
             return res.json()
         }).catch( (e)=>{
             console.log(e)

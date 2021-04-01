@@ -6,6 +6,7 @@ import InvoiceRemarkModal from '../AppModals/Components/InvoiceRemarkModal';
  
 export const InvoiceContext= React.createContext();
 
+
 export default function AddInvoice() {
     const {customerInfo,setCustomerInfo,isCustomerFound,setIsCustomerFound, 
         customer,setCustomer,services,setServices,

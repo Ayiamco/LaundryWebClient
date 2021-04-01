@@ -1,5 +1,6 @@
 import React from "react";
-import {toTitleCase} from "../../Utilities/helper"
+import {toTitleCase} from "../../Utilities/helper";
+import {useHistory} from "react-router-dom";
 import "./EmployeeLayout.css";
 import "../../Utilities/utilities.css"
 import ModalSelector from "../AppModals/Components/ModalSelector";
@@ -11,7 +12,12 @@ export default function EmployeeLayout() {
   const [itemList,page,inputValue,maxPageIndex,searchParam,isLoading,
     handleInput,handleForm,setPage,isNetworkError]= usePagedList("employee");
   const [isModalOpen ,setIsModalOpen,entityId,modalType, entityName,handleModals]=useModals();
-  
+  const history= useHistory()
+
+  function addEmployee(){
+    console.log("ndlnkl")
+    history.push('/employee/new')
+  }
   return (
     <div className="ECSL-con">
       <ModalSelector isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
@@ -20,7 +26,17 @@ export default function EmployeeLayout() {
      
       
       {
-        isLoading ? <LoadingSpinner isNetworkError={isNetworkError}></LoadingSpinner> :
+        isLoading ?
+        <LoadingSpinner isNetworkError={isNetworkError}></LoadingSpinner> :
+        itemList.length===0 && !searchParam ? 
+        <div className="ECSL-con-header">
+          <h2>My Employees</h2>
+          <h4 style={{marginTop:"1em"}}>You are yet to add employees to your account</h4>
+          <div>
+            <button onClick={addEmployee} id="btn-add-employee">Add First Employee</button>
+          </div>
+        </div>
+         : 
         <div>
           <div className="ECSL-con-header">
              <h2>My Employees</h2>
@@ -30,7 +46,7 @@ export default function EmployeeLayout() {
             </form>
             </div>
             <p style={{ display: itemList.length ? "none" : "block" }}>
-              {searchParam ?  "No employee matches your search":"You are yet to add employees to your laundry" }
+              No employee matches your search
             </p>
             <div style={{ display: itemList.length ? "block" : "none" }} >
           </div>
