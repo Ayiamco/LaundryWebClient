@@ -25,3 +25,7 @@
 #btn-waiting {
   cursor: wait;
 }
+
+#btn-waiting:hover {
+  background-color: var(--gray-1);
+}

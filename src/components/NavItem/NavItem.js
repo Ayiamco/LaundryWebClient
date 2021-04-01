@@ -4,7 +4,7 @@ const data={
     "Employee":"Add New","Customer":"Register","Service":"Add New","Invoice":"Generate"
 }
 export default function NavItem({icon,text,isItemFocused,navigate}) {
-    const [hideItem, setHideItem]=useState("none"); //new item sectio display state
+    const [hideItem, setHideItem]=useState("none"); 
     const [className,setClassName]=useState("fas fa-angle-down")
     
 
@@ -25,7 +25,9 @@ export default function NavItem({icon,text,isItemFocused,navigate}) {
             <div data-navbtn={text} className="nav-item-top" id={isItemFocused[text]&&hideItem==="none" ? "nav-item-focused":""}>
                 <div data-navbtn={text} className="nav-item-left">
                     <i className={icon} data-navbtn={text}></i>
-                    <p data-navbtn={text}>{`${text}s`}</p>
+                    <p data-navbtn={text}>
+                        { text==="Dasboard"|| text==="Profile" ? text : `${text}s`}
+                    </p>
                 </div>
                 
                 {

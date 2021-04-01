@@ -10,9 +10,13 @@
   min-height: calc(100vh - 75px);
   margin-bottom: 0px;
   width: 50%;
+}
+.show-nav {
+  display: block;
+}
+.hide-nav {
   display: none;
 }
-
 .PL-header {
   display: flex;
   justify-content: space-between;
@@ -55,6 +59,10 @@
   }
   .PL-section {
     flex-direction: row;
+  }
+  .show-nav,
+  .hide-nav {
+    display: block;
   }
 
   .header-gray,

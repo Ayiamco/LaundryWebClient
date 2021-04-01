@@ -3,8 +3,8 @@ import {useHistory} from "react-router-dom";
 import NavItem from "../NavItem/NavItem";
 import "./NavBar.css"
 
-const items=["DashBoard","Employee","Customer","Service","Invoice",]
-const classes=["fas fa-th","fas fa-users-cog","fas fa-user","fas fa-network-wired","fas fa-file-alt",]
+const items=["DashBoard", "Profile","Employee","Customer","Service","Invoice"]
+const classes=["fas fa-th","fas fa-address-card","fas fa-users-cog","fas fa-user","fas fa-network-wired","fas fa-file-alt",]
 export default function NavBar({activeItem,display,setNavDisplay}) {
     const history =useHistory()
     const booleanStates={
@@ -25,13 +25,16 @@ export default function NavBar({activeItem,display,setNavDisplay}) {
         else if(navItemClicked==="DashBoard"){
             history.push(`/${navItemClicked.toLowerCase()}`)
         }
-        else{history.push(`/${navItemClicked.toLowerCase()}s`)}
-        
-            
+        else{history.push(`/${navItemClicked.toLowerCase()}s`)} 
+    }
+
+    function logout(){
+        console.log("clicked")
+        localStorage.removeItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22")
+        history.push("/")
     }
     return (
         <ul className="nav-bar-con" id={display}>
-            
             {
                 items.map( (item,index)=> (
                     <NavItem  text={item} 
@@ -41,6 +44,11 @@ export default function NavBar({activeItem,display,setNavDisplay}) {
                     )
                 )
             }
+             <li  className="nav-item" onClick={logout}> 
+                <div  className="nav-item-top btn btn-secondary"  
+                style={{marginLeft:"2em", display:"inline-block"}}
+                >Logout</div> 
+             </li>
         </ul>
     )
 }

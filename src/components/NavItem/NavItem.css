@@ -2,7 +2,7 @@
   width: 100%;
   color: white;
   background-color: var(--purple-2);
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 }
 #nav-item-focused {
   background-color: var(--purple-1);

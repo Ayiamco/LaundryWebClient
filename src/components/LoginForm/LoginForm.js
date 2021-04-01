@@ -67,9 +67,7 @@ function LoginForm(){
                
         }
         else if (res.statusCode==="200"){
-            console.log(res)
-            localStorage.setItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22",res.data) 
-            //reset states and redirect to home page 
+            localStorage.setItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22",res.data)  
              setboolStates(prev=>{
                 return {...prev,[boolStatesKeys.shouldButtonDisable]:false,
                     [boolStatesKeys.isPasswordCorrect]:true,
@@ -77,7 +75,12 @@ function LoginForm(){
                 }
             })
             setnetworkError("none")
-            history.push('/dashboard');
+            let returnUrl= localStorage.getItem("returnUrl");
+            if(!returnUrl)  history.push('/dashboard');
+            
+            localStorage.removeItem("returnUrl");
+            history.push(returnUrl); 
+           
         }
 
         

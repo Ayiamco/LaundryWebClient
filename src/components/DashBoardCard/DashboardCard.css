@@ -1,7 +1,9 @@
 .dash-card-body {
   background-color: white;
   border-radius: 5px;
-  box-shadow: 1px 1px gray;
+  box-shadow: -1px 16px 39px -8px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: -1px 16px 39px -8px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 16px 39px -8px rgba(0, 0, 0, 0.75);
   padding: 1em;
   margin: 1em;
   display: flex;

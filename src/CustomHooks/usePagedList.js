@@ -37,7 +37,10 @@ export default function usePagedList(entity) {
         async () => { 
             const getItems= Apis[entity]
             let resp = await getItems(page,searchParam);
-            
+            if(resp.status===401){
+                localStorage.setItem("returnUrl","/dashboard")
+                history.push('/'); return;
+            }
             if (resp.statusCode === "200" ) {
                 setitemList(resp.data.data);
                 setTimeout(setIsLoading(false), 2000);
