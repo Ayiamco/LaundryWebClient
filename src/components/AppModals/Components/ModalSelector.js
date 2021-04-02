@@ -2,8 +2,11 @@ import React from 'react'
 import CustomerDetailsModal from './CustomerDetailsModal'
 import DeleteConfirmationModal from "./DeleteConfirmationModal"
 import EmployeeDetailsModal from "./EmployeeDetailsModal"
-import ServiceDetailsModal from "./ServiceDetailsModal"
+import ServiceDetailsModal from "./ServiceDetailsModal";
+import AddPaymentModal from "./AddPaymentModal";
+
 export default function ModalSelector({id,name,isModalOpen, setIsModalOpen, modalType}) {
+    
     return (
         <div>
             {
@@ -27,6 +30,9 @@ export default function ModalSelector({id,name,isModalOpen, setIsModalOpen, moda
                 :
                 modalType === "ServiceDetailsModal" ?
                 <ServiceDetailsModal modalIsOpen={isModalOpen} setIsModalOpen={setIsModalOpen} id={id}/>
+                :
+                modalType === "AddPaymentModal" ?
+                <AddPaymentModal modalIsOpen={isModalOpen} setIsModalOpen={setIsModalOpen} id={id}/>
                 :
                 ""
             }

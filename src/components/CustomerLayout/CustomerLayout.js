@@ -74,6 +74,10 @@ export default function CustomerLayout() {
                             id={"id/"+ customer.id} onClick={MoveToEditPage}> 
                             Edit
                           </button>
+                          <button className="ECSL-btn" name={`customer-pay//${customer.name}`} 
+                            id={"id//"+ customer.id} onClick={GenerateModal}> 
+                            Pay
+                          </button>
                         </td>
                       </tr>
                     );

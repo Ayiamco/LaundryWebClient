@@ -146,3 +146,21 @@ export async function searchForCustomer(customerInfo){
    
    return resp;
 }
+
+export async function makePayment(customerId,amount){
+    const authToken= "Bearer " + localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
+    let url=`${baseUrl}`;
+     let resp =await fetch(url,{
+                    method:"POST",
+                    headers:{
+                        "Content-Type":'application/json; charset=utf-8',
+                        Authorization:authToken
+                    }})
+                    .then(res=>{
+                         if(res.status===401) return res;
+                        return  res.json()
+                    })
+                    .catch( e=> { return {statusCode:"500"}})
+   
+   return resp;
+}
