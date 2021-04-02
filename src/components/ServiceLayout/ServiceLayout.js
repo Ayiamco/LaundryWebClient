@@ -28,6 +28,16 @@ export default function ServiceLayout() {
       
       {
         isLoading ? <LoadingSpinner isNetworkError={isNetworkError} ></LoadingSpinner>: 
+        itemList.length===0 && !searchParam ? 
+        <div className="ECSL-con-header">
+          <h2>My Services</h2>
+          <h4 style={{marginTop:"1em"}}>You are yet to add services to your account</h4>
+          <div>
+            <button onClick={()=> {return history.push("/service/new")}}  
+              id="btn-add-employee">Add First Service</button>
+          </div>
+        </div>
+        :
         <div>
             <div className="ECSL-con-header">
               <h2>My Services</h2>

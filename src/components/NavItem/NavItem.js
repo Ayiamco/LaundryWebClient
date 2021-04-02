@@ -10,7 +10,7 @@ export default function NavItem({icon,text,isItemFocused,navigate}) {
 
     const HideItem = (e) =>{
         hideItem === "none" ? setHideItem("block") : setHideItem("none")
-        e.target.className==="fas fa-angle-down"? setClassName("fas fa-angle-up"): setClassName("fas fa-angle-down")
+        className==="fas fa-angle-down"? setClassName("fas fa-angle-up"): setClassName("fas fa-angle-down")
     }
 
     useEffect(()=>{
@@ -21,7 +21,10 @@ export default function NavItem({icon,text,isItemFocused,navigate}) {
     },[isItemFocused,text])
 
     return (
-        <li onClick={navigate} className={"nav-item nav-item-"+text} >
+        <li onClick={navigate} className={"nav-item nav-item-"+text}
+          id={isItemFocused[text]&&hideItem==="none" ? "nav-item-focused":""}
+          data-navbtn={text}
+        >
             <div data-navbtn={text} className="nav-item-top" id={isItemFocused[text]&&hideItem==="none" ? "nav-item-focused":""}>
                 <div data-navbtn={text} className="nav-item-left">
                     <i className={icon} data-navbtn={text}></i>
@@ -29,12 +32,11 @@ export default function NavItem({icon,text,isItemFocused,navigate}) {
                         { text==="Dasboard"|| text==="Profile" ? text : `${text}s`}
                     </p>
                 </div>
-                
                 {
-                    text==="DashBoard" ? <p></p> :
-                        <i style={{display:isItemFocused[text] ? "inline-block":"none"}} 
-                            className={className} onClick={HideItem}  data-navbtn={text}
-                        />     
+                    text!=="DashBoard" ? 
+                    <i style={{display:isItemFocused[text] ? "inline-block":"none"}} 
+                        className={className} onClick={HideItem}  data-navbtn={text}
+                    />     : ""
                 }
             </div>
             

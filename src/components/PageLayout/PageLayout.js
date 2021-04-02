@@ -23,7 +23,7 @@ export default function PageLayout({activeItem,PageItem}) {
                 <section className="PL-section">
                     <nav className={navDisplay}>
                         <NavBar activeItem={activeItem} display={navDisplay? "navbar-show":"navbar-hide"}
-                        setNavDisplay={setNavDisplay}> </NavBar>
+                        setNavClassName={setNavDisplay}> </NavBar>
                     </nav>
                     <section className="PL-body">
                         <PageItem></PageItem>

@@ -17,7 +17,11 @@ export default function CustomerLayout() {
       if(e.target.name.includes("edit-customer")){
       history.push(`/customer/edit?id=${e.target.id.split("/")[1]}`)
       return;
+      }
     }
+
+    function addCustomer(){
+      history.push("/customer/new")
     }
     
   return (
@@ -28,6 +32,15 @@ export default function CustomerLayout() {
       
       {
         isLoading ? <LoadingSpinner isNetworkError={isNetworkError}></LoadingSpinner>: 
+        itemList.length===0 && !searchParam ? 
+        <div className="ECSL-con-header">
+          <h2>My Customers</h2>
+          <h4 style={{marginTop:"1em"}}>You are yet to add customers to your account</h4>
+          <div>
+            <button onClick={addCustomer} id="btn-add-employee">Add First Customer</button>
+          </div>
+        </div>
+        :
         <div>
            <div className="ECSL-con-header">
               <h2>My Customers</h2>

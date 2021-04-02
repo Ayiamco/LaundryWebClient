@@ -6,17 +6,18 @@ import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import Modal from "react-modal";
 import InvoiceDetailsModal from "../AppModals/Components/InvoiceDetailsModal"
 import {getInvoice} from "../../apis/InvoiceApi";
+import { useHistory } from "react-router";
 
 export default function InvoiceLayout() {
   const [itemList,page,inputValue,maxPageIndex,searchParam,isLoading,
     handleInput,handleForm,setPage,isNetworkError]= usePagedList("invoice");
     const [isModalOpen,setIsModalOpen]=useState(false)
     const [modalData,setModalData]=useState("")
+    let history=useHistory();
   
   async function handleModal(e){
     let invoiceId= e.target.id.split("//")[1]
     let invoiceInfo= await getInvoice(invoiceId);
-    console.log(invoiceInfo)
     setModalData(invoiceInfo);
     setIsModalOpen(true)
     
@@ -31,6 +32,15 @@ export default function InvoiceLayout() {
       
       {
         isLoading ? <LoadingSpinner isNetworkError={isNetworkError}></LoadingSpinner> :
+        itemList.length===0 && !searchParam ? 
+        <div className="ECSL-con-header">
+          <h2>My Invoices</h2>
+          <h4 style={{marginTop:"1em"}}>You are yet to add an invoice to your account</h4>
+          <div>
+            <button onClick={()=> {return history.push()}} id="btn-add-employee">Add First Invoice</button>
+          </div>
+        </div>
+        :
         <div>
           <div className="ECSL-con-header">
              <h2>Invoice List</h2>
