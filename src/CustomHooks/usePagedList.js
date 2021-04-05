@@ -58,6 +58,6 @@ export default function usePagedList(entity) {
    )
        
     useEffect(() => {getData()},[getData])  
-    return [itemList,page,inputValue,maxPageIndex,searchParam,isLoading,handleInput,handleForm,setPage,isNetworkError]
+    return [itemList,page,inputValue,maxPageIndex,searchParam,isLoading,handleInput,handleForm,setPage,isNetworkError,setitemList]
     
 }

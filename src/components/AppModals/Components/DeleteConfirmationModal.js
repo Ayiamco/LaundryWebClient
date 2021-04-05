@@ -10,7 +10,7 @@ const Api={
     "service": deleteService
 }
 Modal.setAppElement("#root");
-export default function DeleteConfirmationModal({modalIsOpen,setIsModalOpen,id,name,entityToDelete}) {
+export default function DeleteConfirmationModal({modalIsOpen,setIsModalOpen,id,name,entityToDelete,setItemList}) {
 
     async function confirmDelete(e){
         if (e.target.name === "delete-no") {
@@ -20,6 +20,9 @@ export default function DeleteConfirmationModal({modalIsOpen,setIsModalOpen,id,n
             let deleteFunction=Api[entityToDelete]
             await deleteFunction(id);
             setIsModalOpen(false);
+            setItemList(prev=>{
+                return prev.filter(x=> x.id!== id)
+            })
         }
     }
     return (

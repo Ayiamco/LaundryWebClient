@@ -9,7 +9,7 @@ import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 export default function CustomerLayout() {
     const[itemList,page,inputValue,maxPageIndex,searchParam,isLoading,
-        handleInput,handleForm,setPage,isNetworkError] = usePagedList("customer");
+        handleInput,handleForm,setPage,isNetworkError,setItemList] = usePagedList("customer");
     const [isModalOpen ,setIsModalOpen,entityId,modalType, entityName,GenerateModal]=useModals();
     const history=useHistory();
     
@@ -27,7 +27,7 @@ export default function CustomerLayout() {
   return (
     <div className="ECSL-con">
       <ModalSelector isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
-        id={entityId} modalType={modalType} name={entityName}
+        id={entityId} modalType={modalType} name={entityName} setItemList={setItemList}
       />
       
       {

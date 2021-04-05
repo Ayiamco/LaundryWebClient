@@ -76,7 +76,10 @@ function LoginForm(){
             })
             setnetworkError("none")
             let returnUrl= localStorage.getItem("returnUrl");
-            if(!returnUrl)  history.push('/dashboard');
+            if(!returnUrl) {
+                history.push('/dashboard');
+                return;
+            } 
             
             localStorage.removeItem("returnUrl");
             history.push(returnUrl); 

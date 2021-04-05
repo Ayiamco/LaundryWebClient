@@ -9,7 +9,7 @@ import "../../Utilities/utilities.css";
 
 export default function ServiceLayout() {
     const[itemList,page,inputValue,maxPageIndex,searchParam,isLoading,
-        handleInput,handleForm,setPage,isNetworkError] = usePagedList("service");
+        handleInput,handleForm,setPage,isNetworkError,setItemList] = usePagedList("service");
     const [isModalOpen ,setIsModalOpen,entityId,modalType, entityName,GenerateModal]=useModals();
     const history=useHistory();
     
@@ -23,7 +23,7 @@ export default function ServiceLayout() {
   return (
     <div className="ECSL-con">
       <ModalSelector isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
-        id={entityId} modalType={modalType} name={entityName}
+        id={entityId} modalType={modalType} name={entityName} setItemList={setItemList}
       />
       
       {

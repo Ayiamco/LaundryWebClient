@@ -17,6 +17,7 @@ export default function NavBar({activeItem,display,setNavClassName}) {
 
     const handleClick = (e) => {
         const navItemClicked=e.target.getAttribute("data-navbtn");
+        
         if(window.innerWidth> 700){
                 setNavClassName("PL-nav show-nav")
             }
@@ -26,10 +27,8 @@ export default function NavBar({activeItem,display,setNavClassName}) {
         else if(navItemClicked==="DashBoard"){
             history.push(`/${navItemClicked.toLowerCase()}`)
         }
-
-        if(navItemClicked!==activeItem)
+        else if(navItemClicked!==activeItem)
         {
-            console.log(navItemClicked,activeItem)
             history.push(`/${navItemClicked.toLowerCase()}s`)
         } 
     }

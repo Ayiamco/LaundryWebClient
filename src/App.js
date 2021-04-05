@@ -18,13 +18,14 @@ import SelectAccount from "./Pages/SelectAccount/SelectAccount"
 import EditCustomer from "./Pages/EditCustomer/EditCustomer"
 import EditService from "./Pages/EditService/EditService"
 
-function checkAuthenticationStatus(){
+  
+function checkAuthenticationStatus(returnUrl){
   let token= localStorage.getItem("FrlTg4E21TdBpXb5vnFQj6dLLKVas1dhy7Nu22");
-  return token;
+  return token ;
 }
 const ProtectedRoute = ({ component: Component, path:returnUrl,...rest }) => {
-  let hasAuthToken= checkAuthenticationStatus();
-  if(hasAuthToken) return (<Route {...rest} path={returnUrl} render={props => 
+  let hasRouteAccess= checkAuthenticationStatus(returnUrl);
+  if(hasRouteAccess) return (<Route {...rest} path={returnUrl} render={props => 
     <Component {...rest} {...props} />} />)
   
   localStorage.setItem("returnUrl",returnUrl)
@@ -57,6 +58,7 @@ function App() {
         <ProtectedRoute exact path= "/account/select" component={SelectAccount} />
         <ProtectedRoute exact path="/customer/edit" component={EditCustomer}/>
         <ProtectedRoute exact path="/service/edit" component={EditService}/>
+        <ProtectedRoute exact path="/profiles" component={HomePage}/>
         
         {/* Default Route */}
         <Route path='/*' >

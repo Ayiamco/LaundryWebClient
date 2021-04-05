@@ -110,7 +110,7 @@ export async function findService(serviceId){
             },
             mode:'cors',
         }).then(res=> {
-             if(res.status===401) return res;
+             if(res.status===401) return res
             return res.json()
         }).catch( (e)=>{
             console.log(e)
